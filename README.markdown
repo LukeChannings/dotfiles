@@ -15,4 +15,6 @@ Clone into `~/.config` with:
 
 ```bash
 git clone https://github.com/TheFuzzball/dotconfig.git ~/.config
+exec fish
+vundle install
 ```
