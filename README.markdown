@@ -9,6 +9,10 @@ Configurations for:
 
 `brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim`
 
+## NVM
+
+`curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash`
+
 ## Usage
 
 Clone into `~/.config` with:
