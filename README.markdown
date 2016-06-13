@@ -9,6 +9,10 @@ Configurations for:
 
 `brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim`
 
+### FZF
+
+Install `fzf_key_bindings` on OS X with /usr/local/opt/fzf/install. For others look at [the GitHub page](https://github.com/junegunn/fzf#installation).
+
 ## NVM
 
 `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash`
