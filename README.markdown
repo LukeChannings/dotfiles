@@ -7,7 +7,9 @@ Configurations for:
 
 ## Dependencies
 
-`brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim`
+`brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim editorconfig`
+`sudo pip install neovim`
+`cd ~/.vim/plugged/tern_for_vim && npm i`
 
 ### FZF
 

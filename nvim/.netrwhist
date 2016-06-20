@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/luke.channings/.vim/plugged'
-let g:netrw_dirhist_2='/Users/luke.channings/.config/nvim'
-let g:netrw_dirhist_3='/Users/luke.channings/Projects/Volvo/vcc-stream2-vbs/src/Volvo.Vbs.Frontend'
-let g:netrw_dirhist_4='/Users/luke.channings/Projects/Volvo/vcc-stream2-vbs/src/Volvo.Vbs.Frontend/.githooks'
-let g:netrw_dirhist_5='/Users/luke.channings/Projects/Volvo/vcc-stream2-vbs/src/Volvo.Vbs.Frontend'
