@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'plasticboy/vim-markdown'
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 set number
@@ -45,6 +46,7 @@ set columns=80
 " eslint
 let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 autocmd! BufWritePost * Neomake
 autocmd InsertChange,TextChanged * update | Neomake
 
