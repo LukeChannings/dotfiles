@@ -38,10 +38,12 @@ filetype plugin on
 let g:enable_bold_font = 1
 let g:javascript_enable_domhtmlcss = 1
 let g:vim_markdown_folding_disabled = 1
+let g:ackprg = 'ag --nogroup --nocolor --column'
 set relativenumber
 let $fzf_default_command = 'ag -l -g ""'
 set shell=fish
 set columns=80
+set wildignore+=node_modules/**,dist/**
 
 " eslint
 let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
@@ -49,7 +51,6 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 autocmd! BufWritePost * Neomake
 autocmd InsertChange,TextChanged * update | Neomake
-
 
 " Emmet
 let g:user_emmet_install_global = 0
@@ -78,3 +79,11 @@ noremap <leader>\ :call NERDComment(0,"toggle")<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 let g:hardtime_default_on = 1
+
+" Use system clipboard
+set clipboard=unnamed
+
+nmap <leader> <RIGHT> :cnext<CR>
+nmap <leader> <LEFT> :cprev<CR>
+nnoremap <leader> d :call TernDef<CR>
+
