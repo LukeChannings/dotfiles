@@ -87,3 +87,5 @@ nmap <leader> <RIGHT> :cnext<CR>
 nmap <leader> <LEFT> :cprev<CR>
 nnoremap <leader> d :call TernDef<CR>
 
+autocmd TermOpen * set bufhidden=hide
+autocmd TermOpen * setl nolist
