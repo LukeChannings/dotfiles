@@ -12,6 +12,7 @@ nvm use v5 > /dev/null ^ /dev/null &
 
 # Configure FZF to ignore files listed in various ignorefiles with ag.
 set -gx FZF_DEFAULT_COMMAND 'ag -g ""'
+set -gx GIT_EDITOR /usr/local/bin/nvim
 
 # Configure Fish welcome message
 set fish_greeting

@@ -1,32 +1,33 @@
  " Plugins
 call plug#begin('~/.vim/plugged')
-	Plug 'tpope/vim-sensible'
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
-	Plug 'junegunn/fzf.vim'
-	Plug 'tpope/vim-fugitive'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'editorconfig/editorconfig-vim'
-	Plug 'benekastah/neomake'
-	Plug 'mattn/emmet-vim'
-	Plug 'guns/xterm-color-table.vim'
-	Plug 'tpope/vim-jdaddy'
-	Plug 'jelera/vim-javascript-syntax'
-	Plug 'pangloss/vim-javascript'
-	Plug 'vim-airline/vim-airline'
-	Plug 'joshdick/onedark.vim'
-	Plug 'joshdick/airline-onedark.vim'
-	Plug 'jaawerth/nrun.vim'
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'tpope/vim-surround'
-	Plug 'reedes/vim-colors-pencil'
-	Plug 'takac/vim-hardtime'
-	Plug 'editorconfig/editorconfig-vim'
-	Plug 'ternjs/tern_for_vim'
-	Plug 'godlygeek/tabular'
-	Plug 'plasticboy/vim-markdown'
-	Plug 'scrooloose/nerdtree'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
-	Plug 'Valloric/YouCompleteMe'
+  Plug 'tpope/vim-sensible'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+  Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'benekastah/neomake'
+  Plug 'mattn/emmet-vim'
+  Plug 'guns/xterm-color-table.vim'
+  Plug 'tpope/vim-jdaddy'
+  Plug 'jelera/vim-javascript-syntax'
+  Plug 'pangloss/vim-javascript'
+  Plug 'vim-airline/vim-airline'
+  Plug 'joshdick/onedark.vim'
+  Plug 'joshdick/airline-onedark.vim'
+  Plug 'jaawerth/nrun.vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-surround'
+  Plug 'reedes/vim-colors-pencil'
+  Plug 'takac/vim-hardtime'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'ternjs/tern_for_vim'
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'Valloric/YouCompleteMe'
+  Plug 'tpope/vim-unimpaired'
 call plug#end()
 
 set number
@@ -36,12 +37,12 @@ set list
 filetype plugin on
 
 let g:enable_bold_font = 1
+let g:terminal_scrollback_buffer_size = 2147483647
 let g:javascript_enable_domhtmlcss = 1
 let g:vim_markdown_folding_disabled = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 set relativenumber
 let $fzf_default_command = 'ag -l -g ""'
-set shell=fish
 set columns=80
 set wildignore+=node_modules/**,dist/**
 
@@ -62,7 +63,7 @@ syntax on
 color onedark
 let g:airline_theme='onedark'
 if has("nvim")
-	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
 " Custom key mappings
@@ -89,3 +90,5 @@ nnoremap <leader> d :call TernDef<CR>
 
 autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
+
+let g:terminal_color_4  = '#519eeb'
