@@ -5,4 +5,5 @@ fish/functions/fzf_key_bindings.fish
 fish/functions/fish_user_key_bindings.fish
 .DS_Store
 .netrwhist
+configstore
 
