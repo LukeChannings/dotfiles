@@ -92,3 +92,5 @@ autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
 
 let g:terminal_color_4  = '#519eeb'
+
+set autoread
