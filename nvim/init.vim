@@ -2,10 +2,8 @@
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sensible'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
-  Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
-  Plug 'editorconfig/editorconfig-vim'
   Plug 'benekastah/neomake'
   Plug 'mattn/emmet-vim'
   Plug 'guns/xterm-color-table.vim'
