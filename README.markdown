@@ -4,12 +4,17 @@ Configurations for:
 
 - [FISH](https://fishshell.com)
 - [NeoVIM](https://neovim.io)
+- [TMUX](https://tmux.github.io)
+- [Git](https://git-scm.com)
 
 ## Dependencies
 
-`brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim editorconfig`
-`sudo pip install neovim`
-`cd ~/.vim/plugged/tern_for_vim && npm i`
+```bash
+brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim editorconfig
+sudo pip install neovim
+cd ~/.vim/plugged/tern_for_vim
+npm install
+```
 
 ### FZF
 
@@ -24,7 +29,8 @@ Install `fzf_key_bindings` on OS X with /usr/local/opt/fzf/install. For others l
 Clone into `~/.config` with:
 
 ```bash
+rm -rf ~/.config
 git clone https://github.com/TheFuzzball/dotconfig.git ~/.config
 exec fish
-vundle install
+fundle install
 ```
