@@ -14,6 +14,8 @@ brew install fish tmux ag reattach-to-user-namespace fzf neovim/neovim/neovim ed
 sudo pip install neovim
 cd ~/.vim/plugged/tern_for_vim
 npm install
+cd ~/.vim/plugged/YouCompleteMe
+./install.py --tern-completer
 ```
 
 ### FZF
