@@ -76,6 +76,7 @@ endif
 " Custom key mappings
 map <C-P> :FZF<CR>
 noremap <C-T> :Buffers<CR>
+tnoremap <ESC> <C-\><C-n>
 
 " Unbind arrow keys. Break the habit...
 noremap <Up> <NOP>
@@ -93,13 +94,14 @@ set clipboard=unnamed
 
 let mapleader = "\<Space>"
 noremap \\ :call NERDComment(0,"toggle")<CR>
-nmap <leader> <RIGHT> :cnext<CR>
-nmap <leader> <LEFT> :cprev<CR>
+nmap <leader>n :cnext<CR>
+nmap <leader>N :cprev<CR>
 nmap <leader>c :tabedit \| term fish<CR>
 nmap <leader>x :bd!<CR>
 nmap <leader>\| :vsp \| term fish<CR>
 nmap <leader>- :sp \| term fish<CR>
-nmap <esc> :noh<CR>
+nmap <leader>f :vimgrep 
+nmap <ESC> :noh<CR>
 
 autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
