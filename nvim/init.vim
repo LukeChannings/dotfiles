@@ -36,6 +36,8 @@ set relativenumber
 set columns=80
 set wildignore+=node_modules/**,dist/**
 set autoread
+set splitright
+set splitbelow
 filetype plugin on
 
 let g:enable_bold_font = 1
@@ -80,8 +82,6 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-
-noremap <leader>\ :call NERDComment(0,"toggle")<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 let g:hardtime_default_on = 1
@@ -89,11 +89,20 @@ let g:hardtime_default_on = 1
 " Use system clipboard
 set clipboard=unnamed
 
+" Leaders
+
+let mapleader = "\<Space>"
+noremap \\ :call NERDComment(0,"toggle")<CR>
 nmap <leader> <RIGHT> :cnext<CR>
 nmap <leader> <LEFT> :cprev<CR>
-nnoremap <leader> d :call TernDef<CR>
+nmap <leader>c :tabedit \| term fish<CR>
+nmap <leader>x :bd!<CR>
+nmap <leader>\| :vsp \| term fish<CR>
+nmap <leader>- :sp \| term fish<CR>
+nmap <esc> :noh<CR>
 
 autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
 
 com! FormatJSON %!python -m json.tool
+cnoremap w!! w !sudo tee > /dev/null %
