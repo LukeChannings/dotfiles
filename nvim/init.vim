@@ -101,7 +101,9 @@ nmap <leader>x :bd!<CR>
 nmap <leader>\| :vsp \| term fish<CR>
 nmap <leader>- :sp \| term fish<CR>
 nmap <leader>f :vimgrep 
-nmap <ESC> :noh<CR>
+nmap <leader>t :tabedit
+nmap <leader>q :q<CR>
+nmap <leader><ESC> :noh<CR>
 
 autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
