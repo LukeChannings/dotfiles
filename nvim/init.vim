@@ -25,6 +25,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'Valloric/YouCompleteMe'
   Plug 'tpope/vim-unimpaired'
   Plug 'sheerun/vim-polyglot'
+  Plug 'vim-scripts/BufOnly.vim'
+  Plug 'wellle/targets.vim'
 call plug#end()
 
 set number
@@ -47,16 +49,23 @@ let g:vim_markdown_folding_disabled = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let $fzf_default_command = 'ag -l -g ""'
 
-" eslint
-let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_standard_exe = nrun#Which('standard')
+let g:neomake_javascript_enabled_makers = ['standard']
+
+let g:neomake_scss_stylelint_maker = {
+\ 'exe': nrun#Which('stylelint'),
+\ }
+
+let g:neomake_scss_enabled_makers = ['stylelint']
+
 let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 autocmd! BufWritePost * Neomake
 autocmd InsertChange,TextChanged * update | Neomake
 
 " Emmet
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,scss EmmetInstall
+let g:user_emmet_mode='a'
+autocmd FileType html,*.handlebars EmmetInstall
 
 " syntax highlighting
 set background=dark
@@ -76,7 +85,6 @@ endif
 " Custom key mappings
 map <C-P> :FZF<CR>
 noremap <C-T> :Buffers<CR>
-tnoremap <ESC> <C-\><C-n>
 
 " Unbind arrow keys. Break the habit...
 noremap <Up> <NOP>
@@ -101,12 +109,26 @@ nmap <leader>x :bd!<CR>
 nmap <leader>\| :vsp \| term fish<CR>
 nmap <leader>- :sp \| term fish<CR>
 nmap <leader>f :vimgrep 
-nmap <leader>t :tabedit
 nmap <leader>q :q<CR>
 nmap <leader><ESC> :noh<CR>
+nmap <leader>t :Buffers<CR>
+inoremap <S-CR> <Esc>
 
 autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
 
 com! FormatJSON %!python -m json.tool
 cnoremap w!! w !sudo tee > /dev/null %
+
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
+filetype indent on
+set shiftwidth=2
+set smartindent
+set colorcolumn=80
+
+set hidden
+set nocompatible
