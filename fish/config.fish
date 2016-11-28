@@ -8,7 +8,7 @@ fundle plugin 'TheFuzzball/flash'
 fundle init
 
 # Node Version manager
-nvm use v5 > /dev/null ^ /dev/null &
+nvm use v6 > /dev/null ^ /dev/null &
 
 # Configure FZF to ignore files listed in various ignorefiles with ag.
 set -gx FZF_DEFAULT_COMMAND 'ag -g ""'

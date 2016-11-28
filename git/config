@@ -1,6 +1,6 @@
 [user]
-  name = Luke Channings
-  email = luke@channings.me
+	name = Luke Channings
+	email = L.Channings@amaze.com
 
 [core]
   editor = nvim
