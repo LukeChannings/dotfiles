@@ -1,6 +1,5 @@
  " Plugins
 call plug#begin('~/.vim/plugged')
-  Plug 'tpope/vim-sensible'
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -42,6 +41,8 @@ set splitright
 set splitbelow
 filetype plugin on
 
+let g:python_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
 let g:enable_bold_font = 1
 let g:terminal_scrollback_buffer_size = 2147483647
 let g:javascript_enable_domhtmlcss = 1
