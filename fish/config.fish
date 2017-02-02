@@ -11,5 +11,5 @@ fundle init
 set -gx EDITOR vim
 set -gx VISUAL vim
 set -gx GIT_EDITOR vim
-set -gx DEFAULT_FZF_COMMAND 'ag -g ""'
+set -gx FZF_DEFAULT_COMMAND '/usr/local/bin/ag -g ""'
 set -gx fish_greeting
