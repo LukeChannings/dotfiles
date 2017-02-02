@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-surround'
   Plug 'reedes/vim-colors-pencil'
-  Plug 'takac/vim-hardtime'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'ternjs/tern_for_vim'
   Plug 'godlygeek/tabular'
@@ -88,7 +87,9 @@ if (empty($TMUX))
   if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   endif
-  if (has("termguicolors"))
+  if (has("termguicolors")) && $TERM_PROGRAM ==# 'iTerm.app'
+    set t_8f=\[[38;2;%lu;%lu;%lum
+    set t_8b=\[[48;2;%lu;%lu;%lum
     set termguicolors
   endif
 endif
@@ -104,7 +105,15 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 map <C-n> :NERDTreeToggle<CR>
 
-let g:hardtime_default_on = 1
+let g:loaded_ruby_provider=1
+let g:python_host_skip_check = 1
+let g:python3_host_skip_check = 1
+
+let g:python_host_prog='/usr/local/bin/python2'
+let g:python3_host_prog='/usr/local/bin/python3'
+
+let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+let g:EditorConfig_core_mode = 'external_command'
 
 " Use system clipboard
 set clipboard=unnamed
