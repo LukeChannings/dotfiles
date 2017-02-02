@@ -7,12 +7,9 @@ fundle plugin 'tuvistavie/fish-nvm'
 fundle plugin 'TheFuzzball/flash'
 fundle init
 
-# Node Version manager
-nvm use v6 > /dev/null ^ /dev/null &
-
-# Configure FZF to ignore files listed in various ignorefiles with ag.
-set -gx FZF_DEFAULT_COMMAND 'ag -g ""'
-set -gx GIT_EDITOR /usr/local/bin/nvim
-
-# Configure Fish welcome message
-set fish_greeting
+# settings
+set -gx EDITOR vim
+set -gx VISUAL vim
+set -gx GIT_EDITOR vim
+set -gx DEFAULT_FZF_COMMAND 'ag -g ""'
+set -gx fish_greeting
