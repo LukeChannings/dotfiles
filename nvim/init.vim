@@ -27,6 +27,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'wellle/targets.vim'
 call plug#end()
 
+set shell=sh
 set number
 set tabstop=2
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:⇥\ ,space:·,
