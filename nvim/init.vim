@@ -1,5 +1,5 @@
  " Plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-jdaddy'
   Plug 'vim-airline/vim-airline'
   Plug 'joshdick/onedark.vim'
-  Plug 'joshdick/airline-onedark.vim'
   Plug 'jaawerth/nrun.vim'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-surround'
@@ -25,6 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'
   Plug 'vim-scripts/BufOnly.vim'
   Plug 'wellle/targets.vim'
+  Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 set shell=sh
@@ -106,7 +106,7 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 map <C-n> :NERDTreeToggle<CR>
 
-let g:loaded_ruby_provider=1
+" let g:loaded_ruby_provider=1
 let g:python_host_skip_check = 1
 let g:python3_host_skip_check = 1
 
