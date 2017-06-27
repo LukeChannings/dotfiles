@@ -101,11 +101,6 @@ let g:python3_host_prog='/usr/local/bin/python3'
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 let g:EditorConfig_core_mode = 'external_command'
 
-" Neoformat - Prettier
-autocmd BufWritePre *.js Neoformat
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
-let g:neoformat_try_formatprg = 1
-
 " Use system clipboard
 set clipboard=unnamed
 
