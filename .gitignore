@@ -6,4 +6,5 @@ fish/functions/fish_user_key_bindings.fish
 .DS_Store
 .netrwhist
 configstore
-
+rclone
+yarn
