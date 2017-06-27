@@ -1,30 +1,35 @@
  " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
+  Plug 'joshdick/onedark.vim'
+  Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-  Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
-  Plug 'benekastah/neomake'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'editorconfig/editorconfig-vim'
   Plug 'mattn/emmet-vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'benekastah/neomake'
   Plug 'guns/xterm-color-table.vim'
   Plug 'tpope/vim-jdaddy'
   Plug 'vim-airline/vim-airline'
-  Plug 'joshdick/onedark.vim'
   Plug 'jaawerth/nrun.vim'
-  Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-surround'
   Plug 'reedes/vim-colors-pencil'
-  Plug 'editorconfig/editorconfig-vim'
   Plug 'ternjs/tern_for_vim'
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'Valloric/YouCompleteMe'
   Plug 'tpope/vim-unimpaired'
   Plug 'sheerun/vim-polyglot'
   Plug 'vim-scripts/BufOnly.vim'
   Plug 'wellle/targets.vim'
   Plug 'wakatime/vim-wakatime'
+  Plug 'embear/vim-localvimrc'
+  Plug 'eugen0329/vim-esearch'
+  Plug 'szw/vim-tags'
+  Plug 'mustache/vim-mustache-handlebars'
+  Plug 'sbdchd/neoformat'
 call plug#end()
 
 set shell=sh
@@ -41,6 +46,8 @@ set splitright
 set splitbelow
 filetype plugin on
 
+let g:localvimrc_ask = 0
+let g:localvimrc_sandbox = 0
 let g:python_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:enable_bold_font = 1
@@ -50,28 +57,6 @@ let g:vim_markdown_folding_disabled = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let $fzf_default_command = 'ag -l -g ""'
 
-let g:neomake_javascript_standard_exe = nrun#Which('standard')
-let g:neomake_javascript_enabled_makers = ['standard']
-
-let g:neomake_jsx_standard_exe = nrun#Which('standard')
-let g:neomake_jsx_enabled_makers = ['standard']
-
-"let g:neomake_scss_stylelint_exe = nrun#Which('stylelint')
-"let g:neomake_scss_enabled_makers = ['stylelint']
-
-let g:neomake_scss_enabled_makers = ['stylelint']
-let g:neomake_scss_stylelint_maker = {
-\ 'exe': nrun#Which('stylelint'),
-\ 'args': ['--syntax', 'scss'],
-\ 'errorformat': 
-  \ '%+P%f,' . 
-      \ '%*\s%l:%c  %t  %m,' .
-  \ '%-Q'
-\ }
-
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
-autocmd! BufWritePost * Neomake
-autocmd InsertChange,TextChanged * update | Neomake
 
 " Emmet
 let g:user_emmet_install_global = 0
@@ -115,6 +100,11 @@ let g:python3_host_prog='/usr/local/bin/python3'
 
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 let g:EditorConfig_core_mode = 'external_command'
+
+" Neoformat - Prettier
+autocmd BufWritePre *.js Neoformat
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
+let g:neoformat_try_formatprg = 1
 
 " Use system clipboard
 set clipboard=unnamed
