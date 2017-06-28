@@ -63,6 +63,11 @@ let g:user_emmet_install_global = 0
 let g:user_emmet_mode='a'
 autocmd FileType html,*.handlebars EmmetInstall
 
+" Neoformat - Prettier
+autocmd BufWritePre *.js Neoformat
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
+let g:neoformat_try_formatprg = 1
+
 " syntax highlighting
 set background=dark
 syntax on
