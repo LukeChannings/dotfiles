@@ -1,7 +1,3 @@
-"autocmd FileType javascript set formatprg=format-js
-"autocmd FileType jsx set formatprg=format-js
-"autocmd BufWritePre *.js :normal gggqG
-
 let g:neomake_javascript_standard_exe = nrun#Which('standard')
 let g:neomake_javascript_enabled_makers = ['standard']
 
