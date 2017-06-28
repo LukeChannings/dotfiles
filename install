@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+cat << "EOF"
+ ___     ____                             _             _   
+|_ _|   |  _ \  ___ _ __ ___  _ __   ___ | |_ ___ _ __ | |_ 
+ | |    | | | |/ _ \ '_ ` _ \| '_ \ / _ \| __/ _ \ '_ \| __|
+ | | _  | |_| |  __/ | | | | | |_) | (_) | ||  __/ | | | |_ 
+|___( ) |____/ \___|_| |_| |_| .__/ \___/ \__\___|_| |_|\__|
+    |/                       |_|                            
+
+EOF
+
+set -e -o pipefail -p
+
+if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
+  echo "Clone https://github.com/LukeChannings/.config into ~/.config and run '~/.config/install'"
+  exit 1
+fi
+
+echo Linking config files for programs not using \$XDG_CONFIG_HOME
+
+ln -fs ~/.config/editorconfig ~/.editorconfig
+ln -fs ~/.config/tern/tern_config ~/.tern-config
+ln -fs ~/.config/tmux/config ~/.tmux.conf
+
+if [[ $(uname -s) == 'Darwin' ]]; then
+  cd ~/.config
+
+  if [[ ! $(command -v brew) ]]; then
+    echo Installing Homebrew
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  echo Installing Homebrew packages
+  brew bundle
+
+  # Install FZF bindings
+  /usr/local/opt/fzf/install --all
+
+  # iCloud Drive links
+  if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs ]; then
+    ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
+  fi
+fi
+
+pip install neovim
+
+cd ~/.local/share/nvim/plugged/tern_for_vim
+  npm i
+cd -
+
+cd ~/.local/share/nvim/plugged/YouCompleteMe
+  ./install.py --tern-completer
+cd -
+
+fish -c 'fundle install'
