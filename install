@@ -13,8 +13,6 @@ EOF
 set -e -o pipefail -p
 
 if [[ $(uname -s) == 'Darwin' ]]; then
-  cd ~/.config
-
   if [[ ! $(command -v brew) ]]; then
     echo Installing Homebrew
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
