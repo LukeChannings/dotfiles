@@ -23,7 +23,7 @@ fi
 
 if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
   echo Linking config files for programs not using \$XDG_CONFIG_HOME
-  mv ~/.config ~/.config.old
+  mv -nf ~/.config ~/.config.old
   git clone git@github.com:LukeChannings/.config.git ~/.config
 fi
 
