@@ -12,6 +12,21 @@ EOF
 
 set -e -o pipefail -p
 
+# iCloud Drive links
+if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs ]; then
+  mv ~/.ssh ~/.ssh.old
+  ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
+  chmod 700 ~/.ssh
+  chmod -R 600 ~/.ssh/*
+  chmod 644 ~/.ssh/authorized_keys
+fi
+
+if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
+  echo Linking config files for programs not using \$XDG_CONFIG_HOME
+  mv ~/.config ~/.config.old
+  git clone git@github.com:LukeChannings/.config.git ~/.config
+fi
+
 if [[ $(uname -s) == 'Darwin' ]]; then
   if [[ ! $(command -v brew) ]]; then
     echo Installing Homebrew
@@ -19,25 +34,12 @@ if [[ $(uname -s) == 'Darwin' ]]; then
   fi
 
   echo Installing Homebrew packages
-  brew bundle
+  cd ~/.config
+    brew bundle
+  cd -
 
   # Install FZF bindings
   /usr/local/opt/fzf/install --all
-
-  # iCloud Drive links
-  if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs ]; then
-    mv ~/.ssh ~/.ssh.old
-    ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
-    chmod 700 ~/.ssh
-    chmod -R 600 ~/.ssh/*
-    chmod 644 ~/.ssh/authorized_keys
-  fi
-fi
-
-if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
-  echo Linking config files for programs not using \$XDG_CONFIG_HOME
-  mv ~/.config ~/.config.old
-  git clone git@github.com:LukeChannings/.config.git ~/.config
 fi
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
