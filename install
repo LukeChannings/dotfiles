@@ -12,17 +12,6 @@ EOF
 
 set -e -o pipefail -p
 
-if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
-  echo "Clone https://github.com/LukeChannings/.config into ~/.config and run '~/.config/install'"
-  exit 1
-fi
-
-echo Linking config files for programs not using \$XDG_CONFIG_HOME
-
-ln -fs ~/.config/editorconfig ~/.editorconfig
-ln -fs ~/.config/tern/tern_config ~/.tern-config
-ln -fs ~/.config/tmux/config ~/.tmux.conf
-
 if [[ $(uname -s) == 'Darwin' ]]; then
   cd ~/.config
 
@@ -39,9 +28,23 @@ if [[ $(uname -s) == 'Darwin' ]]; then
 
   # iCloud Drive links
   if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs ]; then
+    mv ~/.ssh ~/.ssh.old
     ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
+    chmod 700 ~/.ssh
+    chmod -R 600 ~/.ssh/*
+    chmod 644 ~/.ssh/authorized_keys
   fi
 fi
+
+if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
+  echo Linking config files for programs not using \$XDG_CONFIG_HOME
+  mv ~/.config ~/.config.old
+  git clone git@github.com:LukeChannings/.config.git ~/.config
+fi
+
+ln -fs ~/.config/editorconfig ~/.editorconfig
+ln -fs ~/.config/tern/tern_config ~/.tern-config
+ln -fs ~/.config/tmux/config ~/.tmux.conf
 
 pip install neovim
 
