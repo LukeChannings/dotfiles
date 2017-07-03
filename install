@@ -27,18 +27,8 @@ if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]];
 fi
 
 if [[ $(uname -s) == 'Darwin' ]]; then
-  if [[ ! $(command -v brew) ]]; then
-    echo Installing Homebrew
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-
-  echo Installing Homebrew packages
-  cd ~/.config
-    brew bundle
-  cd -
-
-  # Install FZF bindings
-  /usr/local/opt/fzf/install --all
+  chmod +x ~/.config/install.macos
+  ~/.config/install.macos
 fi
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
