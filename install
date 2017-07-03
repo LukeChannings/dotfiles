@@ -13,8 +13,7 @@ EOF
 set -e -o pipefail -p
 
 # iCloud Drive links
-if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs ]; then
-  mv ~/.ssh ~/.ssh.old
+if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ] && [ ! -e ~/.ssh ]; then
   ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
   chmod 700 ~/.ssh
   chmod -R 600 ~/.ssh/*
