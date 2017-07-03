@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# macOS-specific stuff
+
+if [[ ! $(command -v brew) ]]; then
+  echo Installing Homebrew
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+echo Installing Homebrew packages
+cd ~/.config
+  brew bundle
+cd -
+
+# Set FISH as default shell
+echo $(brew --prefix)/bin/fish | sudo tee -a /etc/shells
+chsh -s $(brew --prefix)/bin/fish
+
+# Install FZF bindings
+/usr/local/opt/fzf/install --all
+
+# Enable developer menu in Safari
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write -g WebKitDeveloperExtras -bool true
+
+# TextEdit use plain text mode by default
+defaults write com.apple.TextEdit RichText -int 0
+
+# Default Finder location to ~
+defaults write com.apple.finder NewWindowTarget -string "PfLo"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
