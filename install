@@ -24,12 +24,18 @@ if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]];
   echo Linking config files for programs not using \$XDG_CONFIG_HOME
   if [ -e ~/.config ]; then mv ~/.config ~/.config.old; fi
   git clone git@github.com:LukeChannings/.config.git ~/.config
+else
+  cd ~/.config
+  git pull
+  cd -
 fi
 
 if [[ $(uname -s) == 'Darwin' ]]; then
   chmod +x ~/.config/install.macos
   ~/.config/install.macos
 fi
+
+fish -c 'fundle install'
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
@@ -46,4 +52,3 @@ cd ~/.local/share/nvim/plugged/YouCompleteMe
   ./install.py --tern-completer
 cd -
 
-fish -c 'fundle install'

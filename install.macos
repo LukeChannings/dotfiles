@@ -13,6 +13,7 @@ echo Installing Homebrew packages
 cd ~/.config
   brew bundle
   sudo xcodebuild -license accept
+  ln -s /usr/local/bin/nvim /usr/local/bin/vim
 cd -
 
 # Set FISH as default shell
