@@ -18,11 +18,16 @@ if [[ $(uname -s) == 'Darwin' ]] && [[ ! $(command -v brew) ]]; then
 fi
 
 # iCloud Drive links
-if [ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ] && [ ! -e ~/.ssh ]; then
+if [[ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ]] && [[ ! -e ~/.ssh ]]; then
   ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
   chmod 700 ~/.ssh
   chmod -R 600 ~/.ssh/*
   chmod 644 ~/.ssh/authorized_keys
+fi
+
+if [ ! -e ~/.ssh ]]; then
+  echo "Can't continue without a working ~/.ssh 🤔"
+  exit 1
 fi
 
 if [[ ! $(cat ~/.config/.git/config 2&> /dev/null | grep github.com:LukeChannings/.config) ]]; then
