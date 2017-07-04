@@ -24,6 +24,10 @@ if [[ ! $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]];
   echo Linking config files for programs not using \$XDG_CONFIG_HOME
   if [ -e ~/.config ]; then mv ~/.config ~/.config.old; fi
   git clone git@github.com:LukeChannings/.config.git ~/.config
+else
+  cd ~/.config
+  git pull
+  cd -
 fi
 
 if [[ $(uname -s) == 'Darwin' ]]; then
