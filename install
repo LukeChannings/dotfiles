@@ -35,7 +35,12 @@ if [[ $(uname -s) == 'Darwin' ]]; then
   ~/.config/install.macos
 fi
 
+ln -Fs /usr/local/bin/nvim /usr/local/bin/vim
 fish -c 'fundle install'
+
+# Set FISH as default shell
+echo $(brew --prefix)/bin/fish | sudo tee -a /etc/shells
+chsh -s $(brew --prefix)/bin/fish
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
