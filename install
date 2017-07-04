@@ -31,6 +31,8 @@ if [[ $(uname -s) == 'Darwin' ]]; then
   ~/.config/install.macos
 fi
 
+fish -c 'fundle install'
+
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
 ln -fs ~/.config/tmux/config ~/.tmux.conf
@@ -46,4 +48,3 @@ cd ~/.local/share/nvim/plugged/YouCompleteMe
   ./install.py --tern-completer
 cd -
 
-fish -c 'fundle install'
