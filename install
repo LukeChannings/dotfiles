@@ -35,6 +35,7 @@ ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
 ln -fs ~/.config/tmux/config ~/.tmux.conf
 
+vim +PlugUpgrade +PlugInstall +qall
 pip install neovim
 
 cd ~/.local/share/nvim/plugged/tern_for_vim
