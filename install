@@ -12,22 +12,31 @@ EOF
 
 set -e -o pipefail -p
 
-if [[ $(uname -s) == 'Darwin' ]] && [[ ! $(command -v brew) ]]; then
+if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
   echo Installing Homebrew
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+elif [[ $(uname -a) == *Microsoft* ]]; then
+  # WSL
+  sudo apt update -y
+  sudo apt upgrade -y # Ships w/ openssh-client@7.2 by default
+  sudo apt-get install -y build-essential curl file git python-setuptools ruby
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 fi
 
 # iCloud Drive links
-if [[ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ]] && [[ ! -e ~/.ssh ]]; then
-  ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
+if [[ ! -e ~/.ssh ]]; then
+  if [[ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ]]; then
+    ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
+  elif [[ -e $(pwd)/iCloudDrive ]]; then
+    cp -R "$(pwd)/iCloudDrive/ssh" ~/.ssh
+  else
+    echo "Can't continue without a working ~/.ssh 🤔"
+    exit 1
+  fi
+
   chmod 700 ~/.ssh
   chmod -R 600 ~/.ssh/*
   chmod 644 ~/.ssh/authorized_keys
-fi
-
-if [[ ! -e ~/.ssh ]]; then
-  echo "Can't continue without a working ~/.ssh 🤔"
-  exit 1
 fi
 
 if [[ ! $(cat ~/.config/.git/config 2&> /dev/null | grep github.com:LukeChannings/.config) ]]; then
