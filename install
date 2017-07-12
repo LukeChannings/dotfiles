@@ -22,6 +22,7 @@ elif [[ $(uname -a) == *Microsoft* ]]; then
   sudo apt-get install -y build-essential curl file git python-setuptools ruby
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
   echo "export HOMEBREW_BUILD_FROM_SOURCE=1" >> ~/.bash_profile
+  . ~/.bash_profile
 fi
 
 # iCloud Drive links
