@@ -1,3 +1,0 @@
-[submodule "wireshark/plugins/protobuf_dissector"]
-	path = wireshark/plugins/protobuf_dissector
-	url = git@github.com:128technology/protobuf_dissector.git
