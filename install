@@ -53,6 +53,11 @@ if [[ $(uname -s) == 'Darwin' ]]; then
   ~/.config/install.macos
 fi
 
+if [[ $(uname -s) == 'Linus' ]]; then
+  ~/.config/install.linux
+fi
+
+
 ln -Fs /usr/local/bin/nvim /usr/local/bin/vim
 fish -c 'fundle install'
 
