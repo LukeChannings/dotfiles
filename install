@@ -18,9 +18,11 @@ if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
 elif [[ $(uname -a) == *Microsoft* ]]; then
   # WSL
   sudo apt update -y
-  sudo apt upgrade -y # Ships w/ openssh-client@7.2 by default
+  sudo apt upgrade -y
   sudo apt-get install -y build-essential curl file git python-setuptools ruby
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+  echo "export HOMEBREW_BUILD_FROM_SOURCE=1" >> ~/.bash_profile
+  . ~/.bash_profile
 fi
 
 # iCloud Drive links
@@ -51,6 +53,10 @@ fi
 
 if [[ $(uname -s) == 'Darwin' ]]; then
   ~/.config/install.macos
+fi
+
+if [[ $(uname -s) == 'Linus' ]]; then
+  ~/.config/install.linux
 fi
 
 ln -Fs /usr/local/bin/nvim /usr/local/bin/vim

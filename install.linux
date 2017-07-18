@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+git config --global credential.helper store
+
+cd ~/.config
+  brew bundle
+  sudo xcodebuild -license accept
+cd -
