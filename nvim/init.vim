@@ -143,3 +143,7 @@ set colorcolumn=80
 
 set hidden
 set nocompatible
+
+if has("termguicolors")
+  hi! Normal ctermbg=NONE guibg=NONE
+endif
