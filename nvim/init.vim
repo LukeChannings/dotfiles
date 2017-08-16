@@ -1,35 +1,36 @@
  " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
   Plug 'joshdick/onedark.vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', {
+    \ 'on':  'NERDTreeToggle' }
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'scrooloose/nerdcommenter'
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'mattn/emmet-vim'
-  Plug 'tpope/vim-fugitive'
+  Plug 'mattn/emmet-vim', { 'for': ['html'] }
   Plug 'benekastah/neomake'
-  Plug 'guns/xterm-color-table.vim'
   Plug 'tpope/vim-jdaddy'
   Plug 'vim-airline/vim-airline'
   Plug 'jaawerth/nrun.vim'
   Plug 'tpope/vim-surround'
-  Plug 'reedes/vim-colors-pencil'
-  Plug 'ternjs/tern_for_vim'
-  Plug 'godlygeek/tabular'
+  Plug 'ternjs/tern_for_vim', { 'for': ['javascript'] }
   Plug 'plasticboy/vim-markdown'
   Plug 'Valloric/YouCompleteMe'
   Plug 'tpope/vim-unimpaired'
   Plug 'sheerun/vim-polyglot'
   Plug 'vim-scripts/BufOnly.vim'
+  Plug 'vim-scripts/scratch.vim'
   Plug 'wellle/targets.vim'
   Plug 'wakatime/vim-wakatime'
   Plug 'embear/vim-localvimrc'
   Plug 'eugen0329/vim-esearch'
   Plug 'szw/vim-tags'
-  Plug 'mustache/vim-mustache-handlebars'
-  Plug 'sbdchd/neoformat'
+  Plug 'mustache/vim-mustache-handlebars', { 'for': ['handlebars'] }
+  " post install (yarn install | npm install) then load plugin only for editing supported files
+  Plug 'prettier/vim-prettier', { 
+    \ 'do': 'yarn install', 
+    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] } 
 call plug#end()
 
 set shell=sh
@@ -63,10 +64,12 @@ let g:user_emmet_install_global = 0
 let g:user_emmet_mode='a'
 autocmd FileType html,*.handlebars EmmetInstall
 
-" Neoformat - Prettier
-autocmd BufWritePre *.js Neoformat
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
-let g:neoformat_try_formatprg = 1
+" Prettier
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
+let g:prettier#config#semi = 'false'
+let g:prettier#config#trailing_comma = 'none'
 
 " syntax highlighting
 set background=dark
@@ -139,6 +142,7 @@ set foldlevel=2
 filetype indent on
 set shiftwidth=2
 set smartindent
+highlight ColorColumn ctermbg=red
 set colorcolumn=80
 
 set hidden
