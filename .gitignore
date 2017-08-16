@@ -8,3 +8,6 @@ fish/functions/fish_user_key_bindings.fish
 configstore
 rclone
 yarn
+xbuild
+stetic
+NuGet
