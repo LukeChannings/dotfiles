@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-# macOS-specific stuff
+echo "Installing Homebrew packages"
 
-echo Installing Homebrew packages
 cd ~/.config
   brew bundle
 cd -
@@ -384,8 +383,21 @@ sudo defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handl
   HIDKeyboardModifierMappingSrc = 30064771129;
 }'
 
+
 ###############################################################################
-# DONE                                                                     #
+# LICENSES                                                                    #
+###############################################################################
+
+if [[ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/licenses ]]; then
+  
+  # Install Sublime Text 3 license.
+  mkdir -p /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local
+  cp ~/Library/Mobile\ Documents/com~apple~CloudDocs/licenses/License.sublime_license /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local/
+
+fi
+
+###############################################################################
+# DONE                                                                        #
 ###############################################################################
 
 # Need to restart for several changes to take effect. Trackpad settings in particular.
