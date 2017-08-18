@@ -5,17 +5,10 @@
 echo Installing Homebrew packages
 cd ~/.config
   brew bundle
-  sudo xcodebuild -license accept
 cd -
 
 # Install FZF bindings
 /usr/local/opt/fzf/install --all
-
-# Ask for the administrator password
-sudo -v
-
-# Keep-alive: update existing 'sudo' time stamp until '.macos' has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Clean out unneeded default apps
 rm -rf /Applications/Utilities/Java\ Preferences.app
@@ -23,15 +16,19 @@ rm -rf /Applications/Utilities/Feedback\ Assistant.app
 
 osascript -e 'tell application "System Preferences" to quit'
 
+###############################################################################
+# Global settings                                                             #
+###############################################################################
+
 # Disable the new window animation - every new window grows
 # from a small one to a big one over a few hundred millisecs
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 
 # Expand save panel by default.
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 
 # Use a dark menu bar / dock
-defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+defaults write -g AppleInterfaceStyle -string "Dark"
 
 # Don't show Siri in the menu bar
 defaults write com.apple.Siri StatusMenuVisible -bool false
@@ -43,15 +40,15 @@ defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextr
 defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" -bool true
 
 #When to  show scrollbars
-defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
+defaults write -g AppleShowScrollBars -string "WhenScrolling"
 # Possible values: 'WhenScrolling', 'Automatic' and 'Always'
 
 # Expand save panel by default
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
+defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Save to disk (not to iCloud) by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -60,25 +57,25 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 sudo systemsetup -setrestartfreeze on
 
 # Disable automatic capitalization as it’s annoying when typing code
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 
 # Disable automatic period substitution as it’s annoying when typing code
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # Disable smart quotes as they’re annoying when typing code
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Enable tap to click. (Don't have to press down on the trackpad -- just tap it.)
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults -currentHost write -g com.apple.mouse.tapBehavior -int 1
+defaults write -g com.apple.mouse.tapBehavior -int 1
 
 # Enable 3-finger drag. (Moving with 3 fingers in any window "chrome" moves the window.)
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
@@ -86,15 +83,15 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool t
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+defaults write -g AppleKeyboardUIMode -int 3
 
 # Set language and text formats
 # Note: if you’re in the US, replace 'EUR' with 'USD', 'Centimeters' with
 # 'Inches', 'en_GB' with 'en_US', and 'true' with 'false'.
-defaults write NSGlobalDomain AppleLanguages -array "en" "gb"
-defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=GBP"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true
+defaults write -g AppleLanguages -array "en" "gb"
+defaults write -g AppleLocale -string "en_GB@currency=GBP"
+defaults write -g AppleMeasurementUnits -string "Centimeters"
+defaults write -g AppleMetricUnits -bool true
 
 # Set the timezone; see 'sudo systemsetup -listtimezones' for other values
 sudo systemsetup -settimezone "Europe/London" > /dev/null
@@ -106,9 +103,6 @@ sudo systemsetup -settimezone "Europe/London" > /dev/null
 # Set Desktop as the default location for new Finder windows
 # For other paths, use 'PfLo' and 'file:///full/path/here/'
 defaults write com.apple.finder NewWindowTarget -string "PfHm"
-
-# Finder: show all filename extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
@@ -126,6 +120,34 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # Enable AirDrop over Ethernet and on unsupported Macs running Lion
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+
+# Hide recent tags
+defaults write com.apple.finder ShowRecentTags -bool false
+
+# Rearrange toolbar
+defaults write com.apple.finder "NSToolbar Configuration Browser" '{
+  "TB Default Item Identifiers" =     (
+    "com.apple.finder.BACK",
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SWCH",
+    "com.apple.finder.ARNG",
+    "com.apple.finder.ACTN",
+    "com.apple.finder.SHAR",
+    "com.apple.finder.LABL",
+    NSToolbarFlexibleSpaceItem,
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SRCH"
+  );
+  "TB Display Mode" = 2;
+  "TB Icon Size Mode" = 1;
+  "TB Is Shown" = 1;
+  "TB Item Identifiers" =     (
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SRCH",
+    "com.apple.finder.SHAR"
+  );
+  "TB Size Mode" = 1;
+}'
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -149,60 +171,94 @@ defaults write com.apple.dock mru-spaces -bool false
 # (i.e. use the old Exposé behavior instead)
 defaults write com.apple.dock expose-group-by-app -bool false
 
+# Change Touch Bar control strip actions
+defaults write com.apple.controlstrip '{ MiniCustomized = (
+  "com.apple.system.brightness",
+  "com.apple.system.volume",
+  "com.apple.system.media-play-pause",
+  "com.apple.system.screen-lock"
+ ); }'
+
+# Set a nice default Wallpaper
+sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '~/Pictures/Photos Library.photoslibrary/Masters/2017/08/18/20170818-115753/DSC_7456-Edit-Edit-Edit-2-Edit-2-Edit.jpg'"
+
 ###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
 
-# Privacy: don’t send search queries to Apple
-defaults write com.apple.Safari ShowOverlayStatusBar -bool true
+# Show status bar
+defaults write com.apple.safari ShowOverlayStatusBar -bool true
 
 # Press Tab to highlight each item on a web page
-defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
+defaults write com.apple.safari WebKitTabToLinksPreferenceKey -bool true
+defaults write com.apple.safari com.apple.safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
+
+# Set DuckDuckGo as the search engine
+defaults write -g NSPreferredWebServices '{
+  NSWebServicesProviderWebSearch = {
+    NSDefaultDisplayName = DuckDuckGo;
+    NSProviderIdentifier = "com.duckduckgo";
+  };
+}'
 
 # Prevent Safari from opening ‘safe’ files automatically after downloading
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+defaults write com.apple.safari AutoOpenSafeDownloads -bool false
 
 # Hide Safari’s bookmarks bar by default
-defaults write com.apple.Safari ShowFavoritesBar -bool false
+defaults write com.apple.safari ShowFavoritesBar -bool false
 
 # Enable the Develop menu and the Web Inspector in Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write com.apple.safari IncludeDevelopMenu -bool true
+defaults write com.apple.safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.safari com.apple.safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
 # Add a context menu item for showing the Web Inspector in web views
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write -g WebKitDeveloperExtras -bool true
 
 # Warn about fraudulent websites
-defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
+defaults write com.apple.safari WarnAboutFraudulentWebsites -bool true
 
 # Disable plug-ins
-defaults write com.apple.Safari WebKitPluginsEnabled -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
+defaults write com.apple.safari WebKitPluginsEnabled -bool false
+defaults write com.apple.safari com.apple.safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
 
 # Disable Java
-defaults write com.apple.Safari WebKitJavaEnabled -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
+defaults write com.apple.safari WebKitJavaEnabled -bool false
+defaults write com.apple.safari com.apple.safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
 
 # Enable “Do Not Track”
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+defaults write com.apple.safari SendDoNotTrackHTTPHeader -bool true
 
 # Update extensions automatically
-defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
-
+defaults write com.apple.safari InstallExtensionUpdatesAutomatically -bool true
 
 # Customise Safari toolbar items
-/usr/libexec/PlistBuddy -c "Delete :NSToolbar\ Configuration\ BrowserToolbarIdentifier-v2:TB\ Item\ Identifiers" ~/Library/Preferences/com.apple.Safari.plist
-/usr/libexec/PlistBuddy -c "Add :NSToolbar\ Configuration\ BrowserToolbarIdentifier-v2:TB\ Item\ Identifiers array" ~/Library/Preferences/com.apple.Safari.plist
-for item in "NSToolbarFlexibleSpaceItem" \
-            "InputFieldsToolbarIdentifier" \
-            "NSToolbarFlexibleSpaceItem" \
-            "ShowDownloadsToolbarIdentifier" \
-            "ShareToolbarIdentifier"
-do
-  /usr/libexec/PlistBuddy -c "Add :NSToolbar\ Configuration\ BrowserToolbarIdentifier-v2:TB\ Item\ Identifiers: string '$item'" ~/Library/Preferences/com.apple.Safari.plist
-done
+defaults write com.apple.safari "NSToolbar Configuration BrowserToolbarIdentifier-v2" '{
+  "TB Default Item Identifiers" =     (
+    BackForwardToolbarIdentifier,
+    SidebarToolbarIdentifier,
+    NSToolbarFlexibleSpaceItem,
+    "com.el1t.uBlock-3NU33NW2M3 toolbarItem",
+    InputFieldsToolbarIdentifier,
+    NSToolbarFlexibleSpaceItem,
+    ShareToolbarIdentifier,
+    TabPickerToolbarIdentifier
+  );
+  "TB Display Mode" = 2;
+  "TB Icon Size Mode" = 1;
+  "TB Is Shown" = 1;
+  "TB Item Identifiers" =     (
+    NSToolbarFlexibleSpaceItem,
+    InputFieldsToolbarIdentifier,
+    NSToolbarFlexibleSpaceItem,
+    ShareToolbarIdentifier
+  );
+  "TB Size Mode" = 1;
+}'
+
+# Set the custom stylesheet
+defaults write com.apple.safari UserStyleSheetEnabled -bool true
+defaults write com.apple.safari UserStyleSheetLocationURLString -string "~/.config/safari/stylesheet.css"
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -215,8 +271,9 @@ defaults write com.apple.terminal StringEncodings -array 4
 # See: https://security.stackexchange.com/a/47786/8918
 defaults write com.apple.terminal SecureKeyboardEntry -bool true
 
-# Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+# Load custom settings from ~/.config/Terminal
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/Terminal"
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -271,8 +328,69 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
+# Hostname & User picture                                                     #
+###############################################################################
+
+read -p "Change hostname for this computer (Enter to skip): " hostname
+
+if [[ ! -z "$hostname" ]]; then
+  sudo scutil --set ComputerName "$hostname" && \
+  sudo scutil --set HostName "$hostname" && \
+  sudo scutil --set LocalHostName "$hostname" && \
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$hostname"
+fi
+
+# Get user picture from Gravatar and set it as the account picture
+{
+  IFS=' ' read -r -a RECORD_NAME <<< $(dscl . read $HOME RecordName)
+  EMAIL="${RECORD_NAME[2]}"
+  curl -o ~/.gravatar.jpg http://www.gravatar.com/avatar/$(md5 -q -s $EMAIL).jpg?s=600
+  dscl . -delete $HOME Picture
+  dscl . -delete $HOME JPEGPhoto
+  sudo dscl . -create $HOME Picture ~/.gravatar.jpg
+}
+
+# Enable Night Shift
+
+CORE_BRIGHTNESS="/var/root/Library/Preferences/com.apple.CoreBrightness.plist"
+
+ENABLE='CBBlueReductionStatus = {
+  AutoBlueReductionEnabled = 1;
+  BlueLightReductionSchedule = {
+    DayStartHour = 7;
+    DayStartMinute = 0;
+    NightStartHour = 22;
+    NightStartMinute = 0;
+  };
+  BlueReductionEnabled = 0;
+  BlueReductionMode = 0;
+  BlueReductionSunScheduleAllowed = 1;
+  Version = 1;
+};'
+
+sudo defaults write $CORE_BRIGHTNESS "CBUser-1" "$ENABLE"
+sudo defaults write $CORE_BRIGHTNESS "CBUser-$(dscl . -read $HOME GeneratedUID | sed 's/GeneratedUID: //')" "$ENABLE"
+
+# DOES NOT WORK. LEAVING IN FOR TESTING.
+# Remap caps lock to escape key on the built-in keyboard
+sudo defaults -currentHost write -g com.apple.keyboard.modifiermapping.1452-632-0 '{
+  HIDKeyboardModifierMappingDst = 30064771113;
+  HIDKeyboardModifierMappingSrc = 30064771129;
+}'
+
+# Remap caps lock to escape key on a bluetooth keyboard
+sudo defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handler_id-50 '{
+  HIDKeyboardModifierMappingDst = 30064771113;
+  HIDKeyboardModifierMappingSrc = 30064771129;
+}'
+
+###############################################################################
 # DONE                                                                     #
 ###############################################################################
 
 # Need to restart for several changes to take effect. Trackpad settings in particular.
-echo "Finished setting initial settings. You should restart when everything is finished." 
+echo "Doing a soft restart of affected apps. You should restart when everything is finished." 
+
+for app in "cfprefsd" "Finder" "Dock" "ControlStrip" "Safari" "TextEdit" "ActivityMonitor"; do
+    killall $app
+done
