@@ -12,16 +12,20 @@ EOF
 
 set -e -o pipefail -p
 
+# Keep the computer awake for the duration of this script.
+[[ $(command -v caffeinate) ]] && caffeinate -dusw $$ &
+
 # Ask for the administrator password
 sudo -v
 
 # sudo keep-alive
 while true; do
-  sudo -n true
-  sleep 60
+  sudo -vn
+  sleep 250 # default timestamp_timeout is 5 minutes
   kill -0 "$$" || exit
 done 2>/dev/null &
 
+# INT/TERM trap
 trap 'exit 1' INT TERM
 
 if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
