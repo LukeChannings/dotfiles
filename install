@@ -20,8 +20,8 @@ sudo -v
 
 # sudo keep-alive
 while true; do
-  sudo -vn
-  sleep 250 # default timestamp_timeout is 5 minutes
+  sudo -n true
+  sleep 60
   kill -0 "$$" || exit
 done 2>/dev/null &
 
