@@ -71,7 +71,7 @@ if [[ $(uname -s) == 'Darwin' ]]; then
   ~/.config/install.macos
 fi
 
-if [[ $(uname -s) == 'Linus' ]]; then
+if [[ $(uname -s) == 'Linux' ]]; then
   ~/.config/install.linux
 fi
 
