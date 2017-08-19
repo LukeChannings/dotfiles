@@ -4,14 +4,13 @@ tap "caskroom/fonts"
 tap "caskroom/versions"
 tap "caskroom/cask"
 tap "neovim/neovim"
-
 brew "aria2"
 brew "awscli"
 brew "ctags"
 brew "editorconfig"
-brew "git"
 brew "fish"
 brew "fzf"
+brew "git"
 brew "gnu-sed", args: ["with-default-names"]
 brew "jq"
 brew "mas"
@@ -25,11 +24,17 @@ brew "tmux"
 brew "tree"
 brew "watch"
 brew "yarn"
-
 cask "betterzipql"
 cask "docker"
 cask "duet"
 cask "firefox"
+cask "flycut"
+cask "font-fira-mono"
+cask "font-hasklig"
+cask "font-inconsolata"
+cask "font-monoid"
+cask "font-roboto"
+cask "font-source-code-pro"
 cask "iterm2-nightly"
 cask "marked"
 cask "p4merge"
@@ -45,35 +50,24 @@ cask "quicklook-json"
 cask "quicklookase"
 cask "safari-technology-preview"
 cask "selfcontrol"
-cask "sketch"
 cask "skype"
+cask "slack"
 cask "spotify"
 cask "steam"
 cask "sublime-text"
 cask "suspicious-package"
-cask "transmit"
+cask "transmit4"
 cask "vimr"
 cask "vlc"
 cask "vmware-fusion"
 cask "webpquicklook"
 cask "webtorrent"
-cask "slack"
-cask "flycut"
-
-cask "font-fira-mono"
-cask "font-hasklig"
-cask "font-inconsolata"
-cask "font-monoid"
-cask "font-roboto"
-cask "font-source-code-pro"
-
 mas "Airmail 3", id: 918858936
 mas "Blackmagic Disk Speed Test", id: 425264550
-mas "Flycut", id: 442160987
 mas "Keynote", id: 409183694
+mas "Magnet", id: 441258766
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Magnet", id: 441258766
 mas "Pixelmator", id: 407963104
 mas "SonicWall Mobile Connect", id: 822514576
 mas "Textual", id: 896450579
