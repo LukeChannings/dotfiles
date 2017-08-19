@@ -11,7 +11,7 @@ else
 fi
 
 cd ~/.config
-  brew bundle
+  brew bundle -v
 cd -
 
 # Install FZF bindings
