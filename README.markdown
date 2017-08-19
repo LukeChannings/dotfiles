@@ -1,15 +1,15 @@
-# Luke's DotConfig
+# ~/.config
+
+Contains all of my dotfiles, which live in my [$XDG_CONFIG_HOME](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html), and the ones that don't are symlinked to ~/*.
 
 ## Usage
 
     curl https://raw.githubusercontent.com/LukeChannings/.config/master/install | bash
 
-## What does it do?
+## What it does
 
-1. Links iCloud Drive ssh folder -> ~/.ssh (if iCloud Drive ssh folder exists)
-2. Clones LukeChannings/.config into ~/.config
-3. (If macOS) installs HomeBrew and packages defined in the Brewfile
-4. (If macOS) sets up FZF key bindings
-5. Links ~/.config to ~/* where needed
-6. Installs NeoVim support files (Will still need to :PlugInstall)
-7. Installs FISH packages
+- Installs [Homebrew](https://github.com/Homebrew/brew), a package manager for macOS.
+- Uses Homebrew's [Brewfile](https://github.com/Homebrew/homebrew-bundle) to install a set of apps, fonts, and command line utilities
+- Installs additional dependencies for [NeoVim](https://neovim.io) and [FISH](https://fishshell.com)
+- Configures macOS with my preferred defaults
+- Installs software licenses from iCloud Drive
