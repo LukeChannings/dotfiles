@@ -57,14 +57,17 @@ if [[ ! -e ~/.ssh ]]; then
   chmod 644 ~/.ssh/authorized_keys
 fi
 
-if [[ ! $(cat ~/.config/.git/config 2&> /dev/null | grep github.com:LukeChannings/.config) ]]; then
-  echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
-  if [ -e ~/.config ]; then mv ~/.config ~/.config.old; fi
-  git clone git@github.com:LukeChannings/.config.git ~/.config
-else
+if [[ -e ~/.config/.git/config ]] && [[ $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
   cd ~/.config
   git pull
   cd -
+else
+  echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
+  if [[ -e ~/.config ]]; then
+    echo "Found existing ~/.config, moving it to ~/.config.old"
+    mv ~/.config ~/.config.old
+  fi
+  git clone git@github.com:LukeChannings/.config.git ~/.config
 fi
 
 if [[ $(uname -s) == 'Darwin' ]]; then
