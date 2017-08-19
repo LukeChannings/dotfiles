@@ -29,7 +29,7 @@ done 2>/dev/null &
 trap 'exit 1' INT TERM
 
 if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
-  echo Installing Homebrew
+  echo "Installing Homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 elif [[ $(uname -a) == *Microsoft* ]]; then
   # WSL
@@ -58,7 +58,7 @@ if [[ ! -e ~/.ssh ]]; then
 fi
 
 if [[ ! $(cat ~/.config/.git/config 2&> /dev/null | grep github.com:LukeChannings/.config) ]]; then
-  echo Linking config files for programs not using \$XDG_CONFIG_HOME
+  echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
   if [ -e ~/.config ]; then mv ~/.config ~/.config.old; fi
   git clone git@github.com:LukeChannings/.config.git ~/.config
 else
@@ -79,7 +79,7 @@ ln -Fs /usr/local/bin/nvim /usr/local/bin/vim
 fish -c 'fundle install'
 
 # Set FISH as default shell
-echo $(brew --prefix)/bin/fish | sudo tee -a /etc/shells
+echo "$(brew --prefix)/bin/fish" | sudo tee -a /etc/shells
 chsh -s $(brew --prefix)/bin/fish
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
