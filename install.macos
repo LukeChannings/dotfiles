@@ -2,6 +2,14 @@
 
 echo "Installing Homebrew packages"
 
+if [[ -z "$(xcode-select -p)" ]]; then
+  echo "Either XCode isn't installed or isn't linked. Install it, or link with xcode-select."
+  exit 1
+else
+  # If we don't accept the license Homebrew will fall over.
+  sudo xcodebuild -license accept
+fi
+
 cd ~/.config
   brew bundle
 cd -
