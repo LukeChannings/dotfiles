@@ -10,7 +10,11 @@ else
   sudo xcodebuild -license accept
 fi
 
-cd ~/.config
+cd ~/.config/homebrew
+  # Install custom casks
+  cp -R ./cask/* /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask/Casks/
+
+  # Install from Brewfile
   brew bundle -v
 cd -
 
@@ -43,10 +47,24 @@ defaults write com.apple.Siri StatusMenuVisible -bool false
 # Show volume in the menu bar
 defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -int 1
 
+
+# All options: AirPort Displays Ink RemoteDesktop UniversalAccess WWAN Battery DwellControl IrDA "Script Menu" User
+#              iChat Bluetooth Eject PPP TextInput VPN Clock ExpressCard PPPoE TimeMachine Volume
+defaults write com.apple.systemuiserver menuExtras '(
+  "/System/Library/CoreServices/Menu Extras/Clock.menu",
+  "/System/Library/CoreServices/Menu Extras/Battery.menu",
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu",
+  "/System/Library/CoreServices/Menu Extras/Volume.menu"
+)'
+
 # Show battery percentage in menu bar
 defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" -bool true
+defaults write com.apple.menuextra.battery '{ ShowPercent = YES; }'
 
-#When to  show scrollbars
+# Hide airplay menu item
+defaults write com.apple.airplay showInMenuBarIfPresent -bool false
+
+# When to  show scrollbars
 defaults write -g AppleShowScrollBars -string "WhenScrolling"
 # Possible values: 'WhenScrolling', 'Automatic' and 'Always'
 
@@ -187,7 +205,7 @@ defaults write com.apple.controlstrip '{ MiniCustomized = (
  ); }'
 
 # Set a nice default Wallpaper
-sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '~/Pictures/Photos Library.photoslibrary/Masters/2017/08/18/20170818-115753/DSC_7456-Edit-Edit-Edit-2-Edit-2-Edit.jpg'"
+sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '~/Pictures/Photos Library.photoslibrary/resources/media/version/04/00/fullsizeoutput_4ad.jpeg'"
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -335,6 +353,17 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
+# Third Party apps                                                            #
+###############################################################################
+
+# Sketch
+defaults write com.bohemiancoding.sketch3 SUSkippedVersion 44496
+
+# Flycut
+defaults write com.generalarcade.flycut menuIcon 3
+defaults write com.generalarcade.flycut loadOnStartup -bool true
+
+###############################################################################
 # Hostname & User picture                                                     #
 ###############################################################################
 
@@ -361,21 +390,24 @@ fi
 
 CORE_BRIGHTNESS="/var/root/Library/Preferences/com.apple.CoreBrightness.plist"
 
-ENABLE='CBBlueReductionStatus = {
-  AutoBlueReductionEnabled = 1;
-  BlueLightReductionSchedule = {
-    DayStartHour = 7;
-    DayStartMinute = 0;
-    NightStartHour = 22;
-    NightStartMinute = 0;
+ENABLE='{
+  CBBlueReductionStatus =     {
+    AutoBlueReductionEnabled = 1;
+    BlueLightReductionDisableScheduleAlertCounter = 3;
+    BlueLightReductionSchedule =         {
+      DayStartHour = 7;
+      DayStartMinute = 0;
+      NightStartHour = 22;
+      NightStartMinute = 0;
+    };
+    BlueReductionEnabled = 0;
+    BlueReductionMode = 1;
+    BlueReductionSunScheduleAllowed = 1;
+    Version = 1;
   };
-  BlueReductionEnabled = 0;
-  BlueReductionMode = 0;
-  BlueReductionSunScheduleAllowed = 1;
-  Version = 1;
-};'
+}'
 
-sudo defaults write $CORE_BRIGHTNESS "CBUser-1" "$ENABLE"
+sudo defaults write $CORE_BRIGHTNESS "CBUser-0" "$ENABLE"
 sudo defaults write $CORE_BRIGHTNESS "CBUser-$(dscl . -read $HOME GeneratedUID | sed 's/GeneratedUID: //')" "$ENABLE"
 
 # DOES NOT WORK. LEAVING IN FOR TESTING.
@@ -396,12 +428,13 @@ sudo defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handl
 # LICENSES                                                                    #
 ###############################################################################
 
-if [[ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/licenses ]]; then
+if [[ -e "$ICLOUD_DRIVE/licenses" ]]; then
   
   # Install Sublime Text 3 license.
   mkdir -p /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local
-  cp ~/Library/Mobile\ Documents/com~apple~CloudDocs/licenses/License.sublime_license /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local/
+  cp $ICLOUD_DRIVE/licenses/License.sublime_license /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local/
 
+  cp $ICLOUD_DRIVE/licenses/Sketch.license /Users/luke/Library/Application Support/com.bohemiancoding.sketch3/.license
 fi
 
 ###############################################################################
@@ -414,3 +447,6 @@ echo "Doing a soft restart of affected apps. You should restart when everything 
 for app in "cfprefsd" "Finder" "Dock" "ControlStrip" "Safari" "TextEdit" "ActivityMonitor"; do
     killall $app
 done
+
+
+exit 0

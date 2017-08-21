@@ -41,15 +41,28 @@ elif [[ $(uname -a) == *Microsoft* ]]; then
   . ~/.bash_profile
 fi
 
+export ICLOUD_DRIVE=$(
+if [[ -e "$HOME/Library/Mobile Documents/com~apple~CloudDocs" ]]; then
+  echo "$HOME/Library/Mobile Documents/com~apple~CloudDocs" # macOS
+elif [[ -e "$(pwd)/iCloudDrive" ]]; then
+  echo "$(pwd)/iCloudDrive" # Windows 10
+else
+  echo ""
+fi
+)
+
+if [[ -f "$ICLOUD_DRIVE/.secrets" ]]; then
+  source "$ICLOUD_DRIVE/.secrets"
+  SECRETS_LOADED=1
+  echo "Loaded secrets file from ICLOUD_DRIVE/.secrets."
+else
+  echo "No secrets file has been loaded. Some things might break."
+fi
+
 # iCloud Drive links
 if [[ ! -e ~/.ssh ]]; then
-  if [[ -e ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ]]; then
-    ln -Fs ~/Library/Mobile\ Documents/com~apple~CloudDocs/ssh ~/.ssh
-  elif [[ -e $(pwd)/iCloudDrive ]]; then
-    cp -R "$(pwd)/iCloudDrive/ssh" ~/.ssh
-  else
-    echo "Can't continue without a working ~/.ssh 🤔"
-    exit 1
+  if [[ -e $ICLOUD_DRIVE/ssh ]]; then
+    ln -s $ICLOUD_DRIVE/ssh ~/.ssh
   fi
 
   chmod 700 ~/.ssh
@@ -83,14 +96,32 @@ fish -c 'fundle install'
 
 # Set FISH as default shell
 echo "$(brew --prefix)/bin/fish" | sudo tee -a /etc/shells
-chsh -s $(brew --prefix)/bin/fish
+sudo chsh -s $(brew --prefix)/bin/fish $(whoami)
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
 ln -fs ~/.config/tmux/config ~/.tmux.conf
 
+if [[ $SECRETS_LOADED ]]; then
+
+cat > ~/.wakatime.cfg << EOF
+[settings]
+debug = false
+hidefilenames = false
+ignore =
+  COMMIT_EDITMSG$
+  PULLREQ_EDITMSG$
+  MERGE_MSG$
+  TAG_EDITMSG$
+api_key=$WAKATIME_API_KEY
+EOF
+
+fi
+
+pip2 install neovim
+pip3 install neovim
+
 vim +PlugUpgrade +PlugInstall +qall
-pip install neovim
 
 cd ~/.local/share/nvim/plugged/tern_for_vim
   npm i
