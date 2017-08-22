@@ -38,6 +38,9 @@ defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 # Use a dark menu bar / dock
 defaults write -g AppleInterfaceStyle -string "Dark"
 
+# Disable system sounds
+defaults write -g com.apple.sound.uiaudio.enabled -bool false
+
 # Don't show Siri in the menu bar
 defaults write com.apple.Siri StatusMenuVisible -bool false
 
@@ -362,6 +365,13 @@ defaults write com.generalarcade.flycut loadOnStartup -bool true
 
 # Twitter
 defaults write com.twitter.twitter-mac TMSelectedThemeIdentifier -string "com.twitter.twitter.themeIdentifiers.darkTheme"
+
+# Spotify - thinks it's super important and should always be started on login. Fuck that.
+mkdir -p ~/Library/Application\ Support/Spotify
+touch ~/Library/Application\ Support/Spotify/prefs
+echo 'app.autostart-mode="off"' >> ~/Library/Application\ Support/Spotify/prefs
+echo 'app.autostart-banner-seen=true' >> ~/Library/Application\ Support/Spotify/prefs
+
 
 ###############################################################################
 # Hostname & User picture                                                     #
