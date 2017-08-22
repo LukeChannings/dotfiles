@@ -55,15 +55,15 @@ fi
 if [[ -f "$ICLOUD_DRIVE/.secrets" ]]; then
   source "$ICLOUD_DRIVE/.secrets"
   SECRETS_LOADED=1
-  echo "Loaded secrets file from ICLOUD_DRIVE/.secrets."
+  echo "Loaded secrets file from $ICLOUD_DRIVE/.secrets."
 else
   echo "No secrets file has been loaded. Some things might break."
 fi
 
 # iCloud Drive links
-if [[ ! -e ~/.ssh ]]; then
+if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
   if [[ -e $ICLOUD_DRIVE/ssh ]]; then
-    ln -s $ICLOUD_DRIVE/ssh ~/.ssh
+    ln -s "$ICLOUD_DRIVE/ssh" ~/.ssh
   fi
 
   chmod 700 ~/.ssh
@@ -76,7 +76,7 @@ if [[ -e ~/.config/.git/config ]] && [[ $(cat ~/.config/.git/config | grep githu
   git pull
   cd -
 else
-  echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
+  echo 'Linking config files for programs not using $XDG_CONFIG_HOME'
   if [[ -e ~/.config ]]; then
     echo "Found existing ~/.config, moving it to ~/.config.old"
     mv ~/.config ~/.config.old
