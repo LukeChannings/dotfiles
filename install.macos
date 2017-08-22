@@ -360,6 +360,9 @@ defaults write com.bohemiancoding.sketch3 SUSkippedVersion 44496
 defaults write com.generalarcade.flycut menuIcon 3
 defaults write com.generalarcade.flycut loadOnStartup -bool true
 
+# Twitter
+defaults write com.twitter.twitter-mac TMSelectedThemeIdentifier -string "com.twitter.twitter.themeIdentifiers.darkTheme"
+
 ###############################################################################
 # Hostname & User picture                                                     #
 ###############################################################################
@@ -441,7 +444,7 @@ fi
 # Need to restart for several changes to take effect. Trackpad settings in particular.
 echo "Doing a soft restart of affected apps. You should restart when everything is finished." 
 
-for app in "cfprefsd" "Finder" "Dock" "ControlStrip" "Safari" "TextEdit" "ActivityMonitor"; do
+for app in "SystemUIServer" "cfprefsd" "Finder" "Dock" "ControlStrip" "Safari" "TextEdit" "ActivityMonitor"; do
     killall $app
 done
 
