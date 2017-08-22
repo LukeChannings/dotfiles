@@ -372,6 +372,8 @@ touch ~/Library/Application\ Support/Spotify/prefs
 echo 'app.autostart-mode="off"' >> ~/Library/Application\ Support/Spotify/prefs
 echo 'app.autostart-banner-seen=true' >> ~/Library/Application\ Support/Spotify/prefs
 
+# VMware Fusion
+defaults write com.vmware.fusion showStartMenu3 -bool false
 
 ###############################################################################
 # Hostname & User picture                                                     #
