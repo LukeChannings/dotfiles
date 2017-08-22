@@ -30,6 +30,7 @@ trap 'exit 1' INT TERM
 
 if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
   echo "Installing Homebrew"
+  [[ $(command -v xcodebuild) ]] && sudo xcodebuild -license accept
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 elif [[ $(uname -a) == *Microsoft* ]]; then
   # WSL
