@@ -142,7 +142,7 @@ set foldlevel=2
 filetype indent on
 set shiftwidth=2
 set smartindent
-highlight ColorColumn ctermbg=red
+highlight ColorColumn ctermbg=black
 set colorcolumn=80
 
 set hidden
