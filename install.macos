@@ -183,8 +183,8 @@ defaults write com.apple.finder "NSToolbar Configuration Browser" '{
 # the Dock to launch apps.
 defaults write com.apple.dock persistent-apps -array
 
-# Set the icon size of Dock items to 48 pixels
-defaults write com.apple.dock tilesize -int 48
+# Set the icon size of Dock items to 32 pixels
+defaults write com.apple.dock tilesize -int 32
 
 # Speed up Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
