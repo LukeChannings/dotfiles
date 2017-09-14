@@ -1,36 +1,33 @@
- " Plugins
+" Plugins
 call plug#begin('~/.local/share/nvim/plugged')
-  Plug 'joshdick/onedark.vim'
-  Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', {
-    \ 'on':  'NERDTreeToggle' }
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'mattn/emmet-vim', { 'for': ['html'] }
-  Plug 'benekastah/neomake'
-  Plug 'tpope/vim-jdaddy'
-  Plug 'vim-airline/vim-airline'
-  Plug 'jaawerth/nrun.vim'
-  Plug 'tpope/vim-surround'
-  Plug 'ternjs/tern_for_vim', { 'for': ['javascript'] }
-  Plug 'plasticboy/vim-markdown'
-  Plug 'Valloric/YouCompleteMe'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'vim-scripts/BufOnly.vim'
-  Plug 'vim-scripts/scratch.vim'
-  Plug 'wellle/targets.vim'
-  Plug 'wakatime/vim-wakatime'
-  Plug 'embear/vim-localvimrc'
-  Plug 'eugen0329/vim-esearch'
-  Plug 'szw/vim-tags'
-  Plug 'mustache/vim-mustache-handlebars', { 'for': ['handlebars'] }
-  " post install (yarn install | npm install) then load plugin only for editing supported files
-  Plug 'prettier/vim-prettier', { 
-    \ 'do': 'yarn install', 
-    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] } 
+Plug 'joshdick/onedark.vim'
+Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', {
+      \ 'on':  'NERDTreeToggle' }
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdcommenter'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html'] }
+Plug 'benekastah/neomake'
+Plug 'tpope/vim-jdaddy'
+Plug 'vim-airline/vim-airline'
+Plug 'jaawerth/nrun.vim'
+Plug 'tpope/vim-surround'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript'] }
+Plug 'plasticboy/vim-markdown'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-unimpaired'
+Plug 'sheerun/vim-polyglot'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'vim-scripts/scratch.vim'
+Plug 'wellle/targets.vim'
+Plug 'wakatime/vim-wakatime'
+Plug 'embear/vim-localvimrc'
+Plug 'eugen0329/vim-esearch'
+Plug 'szw/vim-tags'
+Plug 'mustache/vim-mustache-handlebars', { 'for': ['handlebars'] }
+Plug 'sbdchd/neoformat'
 call plug#end()
 
 set shell=sh
@@ -64,12 +61,44 @@ let g:user_emmet_install_global = 0
 let g:user_emmet_mode='a'
 autocmd FileType html,*.handlebars EmmetInstall
 
-" Prettier
-let g:prettier#exec_cmd_async = 1
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
-let g:prettier#config#semi = 'false'
-let g:prettier#config#trailing_comma = 'none'
+" neoformat
+let g:neoformat_only_msg_on_error = 1
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
+
+let g:neoformat_enabled_python = ['autopep8']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_css = ['prettier']
+let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_enabled_scss = ['prettier']
+let g:neoformat_enabled_graphql = ['prettier']
+
+function! neoformat#formatters#javascript#prettier() abort
+  return {
+        \ 'exe': 'prettier',
+        \ 'args': ['--stdin', '--no-semi'],
+        \ 'stdin': 1,
+        \ }
+endfunction
+
+function! neoformat#formatters#typescript#prettier() abort
+  return {
+        \ 'exe': 'prettier',
+        \ 'args': ['--stdin', '--no-semi'],
+        \ 'stdin': 1,
+        \ }
+endfunction
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 " syntax highlighting
 set background=dark
@@ -122,7 +151,7 @@ nmap <leader>c :tabedit \| term fish<CR>
 nmap <leader>x :bd!<CR>
 nmap <leader>\| :vsp \| term fish<CR>
 nmap <leader>- :sp \| term fish<CR>
-nmap <leader>f :vimgrep 
+nmap <leader>f :vimgrep
 nmap <leader>q :q<CR>
 nmap <leader><ESC> :noh<CR>
 nmap <leader>t :Buffers<CR>
