@@ -205,9 +205,6 @@ defaults write com.apple.controlstrip '{ MiniCustomized = (
   "com.apple.system.screen-lock"
  ); }'
 
-# Set a nice default Wallpaper
-sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '~/Pictures/Photos Library.photoslibrary/resources/media/version/04/00/fullsizeoutput_4ad.jpeg'"
-
 ###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
