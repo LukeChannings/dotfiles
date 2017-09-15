@@ -8,6 +8,7 @@ if [[ -z "$(xcode-select -p)" ]]; then
 fi
 
 cd ~/.config/homebrew
+  mkdir -p /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask/Casks
   # Install custom casks
   cp -R ./cask/* /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask/Casks/
 
