@@ -37,7 +37,7 @@ defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 
 # Use a dark menu bar / dock
-defaults write -g AppleInterfaceStyle -string "Dark"
+defaults write -g AppleInterfaceStyle Dark
 
 # Disable system sounds
 defaults write -g com.apple.sound.uiaudio.enabled -bool false
