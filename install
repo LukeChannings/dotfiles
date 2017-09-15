@@ -103,6 +103,10 @@ ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
 ln -fs ~/.config/tmux/config ~/.tmux.conf
 
+# Install global node packages
+npm i -g http-server prettier
+
+# Set up Neovim
 if [[ $SECRETS_LOADED ]]; then
 
 cat > ~/.wakatime.cfg << EOF
