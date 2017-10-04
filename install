@@ -19,17 +19,20 @@ set -e -o pipefail -p
 sudo -v
 
 # sudo keep-alive
-while true; do
-  sudo -n true
-  sleep 60
-  kill -0 "$$" || exit
-done 2>/dev/null &
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # INT/TERM trap
 trap 'exit 1' INT TERM
 
 if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
   echo "Installing Homebrew"
+
+  # If we're using APFS, make a snapshot before doing anything.
+  if [[ ! -z "$(mount | grep '/ (apfs')" ]]; then
+    sudo tmutil enable
+    sudo tmutil localsnapshot
+  fi
+
   [[ $(command -v xcodebuild) ]] && sudo xcodebuild -license accept
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 elif [[ $(uname -a) == *Microsoft* ]]; then
