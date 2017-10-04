@@ -7,14 +7,8 @@ if [[ -z "$(xcode-select -p)" ]]; then
   exit 1
 fi
 
-cd ~/.config/homebrew
-  mkdir -p /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask/Casks
-  # Install custom casks
-  cp -R ./cask/* /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask/Casks/
-
-  # Install from Brewfile
-  brew bundle -v
-cd -
+# Install from Brewfile
+brew bundle -v
 
 # Install FZF bindings
 /usr/local/opt/fzf/install --all
