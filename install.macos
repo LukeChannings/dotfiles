@@ -373,6 +373,9 @@ echo 'app.autostart-banner-seen=true' >> ~/Library/Application\ Support/Spotify/
 # VMware Fusion
 defaults write com.vmware.fusion showStartMenu3 -bool false
 
+# iTerm
+defaults write com.googlecode.iterm2 SUEnableAutomaticChecks -bool true
+
 ###############################################################################
 # Hostname & User picture                                                     #
 ###############################################################################
