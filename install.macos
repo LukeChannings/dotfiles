@@ -370,6 +370,16 @@ defaults write com.vmware.fusion showStartMenu3 -bool false
 # iTerm
 defaults write com.googlecode.iterm2 SUEnableAutomaticChecks -bool true
 
+# Contexts
+defaults write com.contextsformac.Contexts CTAppearanceTheme CTAppearanceNamedVibrantDark
+defaults write com.contextsformac.Contexts CTPreferenceSidebarDisplayMode CTDisplayModeNone
+defaults write com.contextsformac.Contexts CTPreferenceSidebarSpacesOption CTSpacesOptionVisible
+defaults write com.contextsformac.Contexts CTUsageCount -int 2
+defaults write com.contextsformac.Contexts CTUsageCountSwitcherRecent -int 1
+defaults write com.contextsformac.Contexts CTUsageCountSwitcherSidebar -int 1
+defaults write com.contextsformac.Contexts CTUsageCountSwitcherSearch  -int 5
+defaults write com.contextsformac.Contexts CTWorkspaceShowApplicationsWithNoWindows -bool false
+
 ###############################################################################
 # Hostname & User picture                                                     #
 ###############################################################################
