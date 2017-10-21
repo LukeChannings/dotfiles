@@ -3,7 +3,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', {
       \ 'on':  'NERDTreeToggle' }
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
@@ -52,8 +53,7 @@ let g:enable_bold_font = 1
 let g:terminal_scrollback_buffer_size = 2147483647
 let g:javascript_enable_domhtmlcss = 1
 let g:vim_markdown_folding_disabled = 1
-let g:ackprg = 'ag --nogroup --nocolor --column'
-let $fzf_default_command = 'ag -l -g ""'
+let g:ackprg = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 
 " Emmet
