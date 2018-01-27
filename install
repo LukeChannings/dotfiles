@@ -110,22 +110,6 @@ ln -fs ~/.config/tmux/config ~/.tmux.conf
 npm i -g http-server prettier
 
 # Set up Neovim
-if [[ $SECRETS_LOADED ]]; then
-
-cat > ~/.wakatime.cfg << EOF
-[settings]
-debug = false
-hidefilenames = false
-ignore =
-  COMMIT_EDITMSG$
-  PULLREQ_EDITMSG$
-  MERGE_MSG$
-  TAG_EDITMSG$
-api_key=$WAKATIME_API_KEY
-EOF
-
-fi
-
 pip2 install neovim
 pip3 install neovim
 
