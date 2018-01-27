@@ -4,7 +4,7 @@ fundle plugin 'tuvistavie/oh-my-fish-core'
 fundle plugin 'tuvistavie/fish-completion-helpers'
 fundle plugin 'oh-my-fish/plugin-foreign-env'
 fundle plugin 'tuvistavie/fish-nvm'
-fundle plugin 'LukeChannings/theme-l'
+fundle plugin 'oh-my-fish/theme-l'
 fundle plugin 'brgmnn/fish-docker-compose'
 fundle init
 
