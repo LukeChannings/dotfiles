@@ -12,7 +12,7 @@ fundle init
 set -gx EDITOR vim
 set -gx VISUAL vim
 set -gx GIT_EDITOR vim
-set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!{.git,node_modules}/*"'
 set -gx fish_greeting
 set -gx LESSOPEN "| "(which highlight)" --out-format xterm256 -s Zenburn --quiet --force %s"
 set -gx LESS " -R -X -F "
