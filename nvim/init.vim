@@ -48,12 +48,13 @@ filetype plugin on
 let g:localvimrc_ask = 0
 let g:localvimrc_sandbox = 0
 let g:python_host_prog = '/usr/local/bin/python2'
+let g:python2_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:enable_bold_font = 1
 let g:terminal_scrollback_buffer_size = 2147483647
 let g:javascript_enable_domhtmlcss = 1
 let g:vim_markdown_folding_disabled = 1
-let g:ackprg = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+let g:ackprg = 'rg --files --hidden --follow --glob "!{.git,node_modules}/*"'
 
 
 " Emmet
@@ -82,7 +83,7 @@ let g:neoformat_enabled_graphql = ['prettier']
 function! neoformat#formatters#javascript#prettier() abort
   return {
         \ 'exe': 'prettier',
-        \ 'args': ['--stdin', '--no-semi'],
+        \ 'args': ['--stdin', '--no-semi', '--print-width 80'],
         \ 'stdin': 1,
         \ }
 endfunction
@@ -162,6 +163,10 @@ autocmd TermOpen * setl nolist
 
 com! FormatJSON %!python -m json.tool
 cnoremap w!! w !sudo tee > /dev/null %
+
+let g:neomake_python_enabled_makers = ['pylint']
+
+autocmd BufWritePost,BufWinEnter * Neomake
 
 set foldmethod=indent
 set foldnestmax=10
