@@ -6,6 +6,10 @@
 	<true/>
 	<key>AboutToPasteTabsWithCancel_selection</key>
 	<integer>0</integer>
+	<key>AllowClipboardAccess</key>
+	<true/>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -636,10 +640,12 @@
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1059 205 623 317 0 0 1920 1178 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>650 589 620 392 0 0 1920 1178 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>888 264 796 473 0 0 1920 1178 </string>
+	<string>-960 544 796 473 -2304 -45 2304 1274 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>163 258 870 866 0 0 1920 1178 </string>
+	<string>-916 201 870 866 -2304 -45 2304 1274 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>247 132 870 866 0 0 1920 1178 </string>
 	<key>New Bookmarks</key>
@@ -1356,13 +1362,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.23921568627450981</real>
+				<real>0.24313725490196078</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
 				<real>0.17647058823529413</real>
 				<key>Red Component</key>
-				<real>0.16078431372549021</real>
+				<real>0.16470588235294117</real>
 			</dict>
 			<key>Tags</key>
 			<array/>
@@ -2046,6 +2052,8 @@
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>529876922.39687002</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -2089,6 +2097,8 @@
 	<string>/Users/luke/.config/Terminal</string>
 	<key>PromptOnQuit</key>
 	<false/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -2098,9 +2108,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-10-16T23:10:31Z</date>
+	<date>2017-11-13T00:26:29Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>SUSkippedVersion</key>
+	<string>3.1.5</string>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>

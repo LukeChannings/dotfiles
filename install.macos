@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+if [[ "$1" == "pre" ]]; then
+  echo "Installing Homebrew"
+  # If we're using APFS, make a snapshot before doing anything.
+  if [[ ! -z "$(mount | grep '/ (apfs')" ]]; then
+    sudo tmutil enable
+    sudo tmutil localsnapshot
+  fi
+  [[ $(command -v xcodebuild) ]] && sudo xcodebuild -license accept
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  exit 0
+fi
+
 echo "Installing Homebrew packages"
 
 if [[ -z "$(xcode-select -p)" ]]; then
