@@ -184,3 +184,7 @@ set nocompatible
 if has("termguicolors")
   hi! Normal ctermbg=NONE guibg=NONE
 endif
+
+if has("gui_vimr")
+  set background = dark
+endif
