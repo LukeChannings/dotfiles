@@ -71,6 +71,7 @@ if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
 
   chmod 700 ~/.ssh
   chmod -R 600 ~/.ssh/*
+  touch ~/.ssh/authorized_keys
   chmod 644 ~/.ssh/authorized_keys
 fi
 
