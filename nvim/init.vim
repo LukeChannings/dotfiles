@@ -95,11 +95,6 @@ function! neoformat#formatters#typescript#prettier() abort
         \ }
 endfunction
 
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-
 " syntax highlighting
 set background=dark
 syntax on
@@ -159,6 +154,7 @@ inoremap <S-CR> <Esc>
 
 autocmd TermOpen * set bufhidden=hide
 autocmd TermOpen * setl nolist
+au TermOpen * setlocal nonumber norelativenumber
 
 com! FormatJSON %!python -m json.tool
 cnoremap w!! w !sudo tee > /dev/null %
