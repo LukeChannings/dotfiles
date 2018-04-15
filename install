@@ -121,6 +121,6 @@ cd ~/.local/share/nvim/plugged/tern_for_vim
 cd -
 
 cd ~/.local/share/nvim/plugged/YouCompleteMe
-  ./install.py --tern-completer
+  ./install.py --js-completer
 cd -
 
