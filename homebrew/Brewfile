@@ -1,4 +1,3 @@
-tap "lukechannings/casks"
 tap "homebrew/core"
 tap "homebrew/bundle"
 tap "caskroom/fonts"
@@ -7,30 +6,29 @@ tap "caskroom/cask"
 tap "neovim/neovim"
 cask "osxfuse"
 brew "aria2"
+brew "openssl"
+brew "python"
 brew "awscli"
 brew "cmake"
 brew "ctags"
 brew "editorconfig"
 brew "ext4fuse"
-brew "git"
 brew "ffmpeg"
 brew "fish"
 brew "fzf"
 brew "gist"
+brew "git"
 brew "gnu-sed", args: ["with-default-names"]
 brew "gnupg"
 brew "highlight"
 brew "jq"
-brew "openssl"
 brew "mas"
-brew "python3"
 brew "mitmproxy"
 brew "ncdu"
 brew "neovim"
 brew "nmap"
 brew "node"
 brew "pandoc"
-brew "python"
 brew "rclone"
 brew "reattach-to-user-namespace"
 brew "ripgrep"
@@ -40,13 +38,13 @@ brew "truncate"
 brew "watch"
 brew "yarn"
 brew "youtube-dl"
-cask "betterzipql"
+cask "alfred"
 cask "contexts"
 cask "duet"
 cask "firefox"
-cask "flycut"
 cask "google-chrome"
 cask "iina"
+cask "iterm2"
 cask "marked"
 cask "p4merge"
 cask "qlcolorcode"
@@ -58,12 +56,8 @@ cask "qlvideo"
 cask "quicklook-csv"
 cask "quicklook-json"
 cask "quicklookase"
-cask "selfcontrol"
-cask "skype"
-cask "slack"
 cask "spotify"
 cask "sublime-text"
-cask "suspicious-package"
 cask "webpquicklook"
 cask "webtorrent"
 cask "caskroom/fonts/font-fira-mono"
@@ -76,19 +70,16 @@ cask "caskroom/versions/google-chrome-canary"
 cask "caskroom/versions/safari-technology-preview"
 cask "caskroom/versions/transmit4"
 cask "caskroom/versions/vmware-fusion8"
-cask "lukechannings/casks/iterm2-3.1.1"
-cask "lukechannings/casks/sketch-43-1"
 mas "1Blocker", id: 1107421413
 mas "Airmail 3", id: 918858936
-mas "Blackmagic Disk Speed Test", id: 425264550
+mas "DaisyDisk", id: 411643860
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pixelmator", id: 407963104
-mas "SonicWall Mobile Connect", id: 822514576
 mas "Textual", id: 896450579
 mas "The Unarchiver", id: 425424353
-mas "Twitter", id: 409789998
+mas "Tweetbot", id: 557168941
 mas "Ulysses", id: 623795237
 mas "Xcode", id: 497799835
