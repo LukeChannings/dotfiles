@@ -56,8 +56,10 @@ cask "qlvideo"
 cask "quicklook-csv"
 cask "quicklook-json"
 cask "quicklookase"
+cask "sketch"
 cask "spotify"
 cask "sublime-text"
+cask "vimr"
 cask "webpquicklook"
 cask "webtorrent"
 cask "caskroom/fonts/font-fira-mono"
@@ -71,7 +73,6 @@ cask "caskroom/versions/safari-technology-preview"
 cask "caskroom/versions/transmit4"
 cask "caskroom/versions/vmware-fusion8"
 mas "1Blocker", id: 1107421413
-mas "Airmail 3", id: 918858936
 mas "DaisyDisk", id: 411643860
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
