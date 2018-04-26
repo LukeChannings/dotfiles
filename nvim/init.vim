@@ -182,5 +182,5 @@ if has("termguicolors")
 endif
 
 if has("gui_vimr")
-  set background = dark
+  set background=dark
 endif
