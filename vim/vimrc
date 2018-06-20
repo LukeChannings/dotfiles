@@ -1,0 +1,117 @@
+" Plugins
+call plug#begin('~/.local/share/vim/plugged')
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'wellle/targets.vim'
+  Plug 'joshdick/onedark.vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'eugen0329/vim-esearch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'w0rp/ale'
+  Plug 'itchyny/lightline.vim'
+  Plug 'airblade/vim-gitgutter'
+call plug#end()
+
+" Settings
+set shell=fish
+set number
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
+set list
+set relativenumber
+set wildignore+=node_modules/**,dist/**
+set splitright
+set splitbelow
+set autoread
+set colorcolumn=80
+set shiftwidth=2
+set smartindent
+set clipboard=unnamed " Use system clipboard
+set laststatus=2
+set noshowmode
+set updatetime=250
+set timeoutlen=1000
+set ttimeoutlen=0
+set backspace=indent,eol,start
+
+if has('mouse')
+  set mouse=a
+endif
+
+let g:netrw_liststyle = 3 " Tree view
+let g:netrw_sort_sequence = '[\/]$,*' " Show directories first
+let g:netrw_browse_split = 2 " Use the previous window for the new file
+let g:netrw_winsize = -28 " Absolute width of the netrw window
+let g:netrw_banner = 0 " Disable the banner
+let g:ackprg = 'rg --files --hidden --follow --glob "!{.git,node_modules}/*"' " Use RipGrep to search
+
+syntax on
+filetype plugin on
+filetype plugin indent on
+
+" Mappings
+let mapleader = "\<Space>"
+
+" Keys in all modes
+map <C-P> :FZF<CR>
+map <C-n> :Lexplore<CR>
+
+" Keys in normal mode
+nmap <leader>n :cnext<CR>
+nmap <leader>N :cprev<CR>
+nmap <leader>c :tabedit \| term ++curwin<CR>
+nmap <leader>x :bd!<CR>
+nmap <leader>q :q<CR>
+nmap <leader><ESC> :noh<CR>
+
+" Replace mappings for keys in normal mode
+nnoremap <C-T> :Buffers<CR>
+nnoremap <leader>\| :vsp \| term ++curwin<CR>
+nnoremap <leader>- :sp \| term ++curwin<CR>
+nnoremap <leader><CR> :call <End> <SID>SyntaxFold('zA')<CR>
+noremap \\ :call NERDComment(0,"toggle")<CR>
+
+" Reload open files when focused
+au FocusGained,BufEnter * :silent! !
+
+" Linting
+let g:ale_fixers = {
+      \   'javascript': ['eslint'],
+      \}
+
+let g:ale_sign_error = '😰'
+let g:ale_sign_warning = '😕'
+let g:ale_completion_enabled = 1
+let g:ale_set_highlights = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_fix_on_save = 1
+
+" Statusline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction"
+
+" Theming
+colorscheme onedark
+hi Normal guibg=NONE ctermbg=NONE
+hi Visual term=reverse cterm=reverse guibg=NONE ctermbg=NONE
+
