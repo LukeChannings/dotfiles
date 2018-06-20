@@ -1,5 +1,5 @@
 " Plugins
-call plug#begin('~/.local/share/vim/plugged')
+call plug#begin('~/.vim/plugged')
   Plug 'editorconfig/editorconfig-vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'wellle/targets.vim'
