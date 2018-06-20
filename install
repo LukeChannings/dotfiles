@@ -106,6 +106,7 @@ sudo chsh -s $(brew --prefix)/bin/fish $(whoami)
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
 ln -fs ~/.config/tmux/config ~/.tmux.conf
+ln -fs ~/.config/vim ~/.vim
 
 # Install global node packages
 npm i -g http-server prettier

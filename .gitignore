@@ -12,3 +12,4 @@ xbuild
 stetic
 NuGet
 htop
+*.swp

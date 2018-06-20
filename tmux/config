@@ -1,59 +1,46 @@
 # Enable 24 bit true colors
 set -ga terminal-overrides ',xterm-256color:Tc'
-# set-option -g status-utf8 on
 
-# default statusbar colors
-set-option -g status-bg default #base02
-set-option -g status-fg red #yellow
-set-option -g status-attr default
-
-set -g status-left '#(whoami): '
-  set -g status-right ''
-  setw -g automatic-rename
-
-
-  set-option -g prefix C-a
-  bind-key C-a last-window
+set -g status off
+set-option -g prefix C-a
+bind-key C-a last-window
 
 # Start numbering at 1
-  set -g base-index 1
+set -g base-index 1
 
 # Allows for faster key repetition
-  set -s escape-time 0
+set -s escape-time 0
 
-  setw -g aggressive-resize on
+setw -g aggressive-resize on
 
 # Allows us to use C-a a <command> to send commands to a TMUX session inside
 # another TMUX session
-  bind-key a send-prefix
+bind-key a send-prefix
 
 # Activity monitoring
-  setw -g monitor-activity on
-  set -g visual-activity on
+setw -g monitor-activity on
+set -g visual-activity on
 
 # hjkl pane traversal
-  bind h select-pane -L
-  bind j select-pane -D
-  bind k select-pane -U
-  bind l select-pane -R
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
 
 # mouse
-  set -g mouse on
+set -g mouse on
 
 # color
-  set -g default-terminal "screen-256color"
+set -g default-terminal "screen-256color"
 
-  bind-key          - split-window -c "#{pane_current_path}"
-  bind-key          | split-window -c "#{pane_current_path}" -h
+bind-key          - split-window -c "#{pane_current_path}"
+bind-key          | split-window -c "#{pane_current_path}" -h
 
-  bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
+bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
 
 # Use vim keybindings in copy mode
-  setw -g mode-keys vi
+setw -g mode-keys vi
 
-  set-window-option -g mode-keys vi
-  bind-key -T copy-mode-vi v send-keys -X begin-selection
-  bind-key -T copy-mode-vi y send-keys -X copy-selection
-
-  bind -T copy-mode-vi y send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-  set-option -g default-command "tmux rename-window (basename $SHELL); reattach-to-user-namespace -l $SHELL"
+set-window-option -g mode-keys vi
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection
