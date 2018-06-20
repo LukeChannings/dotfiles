@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'w0rp/ale'
   Plug 'itchyny/lightline.vim'
-  Plug 'airblade/vim-gitgutter'
+  "Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " Settings
@@ -71,9 +71,6 @@ nnoremap <leader>\| :vsp \| term ++curwin<CR>
 nnoremap <leader>- :sp \| term ++curwin<CR>
 nnoremap <leader><CR> :call <End> <SID>SyntaxFold('zA')<CR>
 noremap \\ :call NERDComment(0,"toggle")<CR>
-
-" Reload open files when focused
-au FocusGained,BufEnter * :silent! !
 
 " Linting
 let g:ale_fixers = {
