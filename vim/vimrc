@@ -41,7 +41,7 @@ endif
 
 let g:netrw_liststyle = 3 " Tree view
 let g:netrw_sort_sequence = '[\/]$,*' " Show directories first
-let g:netrw_browse_split = 2 " Use the previous window for the new file
+let g:netrw_browse_split = 4 " Use the previous window for the new file
 let g:netrw_winsize = -28 " Absolute width of the netrw window
 let g:netrw_banner = 0 " Disable the banner
 let g:ackprg = 'rg --files --hidden --follow --glob "!{.git,node_modules}/*"' " Use RipGrep to search
@@ -71,6 +71,8 @@ nnoremap <leader>\| :vsp \| term ++curwin<CR>
 nnoremap <leader>- :sp \| term ++curwin<CR>
 nnoremap <leader><CR> :call <End> <SID>SyntaxFold('zA')<CR>
 noremap \\ :call NERDComment(0,"toggle")<CR>
+
+nnoremap <C-]> :ALEGoToDefinition<CR>
 
 " Linting
 let g:ale_fixers = {
