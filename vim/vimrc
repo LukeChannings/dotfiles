@@ -16,6 +16,7 @@ call plug#end()
 
 " Settings
 set shell=fish
+set nocompatible
 set number
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
