@@ -1,5 +1,6 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
+  Plug 'tmux-plugins/vim-tmux-focus-events'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'wellle/targets.vim'
@@ -14,7 +15,7 @@ call plug#begin('~/.vim/plugged')
   "Plug 'airblade/vim-gitgutter'
 call plug#end()
 
-" Settings
+ "Settings
 set shell=fish
 set nocompatible
 set number
@@ -45,9 +46,10 @@ let g:netrw_sort_sequence = '[\/]$,*' " Show directories first
 let g:netrw_browse_split = 4 " Use the previous window for the new file
 let g:netrw_winsize = -28 " Absolute width of the netrw window
 let g:netrw_banner = 0 " Disable the banner
+
 let g:ackprg = 'rg --files --hidden --follow --glob "!{.git,node_modules}/*"' " Use RipGrep to search
 
-syntax on
+"syntax on
 filetype plugin on
 filetype plugin indent on
 
@@ -73,7 +75,9 @@ nnoremap <leader>- :sp \| term ++curwin<CR>
 nnoremap <leader><CR> :call <End> <SID>SyntaxFold('zA')<CR>
 noremap \\ :call NERDComment(0,"toggle")<CR>
 
-nnoremap <C-]> :ALEGoToDefinition<CR>
+autocmd CursorHold * if mode() != 'c' | checktime | endif
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " Linting
 let g:ale_fixers = {
@@ -84,8 +88,6 @@ let g:ale_sign_error = '😰'
 let g:ale_sign_warning = '😕'
 let g:ale_completion_enabled = 1
 let g:ale_set_highlights = 0
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
 let g:ale_fix_on_save = 1
 
 " Statusline
@@ -114,4 +116,3 @@ endfunction"
 colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
 hi Visual term=reverse cterm=reverse guibg=NONE ctermbg=NONE
-
