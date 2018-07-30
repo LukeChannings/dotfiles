@@ -36,6 +36,7 @@ set updatetime=250
 set timeoutlen=1000
 set ttimeoutlen=0
 set backspace=indent,eol,start
+set completeopt=menu,menuone,preview,noselect,noinsert
 
 if has('mouse')
   set mouse=a
@@ -87,7 +88,6 @@ let g:ale_fixers = {
 let g:ale_sign_error = '😰'
 let g:ale_sign_warning = '😕'
 let g:ale_completion_enabled = 1
-let g:ale_set_highlights = 0
 let g:ale_fix_on_save = 1
 
 " Statusline
@@ -116,3 +116,4 @@ endfunction"
 colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
 hi Visual term=reverse cterm=reverse guibg=NONE ctermbg=NONE
+
