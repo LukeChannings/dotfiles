@@ -83,6 +83,7 @@ autocmd FileChangedShellPost *
 " Linting
 let g:ale_fixers = {
       \   'javascript': ['eslint'],
+      \   'json': ['prettier'],
       \}
 
 let g:ale_sign_error = '😰'
