@@ -3,6 +3,7 @@ fishd.*
 fish/fundle
 fish/functions/fzf_key_bindings.fish
 fish/functions/fish_user_key_bindings.fish
+fish/fish_variables
 .DS_Store
 .netrwhist
 configstore
