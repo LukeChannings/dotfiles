@@ -37,6 +37,7 @@ set timeoutlen=1000
 set ttimeoutlen=0
 set backspace=indent,eol,start
 set completeopt=menu,menuone,preview,noselect,noinsert
+set diffopt+=iwhite
 
 if has('mouse')
   set mouse=a
