@@ -43,6 +43,9 @@ elif [[ $(uname -a) == *Microsoft* ]]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
   echo "export HOMEBREW_BUILD_FROM_SOURCE=1" >> ~/.bash_profile
   . ~/.bash_profile
+elif [[ $(uname -a) == *Linux* ]]; then
+  sudo apt update -y
+  sudo apt install -y git fish editorconfig vim nodejs
 fi
 
 export ICLOUD_DRIVE=$(
@@ -96,12 +99,11 @@ if [[ $(uname -s) == 'Linux' ]]; then
   ~/.config/install.linux
 fi
 
-ln -Fs /usr/local/bin/nvim /usr/local/bin/vim
 fish -c 'fundle install'
 
 # Set FISH as default shell
-echo "$(brew --prefix)/bin/fish" | sudo tee -a /etc/shells
-sudo chsh -s $(brew --prefix)/bin/fish $(whoami)
+echo "$(which fish)" | sudo tee -a /etc/shells
+sudo chsh -s $(which fish) $(whoami)
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
@@ -109,19 +111,6 @@ ln -fs ~/.config/tmux/config ~/.tmux.conf
 ln -fs ~/.config/vim ~/.vim
 
 # Install global node packages
-npm i -g http-server prettier
-
-# Set up Neovim
-pip2 install neovim
-pip3 install neovim
+sudo npm i -g http-server prettier
 
 vim +PlugUpgrade +PlugInstall +qall
-
-cd ~/.local/share/nvim/plugged/tern_for_vim
-  npm i
-cd -
-
-cd ~/.local/share/nvim/plugged/YouCompleteMe
-  ./install.py --js-completer
-cd -
-
