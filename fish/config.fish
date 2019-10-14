@@ -17,3 +17,9 @@ set -gx fish_greeting
 set -gx LESSOPEN "| "(which highlight)" --out-format xterm256 -s Zenburn --quiet --force %s"
 set -gx LESS " -R -X -F "
 
+alias git-branch-name="git rev-parse --abbrev-ref HEAD"
+
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+
+source ./iterm2_shell_integration.fish
+
