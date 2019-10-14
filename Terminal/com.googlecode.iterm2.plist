@@ -674,11 +674,11 @@
 	<key>NSWindow Frame Web Inspector 2</key>
 	<string>834 399 1000 650 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>405 32 870 887 0 0 1920 1177 </string>
+	<string>2523 410 870 903 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>227 888 870 903 0 0 3840 2137 </string>
+	<string>321 167 870 903 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 22 1920 1155 0 0 1920 1177 </string>
+	<string>951 327 1921 1324 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>2418 592 1140 1029 0 0 3840 2137 </string>
 	<key>New Bookmarks</key>
@@ -2827,7 +2827,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3840, 2160}}</string>
 		<key>topLeft</key>
-		<string>{755, 862}</string>
+		<string>{192, 1317}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -2836,7 +2836,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>2EB488F5-3CF3-46F3-816D-B2A2BA896FD3</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>23</integer>
+	<integer>25</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3714,6 +3714,10 @@
 	<real>554426352.11067498</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
+	<key>OpenArrangementAtStartup</key>
+	<false/>
+	<key>OpenNoWindowsAtStartup</key>
+	<true/>
 	<key>PerformDNSLookups</key>
 	<false/>
 	<key>PointerActions</key>
@@ -3762,7 +3766,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-10-09T14:39:31Z</date>
+	<date>2019-10-14T09:06:14Z</date>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -3776,7 +3780,9 @@
 	<key>StatusBarPosition</key>
 	<integer>1</integer>
 	<key>SwitchPaneModifier</key>
-	<integer>5</integer>
+	<integer>4</integer>
+	<key>SwitchTabModifier</key>
+	<integer>6</integer>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>TabStyleWithAutomaticOption</key>
