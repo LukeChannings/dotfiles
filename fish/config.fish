@@ -21,5 +21,5 @@ alias git-branch-name="git rev-parse --abbrev-ref HEAD"
 
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 
-source ./iterm2_shell_integration.fish
+source ~/.config/fish/iterm2_shell_integration.fish
 

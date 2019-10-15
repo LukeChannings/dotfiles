@@ -674,9 +674,9 @@
 	<key>NSWindow Frame Web Inspector 2</key>
 	<string>834 399 1000 650 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2523 410 870 903 0 0 3840 2137 </string>
+	<string>535 483 1920 1323 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>321 167 870 903 0 0 3840 2137 </string>
+	<string>1148 -968 1360 945 1148 -1024 1366 1001 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>951 327 1921 1324 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -2827,7 +2827,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3840, 2160}}</string>
 		<key>topLeft</key>
-		<string>{192, 1317}</string>
+		<string>{906, 1348}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -2836,7 +2836,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>2EB488F5-3CF3-46F3-816D-B2A2BA896FD3</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>25</integer>
+	<integer>26</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3716,8 +3716,10 @@
 	<false/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
+	<key>OpenBookmark</key>
+	<false/>
 	<key>OpenNoWindowsAtStartup</key>
-	<true/>
+	<false/>
 	<key>PerformDNSLookups</key>
 	<false/>
 	<key>PointerActions</key>
