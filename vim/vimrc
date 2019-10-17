@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'w0rp/ale'
   Plug 'itchyny/lightline.vim'
-  "Plug 'airblade/vim-gitgutter'
+  Plug 'airblade/vim-gitgutter'
 call plug#end()
 
  "Settings
@@ -41,6 +41,10 @@ set diffopt+=iwhite
 
 if has('mouse')
   set mouse=a
+endif
+
+if has('mouse_sgr')
+  set ttymouse=sgr
 endif
 
 let g:netrw_liststyle = 3 " Tree view
@@ -76,14 +80,19 @@ nnoremap <leader>\| :vsp \| term ++curwin<CR>
 nnoremap <leader>- :sp \| term ++curwin<CR>
 nnoremap <leader><CR> :call <End> <SID>SyntaxFold('zA')<CR>
 noremap \\ :call NERDComment(0,"toggle")<CR>
+noremap ; :Commands<CR>
+noremap <Enter> :ALEGoToDefinitionInVSplit<CR>
 
 autocmd CursorHold * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
+autocmd BufWritePost * GitGutter
+
 " Linting
 let g:ale_fixers = {
-      \   'javascript': ['eslint'],
+      \   'javascript': ['eslint', 'remove_trailing_lines'],
+      \   'typescript': ['tslint', 'remove_trailing_lines'],
       \   'json': ['prettier'],
       \}
 
@@ -91,6 +100,9 @@ let g:ale_sign_error = '😰'
 let g:ale_sign_warning = '😕'
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_completion_tsserver_autoimport = 1
+set omnifunc=ale#completion#OmniFunc
+
 
 " Statusline
 let g:lightline = {
