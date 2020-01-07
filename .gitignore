@@ -15,3 +15,8 @@ NuGet
 htop
 *.swp
 vim/plugged
+asciinema
+containers
+gatsby
+k3d
+wireshark
