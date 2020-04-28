@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-cat << "EOF"
- ___     ____                             _             _   
-|_ _|   |  _ \  ___ _ __ ___  _ __   ___ | |_ ___ _ __ | |_ 
- | |    | | | |/ _ \ '_ ` _ \| '_ \ / _ \| __/ _ \ '_ \| __|
- | | _  | |_| |  __/ | | | | | |_) | (_) | ||  __/ | | | |_ 
-|___( ) |____/ \___|_| |_| |_| .__/ \___/ \__\___|_| |_|\__|
-    |/                       |_|                            
-
-EOF
-
 set -e -o pipefail -p
+
+cat << "EOF"
+  ________  ________  ________   ________ ___  ________
+ |\   ____\|\   __  \|\   ___  \|\  _____\\  \|\   ____\
+ \ \  \___|\ \  \|\  \ \  \\ \  \ \  \__/\ \  \ \  \___|
+  \ \  \    \ \  \\\  \ \  \\ \  \ \   __\\ \  \ \  \  ___
+ __\ \  \____\ \  \\\  \ \  \\ \  \ \  \_| \ \  \ \  \|\  \
+|\__\ \_______\ \_______\ \__\\ \__\ \__\   \ \__\ \_______\
+\|__|\|_______|\|_______|\|__| \|__|\|__|    \|__|\|_______|
+EOF
 
 # Keep the computer awake for the duration of this script.
 [[ $(command -v caffeinate) ]] && caffeinate -dusw $$ &
@@ -28,43 +28,24 @@ if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
   echo "Installing Homebrew"
 
   # If we're using APFS, make a snapshot before doing anything.
-  if [[ ! -z "$(mount | grep '/ (apfs')" ]]; then
-    sudo tmutil enable
-    sudo tmutil localsnapshot
+  if mount | grep -q '/ (apfs'; then
+    sudo -n tmutil enable
+    sudo -n tmutil localsnapshot
   fi
 
-  [[ $(command -v xcodebuild) ]] && sudo xcodebuild -license accept
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-elif [[ $(uname -a) == *Microsoft* ]]; then
-  # WSL
-  sudo apt update -y
-  sudo apt upgrade -y
-  sudo apt-get install -y build-essential curl file git python-setuptools ruby
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
-  echo "export HOMEBREW_BUILD_FROM_SOURCE=1" >> ~/.bash_profile
-  . ~/.bash_profile
-elif [[ $(uname -a) == *Linux* ]]; then
-  sudo apt update -y
-  sudo apt install -y git fish editorconfig vim nodejs
+  [[ $(command -v xcodebuild) ]] && sudo -n xcodebuild -license accept
 fi
 
-export ICLOUD_DRIVE=$(
+if [[ $(uname -a) == *Darwin* || $(uname -a) == *Linux* ]] && [[ ! $(command -v brew) ]]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
+
+ICLOUD_DRIVE=$(
 if [[ -e "$HOME/Library/Mobile Documents/com~apple~CloudDocs" ]]; then
-  echo "$HOME/Library/Mobile Documents/com~apple~CloudDocs" # macOS
-elif [[ -e "$(pwd)/iCloudDrive" ]]; then
-  echo "$(pwd)/iCloudDrive" # Windows 10
-else
-  echo ""
+  echo "$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 fi
 )
-
-if [[ -f "$ICLOUD_DRIVE/.secrets" ]]; then
-  source "$ICLOUD_DRIVE/.secrets"
-  SECRETS_LOADED=1
-  echo "Loaded secrets file from $ICLOUD_DRIVE/.secrets."
-else
-  echo "No secrets file has been loaded. Some things might break."
-fi
+export ICLOUD_DRIVE
 
 # iCloud Drive links
 if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
@@ -78,12 +59,10 @@ if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
   chmod 644 ~/.ssh/authorized_keys
 fi
 
-if [[ -e ~/.config/.git/config ]] && [[ $(cat ~/.config/.git/config | grep github.com:LukeChannings/.config) ]]; then
-  cd ~/.config
-  git pull
-  cd -
+if [[ -e ~/.config/.git/config ]] && grep -qe 'LukeChannings/.config' < ~/.config/.git/config; then
+  (cd ~/.config; git pull origin "$(git rev-parse --abbrev-ref HEAD)")
 else
-  echo 'Linking config files for programs not using $XDG_CONFIG_HOME'
+  echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
   if [[ -e ~/.config ]]; then
     echo "Found existing ~/.config, moving it to ~/.config.old"
     mv ~/.config ~/.config.old
@@ -99,11 +78,14 @@ if [[ $(uname -s) == 'Linux' ]]; then
   ~/.config/install.linux
 fi
 
+# shellcheck source=/dev/null
+source ~/.bashrc
+
 fish -c 'fundle install'
 
 # Set FISH as default shell
-echo "$(which fish)" | sudo tee -a /etc/shells
-sudo chsh -s $(which fish) $(whoami)
+command -v fish | sudo -n tee -a /etc/shells
+sudo -n chsh -s "$(command -v fish)" "$(whoami)"
 
 ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
@@ -111,6 +93,6 @@ ln -fs ~/.config/tmux/config ~/.tmux.conf
 ln -fs ~/.config/vim ~/.vim
 
 # Install global node packages
-sudo npm i -g http-server prettier
+npm i -g http-server prettier
 
 vim +PlugUpgrade +PlugInstall +qall
