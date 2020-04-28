@@ -1,16 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ "$1" == "pre" ]]; then
-  echo "Installing Homebrew"
-  # If we're using APFS, make a snapshot before doing anything.
-  if [[ ! -z "$(mount | grep '/ (apfs')" ]]; then
-    sudo tmutil enable
-    sudo tmutil localsnapshot
-  fi
-  [[ $(command -v xcodebuild) ]] && sudo xcodebuild -license accept
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  exit 0
-fi
+set -e -o pipefail -p
 
 echo "Installing Homebrew packages"
 
@@ -285,7 +275,7 @@ defaults write com.apple.safari "NSToolbar Configuration BrowserToolbarIdentifie
 
 # Set the custom stylesheet
 defaults write com.apple.safari UserStyleSheetEnabled -bool true
-defaults write com.apple.safari UserStyleSheetLocationURLString -string "~/.config/safari/stylesheet.css"
+defaults write com.apple.safari UserStyleSheetLocationURLString -string "$HOME/.config/safari/stylesheet.css"
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -394,9 +384,9 @@ defaults write com.contextsformac.Contexts CTWorkspaceShowApplicationsWithNoWind
 # Hostname & User picture                                                     #
 ###############################################################################
 
-read -p "Change hostname for this computer (Enter to skip): " hostname
+read -rp "Change hostname for this computer (Enter to skip): " hostname
 
-if [[ ! -z "$hostname" ]]; then
+if [[ -n "$hostname" ]]; then
   sudo scutil --set ComputerName "$hostname" && \
   sudo scutil --set HostName "$hostname" && \
   sudo scutil --set LocalHostName "$hostname" && \
@@ -405,12 +395,12 @@ fi
 
 # Get user picture from Gravatar and set it as the account picture
 {
-  IFS=' ' read -r -a RECORD_NAME <<< $(dscl . read $HOME RecordName)
+  IFS=' ' read -r -a RECORD_NAME <<< "$(dscl . read ~ RecordName)"
   EMAIL="${RECORD_NAME[2]}"
-  curl -o ~/.gravatar.jpg http://www.gravatar.com/avatar/$(md5 -q -s $EMAIL).jpg?s=600
-  dscl . -delete $HOME Picture
-  dscl . -delete $HOME JPEGPhoto
-  sudo dscl . -create $HOME Picture ~/.gravatar.jpg
+  curl -o ~/.gravatar.jpg "http://www.gravatar.com/avatar/$(md5 -q -s "$EMAIL").jpg?s=600"
+  dscl . -delete ~ Picture
+  dscl . -delete ~ JPEGPhoto
+  sudo dscl . -create ~ Picture ~/.gravatar.jpg
 }
 
 # Enable Night Shift
@@ -435,7 +425,7 @@ ENABLE='{
 }'
 
 sudo defaults write $CORE_BRIGHTNESS "CBUser-0" "$ENABLE"
-sudo defaults write $CORE_BRIGHTNESS "CBUser-$(dscl . -read $HOME GeneratedUID | sed 's/GeneratedUID: //')" "$ENABLE"
+sudo defaults write $CORE_BRIGHTNESS "CBUser-$(dscl . -read ~ GeneratedUID | sed 's/GeneratedUID: //')" "$ENABLE"
 
 # DOES NOT WORK. LEAVING IN FOR TESTING.
 # Remap caps lock to escape key on the built-in keyboard
@@ -456,12 +446,12 @@ sudo defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handl
 ###############################################################################
 
 if [[ -e "$ICLOUD_DRIVE/licenses" ]]; then
-  
+
   # Install Sublime Text 3 license.
   mkdir -p /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local
-  cp $ICLOUD_DRIVE/licenses/License.sublime_license /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local/
+  cp "$ICLOUD_DRIVE/licenses/License.sublime_license" "/Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local/"
 
-  cp $ICLOUD_DRIVE/licenses/Sketch.license /Users/luke/Library/Application Support/com.bohemiancoding.sketch3/.license
+  cp "$ICLOUD_DRIVE/licenses/Sketch.license" "/Users/luke/Library/Application Support/com.bohemiancoding.sketch3/.license"
 fi
 
 ###############################################################################
@@ -469,7 +459,7 @@ fi
 ###############################################################################
 
 # Need to restart for several changes to take effect. Trackpad settings in particular.
-echo "Doing a soft restart of affected apps. You should restart when everything is finished." 
+echo "Doing a soft restart of affected apps. You should restart when everything is finished."
 
 for app in "SystemUIServer" "cfprefsd" "Finder" "Dock" "ControlStrip" "Safari" "TextEdit" "ActivityMonitor"; do
     killall $app

@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+set -e -o pipefail -px
+
+# shellcheck disable=SC2016
+echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' > ~/.bashrc
+
+# shellcheck source=/dev/null
+source ~/.bashrc
+
+brew update
+
+brew analytics off
+
+HOMEBREW_BUNDLE_CASK_SKIP=1 HOMEBREW_BUNDLE_MAS_SKIP=1 brew bundle -v --file=~/.config/homebrew/Brewfile || true
+
 git config --global credential.helper store
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+
+~/.fzf/install --all
 
 exit 0

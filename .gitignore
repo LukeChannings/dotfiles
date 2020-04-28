@@ -20,3 +20,5 @@ containers
 gatsby
 k3d
 wireshark
+.DS_Store
+oni2/extensions
