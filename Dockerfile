@@ -13,15 +13,15 @@ RUN apt-get install -y locales
 RUN sed -i 's/%admin ALL=(ALL) ALL/%admin ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 
-RUN export LANG=en_GB.UTF-8
-RUN export LC_ALL=en_GB
+RUN sudo locale-gen en_US
+RUN sudo locale-gen en_US.UTF-8
 RUN sudo locale-gen en_GB
 RUN sudo locale-gen en_GB.UTF-8
 RUN sudo update-locale LANG=en_GB
 
 RUN groupadd admin
 
-RUN useradd -G admin -m -p '$6$WRefMr4fwYjaUdKZ$2TMkPsPTbJY4FVGnkNup7BdXVR2rK7cTWWhcA/X14UviQsObXI7q0YuWQQ4rxUCmvCAq2sowW/eXJ7/Vl2aeY/' luke
+RUN useradd -G admin -m -p '' luke
 
 USER luke
 
@@ -39,4 +39,4 @@ RUN ./install
 
 WORKDIR /home/luke
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT [ "/home/linuxbrew/.linuxbrew/bin/fish" ]

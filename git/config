@@ -3,7 +3,7 @@
   email = luke@channings.me
 
 [core]
-  editor = nvim
+  editor = vim
   autoclrf = input
   ignorecase = false
 
