@@ -63,7 +63,7 @@ if [[ -e ~/.config/.git/config ]] && grep -qe 'LukeChannings/.config' < ~/.confi
   (cd ~/.config; git pull origin "$(git rev-parse --abbrev-ref HEAD)")
 else
   echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
-  if [[ -e ~/.config ]]; then
+  if [[ -e ~/.config && -n "$PRESERVE_CONFIG" ]]; then
     echo "Found existing ~/.config, moving it to ~/.config.old"
     mv ~/.config ~/.config.old
   fi
@@ -95,4 +95,4 @@ ln -fs ~/.config/vim ~/.vim
 # Install global node packages
 npm i -g http-server prettier
 
-vim +PlugUpgrade +PlugInstall +qall
+vim --not-a-term +PlugUpgrade +PlugInstall +qall

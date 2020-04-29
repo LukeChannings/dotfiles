@@ -1,3 +1,6 @@
+scriptencoding utf-8
+set encoding=utf-8
+
 " Plugins
 call plug#begin('~/.vim/plugged')
   Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -130,4 +133,3 @@ endfunction"
 colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
 hi Visual term=reverse cterm=reverse guibg=NONE ctermbg=NONE
-

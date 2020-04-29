@@ -23,10 +23,8 @@ export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 
 source ~/.config/fish/iterm2_shell_integration.fish
 
-export HOMEBREW_ONIVIM_SERIAL="98992B1A-6A5D-4D61-BB97-B018479C66DF"
-
 alias k8s-show-ns="kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
 
 alias k="kubectl"
 
-set -gx PATH $PATH /usr/local/bin $HOME/.krew/bin
+set -gx PATH /usr/local/bin $HOME/.krew/bin $PATH /home/linuxbrew/.linuxbrew/bin
