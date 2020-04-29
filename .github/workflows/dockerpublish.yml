@@ -27,7 +27,8 @@ jobs:
 
       - name: Run tests
         run: |
-          apt-get install -y shellcheck
+          sudo apt-get update -y
+          sudo apt-get install -y shellcheck
           shellcheck -s bash ./install*
 
   # Push image to GitHub Packages.
