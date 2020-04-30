@@ -14,6 +14,10 @@ Contains all of my dotfiles, which live in my [$XDG_CONFIG_HOME](https://specifi
 
     curl https://raw.githubusercontent.com/LukeChannings/.config/master/install | bash
 
+Or in a container:
+
+   `docker run -it lukechannings/terminal`
+
 ## Goals
 
 - Quickly set up a new machine with all my software and preferences
