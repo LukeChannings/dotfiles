@@ -58,7 +58,7 @@ let g:netrw_banner = 0 " Disable the banner
 
 let g:ackprg = 'rg --files --hidden --follow --glob "!{.git,node_modules}/*"' " Use RipGrep to search
 
-silent! syntax on
+silent! syntax enable
 filetype plugin on
 filetype plugin indent on
 
