@@ -1,3 +1,9 @@
 {
-	"experimental.editor.smoothScroll": true
+  "workbench.colorTheme": "Community Material Theme Darker",
+  "experimental.editor.smoothScroll": true,
+  "editor.fontFamily": "Iosevka Term SS08",
+  "editor.fontSize": 15,
+  "editor.rulers": [ 100 ],
+  "editor.lineNumbers": "relative",
+  "ui.shadows": false
 }
