@@ -1,6 +1,9 @@
+[init]
+  defaultBranch = main
+
 [user]
   name = Luke Channings
-  email = luke@channings.me
+	email = luke@channings.me
 
 [core]
   editor = vim
