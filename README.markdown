@@ -1,4 +1,4 @@
-# ~/.config
+# Luke's .config
 
       ________  ________  ________   ________ ___  ________
     |\   ____\|\   __  \|\   ___  \|\  _____\\  \|\   ____\
@@ -13,6 +13,10 @@ Contains all of my dotfiles, which live in my [$XDG_CONFIG_HOME](https://specifi
 ## Usage
 
     curl https://raw.githubusercontent.com/LukeChannings/.config/master/install | bash
+
+Or in a container:
+
+   `docker run -it lukechannings/terminal`
 
 ## Goals
 
