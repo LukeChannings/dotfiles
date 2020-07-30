@@ -27,7 +27,9 @@ jobs:
 
       - name: Run tests
         run: |
-          docker build . --file Dockerfile
+          sudo apt-get update -y
+          sudo apt-get install -y shellcheck
+          shellcheck -s bash ./install*
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
@@ -45,11 +47,11 @@ jobs:
         run: docker build . --file Dockerfile --tag image
 
       - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: docker login -u lukechannings -p "${{ secrets.DOCKER_HUB_AUTHTOKEN }}"
 
       - name: Push image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=lukechannings/$IMAGE_NAME
           
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
