@@ -27,7 +27,8 @@ osascript -e 'tell application "System Preferences" to quit'
 
 # Disable the new window animation - every new window grows
 # from a small one to a big one over a few hundred millisecs
-defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
+# Note: Disabled because it causes a bug in Safari's colour inputs
+# defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 
 # Expand save panel by default.
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
