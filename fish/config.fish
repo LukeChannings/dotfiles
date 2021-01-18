@@ -16,6 +16,7 @@ set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!{.git,node_mo
 set -gx fish_greeting
 set -gx LESSOPEN "| "(which highlight)" --out-format xterm256 -s Zenburn --quiet --force %s"
 set -gx LESS " -R -X -F "
+set -gx SSH_AUTH_SOCK "~/.ssh/agent"
 
 alias git-branch-name="git rev-parse --abbrev-ref HEAD"
 
@@ -27,6 +28,7 @@ alias k8s-show-ns="kubectl api-resources --verbs=list --namespaced -o name | xar
 
 alias k="kubectl"
 
-set -gx PATH /usr/local/bin $GOPATH/bin $HOME/.krew/bin $PATH /home/linuxbrew/.linuxbrew/bin
+set -gx PATH /usr/local/bin /usr/local/sbin $GOPATH/bin $HOME/.krew/bin $PATH /home/linuxbrew/.linuxbrew/bin $HOME/.cargo/bin
 
 alias hass="hass-cli -s https://home-assistant.private.channings.me --token $HASS_TOKEN"
+
