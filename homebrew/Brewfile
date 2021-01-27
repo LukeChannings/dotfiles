@@ -32,12 +32,15 @@ brew "ccrypt"
 brew "chart-testing"
 brew "coreutils"
 brew "ctags"
-brew "deno"
+brew "deno", link: false
+brew "pcre2"
 brew "editorconfig"
-brew "esptool"
+brew "esptool", link: false
 brew "exiftool"
 brew "fd"
 brew "fdupes"
+brew "libtool"
+brew "pkg-config"
 brew "ffmpeg"
 brew "fish"
 brew "fluxctl"
@@ -115,6 +118,7 @@ cask "docker"
 cask "firefox"
 cask "firefox-developer-edition"
 cask "font-fira-mono"
+cask "font-hack-nerd-font"
 cask "font-hasklig"
 cask "font-inconsolata"
 cask "font-monoid"
@@ -122,6 +126,7 @@ cask "font-roboto"
 cask "font-source-code-pro"
 cask "font-ubuntu"
 cask "font-victor-mono"
+cask "geekbench"
 cask "google-chrome"
 cask "handbrake"
 cask "iterm2"
@@ -140,13 +145,36 @@ cask "qlvideo"
 cask "quicklook-csv"
 cask "quicklook-json"
 cask "quicklookase"
+cask "rectangle"
 cask "safari-technology-preview"
 cask "sequel-pro"
 cask "sketch"
 cask "spotify"
 cask "steam"
 cask "sublime-text"
+cask "swish"
 cask "tunnelblick"
 cask "vscodium"
 cask "webtorrent"
 cask "wireshark"
+mas "1Blocker", id: 1107421413
+mas "DaisyDisk", id: 411643860
+mas "Discovery", id: 1381004916
+mas "Disk Speed Test", id: 425264550
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Messenger", id: 1480068668
+mas "MQTT Explorer", id: 1455214828
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Pixelmator", id: 407963104
+mas "Telegram", id: 747648890
+mas "Textual IRC Client", id: 896450579
+mas "The Unarchiver", id: 425424353
+mas "Trello", id: 1278508951
+mas "Tweetbot", id: 557168941
+mas "Ulysses", id: 623795237
+mas "WireGuard", id: 1451685025
+mas "XCFormat", id: 1165321484
+mas "Xcode", id: 497799835

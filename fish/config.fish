@@ -32,3 +32,4 @@ set -gx PATH /usr/local/bin /usr/local/sbin $GOPATH/bin $HOME/.krew/bin $PATH /h
 
 alias hass="hass-cli -s https://home-assistant.private.channings.me --token $HASS_TOKEN"
 
+alias ls=logo-ls

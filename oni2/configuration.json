@@ -1,7 +1,8 @@
 {
-  "workbench.colorTheme": "LaserWave Italic",
+  "workbench.colorTheme": "Default Dark+",
   "editor.detectIndentation": true,
   "editor.fontFamily": "Victor Mono",
+  "editor.fontWeight": "700",
   "editor.fontSize": 18,
   "editor.fontLigatures": "'ss01'",
   "editor.largeFileOptimizations": true,
