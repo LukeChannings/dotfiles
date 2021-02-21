@@ -28,7 +28,7 @@ alias k8s-show-ns="kubectl api-resources --verbs=list --namespaced -o name | xar
 
 alias k="kubectl"
 
-set -gx PATH /usr/local/bin /usr/local/sbin $GOPATH/bin $HOME/.krew/bin $PATH /home/linuxbrew/.linuxbrew/bin $HOME/.cargo/bin
+set -gx PATH /usr/local/bin /usr/local/sbin $GOPATH/bin $HOME/.krew/bin $PATH /home/linuxbrew/.linuxbrew/bin $HOME/.cargo/bin $HOME/.deno/bin
 
 alias hass="hass-cli -s https://home-assistant.private.channings.me --token $HASS_TOKEN"
 
