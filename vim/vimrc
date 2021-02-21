@@ -9,8 +9,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'wellle/targets.vim'
   Plug 'joshdick/onedark.vim'
   Plug 'scrooloose/nerdcommenter'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'eugen0329/vim-esearch'
   Plug 'tpope/vim-fugitive'
   Plug 'w0rp/ale'
@@ -76,6 +75,8 @@ nmap <leader>c :tabedit \| term ++curwin<CR>
 nmap <leader>x :bd!<CR>
 nmap <leader>q :q<CR>
 nmap <leader><ESC> :noh<CR>
+nmap gd :ALEGoToDefinition<CR>
+nmap gN :ALERename<CR>
 
 " Replace mappings for keys in normal mode
 nnoremap <C-T> :Buffers<CR>
@@ -95,15 +96,20 @@ autocmd BufWritePost * GitGutter
 " Linting
 let g:ale_fixers = {
       \   'javascript': ['eslint', 'remove_trailing_lines'],
-      \   'typescript': ['tslint', 'remove_trailing_lines'],
       \   'json': ['prettier'],
       \}
+
+let g:ale_linters = {
+    \ 'javascript': ['eslint'],
+    \ 'typescript': ['eslint', 'tsserver'],
+    \ 'typescriptreact': ['eslint', 'tsserver'],
+    \}
 
 let g:ale_sign_error = '😰'
 let g:ale_sign_warning = '😕'
 let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
 let g:ale_fix_on_save = 1
-let g:ale_completion_tsserver_autoimport = 1
 set omnifunc=ale#completion#OmniFunc
 
 
