@@ -445,20 +445,6 @@ sudo defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handl
   HIDKeyboardModifierMappingSrc = 30064771129;
 }'
 
-
-###############################################################################
-# LICENSES                                                                    #
-###############################################################################
-
-if [[ -e "$ICLOUD_DRIVE/licenses" ]]; then
-
-  # Install Sublime Text 3 license.
-  mkdir -p /Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local
-  cp "$ICLOUD_DRIVE/licenses/License.sublime_license" "/Users/luke/Library/Application\ Support/Sublime\ Text\ 3/Local/"
-
-  cp "$ICLOUD_DRIVE/licenses/Sketch.license" "/Users/luke/Library/Application Support/com.bohemiancoding.sketch3/.license"
-fi
-
 ###############################################################################
 # DONE                                                                        #
 ###############################################################################
