@@ -1,14 +1,7 @@
 FROM ubuntu:focal
 
 RUN apt-get update -y
-RUN apt-get install -y build-essential
-RUN apt-get install -y curl
-RUN apt-get install -y sudo
-RUN apt-get install -y shellcheck
-RUN apt-get install -y ruby
-RUN apt-get install -y git
-RUN apt-get install -y openssh-client
-RUN apt-get install -y locales
+RUN apt-get install -y build-essential curl file git locales sudo shellcheck
 
 RUN sed -i 's/%admin ALL=(ALL) ALL/%admin ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
@@ -36,6 +29,8 @@ RUN git remote add origin https://github.com/LukeChannings/.config.git
 RUN shellcheck -s bash ./install*
 
 RUN ./install
+
+RUN sudo apt-get remove -y shellcheck git build-essential
 
 WORKDIR /home/luke
 
