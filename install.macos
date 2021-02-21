@@ -14,7 +14,7 @@ if [[ -z "$(xcode-select -p)" ]]; then
 fi
 
 # Install from Brewfile
-brew bundle -v --file=~/.config/homebrew/Brewfile
+brew bundle -v --file=~/.config/homebrew/Brewfile || true
 
 # Install FZF bindings
 /usr/local/opt/fzf/install --all
