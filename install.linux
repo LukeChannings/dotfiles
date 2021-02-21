@@ -14,6 +14,8 @@ brew analytics off
 
 HOMEBREW_BUNDLE_CASK_SKIP=1 HOMEBREW_BUNDLE_MAS_SKIP=1 brew bundle -v --file=~/.config/homebrew/Brewfile || true
 
+brew cleanup
+
 bash "$(brew --prefix fzf)/install"  --all
 
 git config --global credential.helper store
