@@ -17,7 +17,7 @@ fi
 brew bundle -v --file=~/.config/homebrew/Brewfile || true
 
 # Install FZF bindings
-$(brew --prefix)/opt/fzf/install --all
+"$(brew --prefix)/opt/fzf/install" --all
 
 # Clean out unneeded default apps
 sudo rm -rf /Applications/Utilities/Java\ Preferences.app
