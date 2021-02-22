@@ -24,12 +24,9 @@ brew "deno"
 brew "editorconfig"
 brew "fish"
 brew "fzf"
-brew "git"
 brew "gnu-sed"
-brew "go"
 brew "gpatch"
 brew "grep"
-brew "groovy"
 brew "grpcurl"
 brew "helm"
 brew "highlight"
@@ -40,12 +37,8 @@ brew "jsonnet"
 brew "k9s"
 brew "kubernetes-cli"
 brew "kubeseal"
-brew "lighttpd"
-brew "mas"
-brew "mitmproxy"
 brew "ncdu"
 brew "node"
-brew "openapi-generator"
 brew "pkg-config"
 brew "ripgrep"
 brew "shellcheck"
@@ -61,27 +54,20 @@ cask "apparency"
 cask "balenaetcher"
 cask "brave-browser"
 cask "brave-browser-nightly"
-cask "chromium"
 cask "docker"
-cask "figma"
-cask "firefox"
 cask "firefox-developer-edition"
 cask "font-fira-mono"
-cask "font-hack-nerd-font"
 cask "font-hasklig"
 cask "font-inconsolata"
 cask "font-monoid"
 cask "font-roboto"
 cask "font-source-code-pro"
 cask "font-victor-mono"
-cask "geekbench"
 cask "iterm2"
 cask "marked"
 cask "monitorcontrol"
 cask "onivim2-nightly"
-cask "p4v"
 cask "plexamp"
-cask "podman"
 cask "qlcolorcode"
 cask "qlimagesize"
 cask "qlmarkdown"
@@ -90,16 +76,11 @@ cask "qlvideo"
 cask "quicklook-csv"
 cask "quicklook-json"
 cask "quicklookase"
-cask "sketch"
-cask "spotify"
 cask "steam"
-cask "sublime-text"
 cask "suspicious-package"
 cask "swish"
-cask "tunnelblick"
 cask "vscodium"
 cask "webtorrent"
-cask "wireshark"
 mas "1Blocker", id: 1107421413
 mas "DaisyDisk", id: 411643860
 mas "Discovery", id: 1381004916
@@ -111,13 +92,8 @@ mas "Messenger", id: 1480068668
 mas "MQTT Explorer", id: 1455214828
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Pixelmator", id: 407963104
 mas "Telegram", id: 747648890
 mas "Textual IRC Client", id: 896450579
 mas "The Unarchiver", id: 425424353
-mas "Trello", id: 1278508951
-mas "Tweetbot", id: 557168941
-mas "Ulysses", id: 623795237
 mas "WireGuard", id: 1451685025
-mas "XCFormat", id: 1165321484
 mas "Xcode", id: 497799835
