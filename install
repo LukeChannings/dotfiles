@@ -24,21 +24,23 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # INT/TERM trap
 trap 'exit 1' INT TERM
 
-if [[ $(uname -a) == *Darwin* ]] && [[ ! $(command -v brew) ]]; then
-  echo "Installing Homebrew"
+if [[ ! $(command -v brew) ]]; then
+  if [[ $(uname -s) == "Darwin" ]]; then
+    # If we're using APFS, make a snapshot before doing anything.
+    if mount | grep -q '/ (apfs'; then
+      sudo -n tmutil enable
+      sudo -n tmutil localsnapshot
+    fi
 
-  # If we're using APFS, make a snapshot before doing anything.
-  if mount | grep -q '/ (apfs'; then
-    sudo -n tmutil enable
-    sudo -n tmutil localsnapshot
+    [[ $(command -v xcodebuild) ]] && sudo -n xcodebuild -license accept
   fi
 
-  [[ $(command -v xcodebuild) ]] && sudo -n xcodebuild -license accept
+  if [[ $(uname -s) == "Darwin" ]] || [[ $(uname -s) == "Linux" && "$(uname -p)" != "aarch64" ]]; then
+    echo "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
 fi
 
-if [[ $(uname -a) == *Darwin* || $(uname -a) == *Linux* ]] && [[ ! $(command -v brew) ]]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi
 
 ICLOUD_DRIVE=$(
 if [[ -e "$HOME/Library/Mobile Documents/com~apple~CloudDocs" ]]; then
@@ -79,7 +81,12 @@ if [[ $(uname -s) == 'Linux' ]]; then
 fi
 
 # shellcheck source=/dev/null
-source ~/.bashrc
+. "$HOME/.profile"
+
+if [[ "$SHELL" == "bash" ]]; then
+  # shellcheck source=/dev/null
+  . "$HOME/.bashrc"
+fi
 
 fish -c 'fundle install'
 
@@ -91,8 +98,5 @@ ln -fs ~/.config/editorconfig ~/.editorconfig
 ln -fs ~/.config/tern/tern_config ~/.tern-config
 ln -fs ~/.config/tmux/config ~/.tmux.conf
 ln -fs ~/.config/vim ~/.vim
-
-# Install global node packages
-npm i -g http-server prettier
 
 vim --not-a-term +PlugUpgrade +PlugInstall +qall
