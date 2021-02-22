@@ -2,21 +2,25 @@
 
 set -e -o pipefail -px
 
-# shellcheck disable=SC2016
-echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' > ~/.bashrc
+if [[ "$(uname -p)" == "x86_64" ]]; then
+  # shellcheck disable=SC2016
+  echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"' > "$HOME/.profile"
 
-# shellcheck source=/dev/null
-source ~/.bashrc
+  # shellcheck source=/dev/null
+  . "$HOME/.profile"
 
-brew update
-
-brew analytics off
-
-HOMEBREW_BUNDLE_CASK_SKIP=1 HOMEBREW_BUNDLE_MAS_SKIP=1 brew bundle -v --file=~/.config/homebrew/Brewfile || true
-
-brew cleanup
-
-bash "$(brew --prefix fzf)/install"  --all
+  brew update
+  brew analytics off
+  HOMEBREW_BUNDLE_CASK_SKIP=1 HOMEBREW_BUNDLE_MAS_SKIP=1 brew bundle -v --file=~/.config/homebrew/Brewfile || true
+  brew cleanup
+  bash "$(brew --prefix fzf)/install"  --all
+  sudo ln -s /home/linuxbrew/.linuxbrew/bin/fish /usr/bin/fish
+elif [[ "$(uname -p)" == "aarch64" ]]; then
+  # Linuxbrew doesn't have binary packages for ARM64,
+  # and since we're building in emulation compiling
+  # the dependencies ourselves is a no-go.
+  DEBIAN_FRONTEND="noninteractive" sudo apt-get install -y git fish fzf vim nodejs npm
+fi
 
 git config --global credential.helper store
 
