@@ -11,20 +11,13 @@
   ignorecase = false
 
 [merge]
-  keepBackup = false
-  tool = p4merge
-
-[mergetool "p4merge"]
-  cmd = p4merge "\"$PWD/$BASE\"" "\"$PWD/$REMOTE\"" "\"$PWD/$LOCAL\"" "\"$PWD/$MERGED\""
-  keepTemporaries = false
-  trustExitCode = false
-  keepBackup = false
-
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
 [diff]
-  tool = vimdiff
-
-[difftool "p4merge"]
-  cmd = p4merge "\"$REMOTE\"" "\"$LOCAL\""
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
 
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
