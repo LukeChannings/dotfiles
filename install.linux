@@ -15,11 +15,55 @@ if [[ "$(uname -p)" == "x86_64" ]]; then
   brew cleanup
   bash "$(brew --prefix fzf)/install"  --all
   sudo ln -s /home/linuxbrew/.linuxbrew/bin/fish /usr/bin/fish
+
+  if [[ ! $(command -v deno) ]]; then
+    curl -OL https://github.com/denoland/deno/releases/download/v1.7.5/deno-x86_64-unknown-linux-gnu.zip
+    unzip deno-x86_64-unknown-linux-gnu.zip
+    mv deno /home/linuxbrew/.linuxbrew/bin/
+  fi
+
+  if [[ ! $(command -v logo-ls) ]]; then
+    https://github.com/Yash-Handa/logo-ls/releases/download/v1.3.7/logo-ls_Linux_x86_64.tar.gz
+    unzip logo-ls_Linux_x86_64.tar.gz
+    mv logo-ls /home/linuxbrew/.linuxbrew/bin/
+  fi
+
 elif [[ "$(uname -p)" == "aarch64" ]]; then
   # Linuxbrew doesn't have binary packages for ARM64,
   # and since we're building in emulation compiling
   # the dependencies ourselves is a no-go.
-  DEBIAN_FRONTEND="noninteractive" sudo apt-get install -y git fish fzf vim nodejs npm
+  DEBIAN_FRONTEND="noninteractive" sudo apt-get install -y \
+    curl \
+    inetutils-ping \
+    bind9-dnsutils \
+    editorconfig \
+    fish \
+    fzf \
+    highlight \
+    htop \
+    jq \
+    jsonnet \
+    ncdu \
+    nodejs \
+    npm \
+    ripgrep \
+    shellcheck \
+    socat \
+    tmux \
+    tree \
+    vim
+
+  if [[ ! $(command -v deno) ]]; then
+    curl -OL https://github.com/LukeChannings/docker-deno/releases/download/v1.7.5/deno-linux-arm64.zip
+    unzip deno-linux-arm64.zip
+    mv deno /usr/local/bin/
+  fi
+
+  if [[ ! $(command -v logo-ls) ]]; then
+    curl -OL https://github.com/Yash-Handa/logo-ls/releases/download/v1.3.7/logo-ls_Linux_arm64.tar.gz
+    unzip logo-ls_Linux_arm64.tar.gz
+    mv logo-ls /usr/local/bin/
+  fi
 fi
 
 git config --global credential.helper store
