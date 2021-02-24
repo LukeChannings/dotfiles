@@ -23,9 +23,9 @@ if [[ "$(uname -p)" == "x86_64" ]] && [[ "${CODESPACES}" != "true" ]]; then
   fi
 
   if [[ ! $(command -v logo-ls) ]]; then
-    https://github.com/Yash-Handa/logo-ls/releases/download/v1.3.7/logo-ls_Linux_x86_64.tar.gz
-    unzip logo-ls_Linux_x86_64.tar.gz
-    mv logo-ls /home/linuxbrew/.linuxbrew/bin/
+    curl -OL https://github.com/Yash-Handa/logo-ls/releases/download/v1.3.7/logo-ls_Linux_x86_64.zip
+    tar xf logo-ls_Linux_x86_64.tar.gz
+    mv logo-ls_Linux_x86_64/logo-ls /home/linuxbrew/.linuxbrew/bin/
   fi
 
 else
@@ -63,8 +63,8 @@ else
 
   if [[ ! $(command -v logo-ls) ]]; then
     curl -OL https://github.com/Yash-Handa/logo-ls/releases/download/v1.3.7/logo-ls_Linux_arm64.tar.gz
-    unzip logo-ls_Linux_arm64.tar.gz
-    sudo mv logo-ls /usr/local/bin/
+    tar xf logo-ls_Linux_arm64.tar.gz
+    sudo mv logo-ls_Linux_arm64/logo-ls /usr/local/bin/
   fi
 fi
 
