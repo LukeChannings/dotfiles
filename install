@@ -15,7 +15,7 @@ EOF
 if [[ "${CODESPACES}" == "true" ]]; then
   DOTCONFIG_PATH="$(dirname "$(realpath "$0")")"
   rm -rf ~/.config
-  mv "${DOTCONFIG_PATH}" ~/.config
+  ln -s "$HOME/.config" "${DOTCONFIG_PATH}"
 fi
 
 DOTCONFIG_PATH="$HOME/.config"
