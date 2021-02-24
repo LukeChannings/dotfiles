@@ -28,7 +28,7 @@ if [[ "$(uname -p)" == "x86_64" ]] && [[ "${CODESPACES}" != "true" ]]; then
     mv logo-ls /home/linuxbrew/.linuxbrew/bin/
   fi
 
-elif [[ "$(uname -p)" == "aarch64" ]]; then
+else
   # Linuxbrew doesn't have binary packages for ARM64,
   # and since we're building in emulation compiling
   # the dependencies ourselves is a no-go.
@@ -51,7 +51,8 @@ elif [[ "$(uname -p)" == "aarch64" ]]; then
     socat \
     tmux \
     tree \
-    vim
+    vim \
+    unzip
 
   if [[ ! $(command -v deno) ]]; then
     curl -OL https://github.com/LukeChannings/docker-deno/releases/download/v1.7.5/deno-linux-arm64.zip
