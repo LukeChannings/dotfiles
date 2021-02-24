@@ -2,7 +2,7 @@
 
 set -e -o pipefail -px
 
-if [[ "$(uname -p)" == "x86_64" ]]; then
+if [[ "$(uname -p)" == "x86_64" ]] && [[ "${CODESPACES}" != "true" ]]; then
   # shellcheck disable=SC2016
   echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"' > "$HOME/.profile"
 
