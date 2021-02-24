@@ -56,13 +56,13 @@ elif [[ "$(uname -p)" == "aarch64" ]]; then
   if [[ ! $(command -v deno) ]]; then
     curl -OL https://github.com/LukeChannings/docker-deno/releases/download/v1.7.5/deno-linux-arm64.zip
     unzip deno-linux-arm64.zip
-    mv deno /usr/local/bin/
+    sudo mv deno /usr/local/bin/
   fi
 
   if [[ ! $(command -v logo-ls) ]]; then
     curl -OL https://github.com/Yash-Handa/logo-ls/releases/download/v1.3.7/logo-ls_Linux_arm64.tar.gz
     unzip logo-ls_Linux_arm64.tar.gz
-    mv logo-ls /usr/local/bin/
+    sudo mv logo-ls /usr/local/bin/
   fi
 fi
 
