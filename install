@@ -2,9 +2,6 @@
 
 set -e -o pipefail -p
 
-env
-uname -a
-
 cat << "EOF"
   ________  ________  ________   ________ ___  ________
  |\   ____\|\   __  \|\   ___  \|\  _____\\  \|\   ____\
@@ -14,6 +11,14 @@ cat << "EOF"
 |\__\ \_______\ \_______\ \__\\ \__\ \__\   \ \__\ \_______\
 \|__|\|_______|\|_______|\|__| \|__|\|__|    \|__|\|_______|
 EOF
+
+if [[ "${CODESPACES}" == "true" ]]; then
+  DOTCONFIG_PATH="$(dirname "$(realpath "$0")")"
+  rm -rf ~/.config
+  ln -s "${DOTCONFIG_PATH}" "$HOME/.config"
+fi
+
+DOTCONFIG_PATH="$HOME/.config"
 
 # Keep the computer awake for the duration of this script.
 [[ $(command -v caffeinate) ]] && caffeinate -dusw $$ &
@@ -27,7 +32,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # INT/TERM trap
 trap 'exit 1' INT TERM
 
-if [[ ! $(command -v brew) ]]; then
+if [[ ! $(command -v brew) ]] && [[ "${CODESPACES}" != "true" ]]; then
   if [[ $(uname -s) == "Darwin" ]]; then
     # If we're using APFS, make a snapshot before doing anything.
     if mount | grep -q '/ (apfs'; then
@@ -64,23 +69,25 @@ if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
   chmod 644 ~/.ssh/authorized_keys
 fi
 
-if [[ -e ~/.config/.git/config ]] && grep -qe 'LukeChannings/.config' < ~/.config/.git/config; then
-  (cd ~/.config; git pull origin "$(git rev-parse --abbrev-ref HEAD)")
+if [[ -e "${DOTCONFIG_PATH}/.git/config" ]] && grep -qe 'LukeChannings/' < "${DOTCONFIG_PATH}/.git/config"; then
+  pushd "${DOTCONFIG_PATH}";
+  git pull origin "$(git rev-parse --abbrev-ref HEAD)"
+  popd
 else
   echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
-  if [[ -e ~/.config && -n "$PRESERVE_CONFIG" ]]; then
+  if [[ -e "${DOTCONFIG_PATH}" && -n "${PRESERVE_CONFIG}" ]]; then
     echo "Found existing ~/.config, moving it to ~/.config.old"
-    mv ~/.config ~/.config.old
+    mv "${DOTCONFIG_PATH}" "${DOTCONFIG_PATH}.old"
   fi
-  git clone git@github.com:LukeChannings/.config.git ~/.config
+  git clone git@github.com:LukeChannings/.config.git "${DOTCONFIG_PATH}"
 fi
 
 if [[ $(uname -s) == 'Darwin' ]]; then
-  ~/.config/install.macos
+  "${DOTCONFIG_PATH}/install.macos"
 fi
 
 if [[ $(uname -s) == 'Linux' ]]; then
-  ~/.config/install.linux
+  "${DOTCONFIG_PATH}/install.linux"
 fi
 
 # shellcheck source=/dev/null
@@ -97,9 +104,9 @@ fish -c 'fundle install'
 command -v fish | sudo -n tee -a /etc/shells
 sudo -n chsh -s "$(command -v fish)" "$(whoami)"
 
-ln -fs ~/.config/editorconfig ~/.editorconfig
-ln -fs ~/.config/tern/tern_config ~/.tern-config
-ln -fs ~/.config/tmux/config ~/.tmux.conf
-ln -fs ~/.config/vim ~/.vim
+ln -fs "${DOTCONFIG_PATH}/editorconfig" ~/.editorconfig
+ln -fs "${DOTCONFIG_PATH}/tern/tern_config" ~/.tern-config
+ln -fs "${DOTCONFIG_PATH}/tmux/config" ~/.tmux.conf
+ln -fs "${DOTCONFIG_PATH}/vim" ~/.vim
 
 vim --not-a-term +PlugUpgrade +PlugInstall +qall
