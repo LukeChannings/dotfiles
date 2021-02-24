@@ -69,7 +69,7 @@ if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
   chmod 644 ~/.ssh/authorized_keys
 fi
 
-if [[ -e "${DOTCONFIG_PATH}/.git/config" ]] && grep -qe 'url = https://github.com/LukeChannings/' < "${DOTCONFIG_PATH}/.git/config"; then
+if [[ -e "${DOTCONFIG_PATH}/.git/config" ]] && grep -qe 'LukeChannings/' < "${DOTCONFIG_PATH}/.git/config"; then
   (cd "${DOTCONFIG_PATH}"; git pull origin "$(git rev-parse --abbrev-ref HEAD)")
 else
   echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
