@@ -32,6 +32,7 @@ else
   # Linuxbrew doesn't have binary packages for ARM64,
   # and since we're building in emulation compiling
   # the dependencies ourselves is a no-go.
+  sudo apt-get update -y
   DEBIAN_FRONTEND="noninteractive" sudo apt-get install -y \
     curl \
     inetutils-ping \
