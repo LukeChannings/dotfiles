@@ -15,7 +15,7 @@ EOF
 if [[ "${CODESPACES}" == "true" ]]; then
   DOTCONFIG_PATH="$(dirname "$(realpath "$0")")"
   rm -rf ~/.config
-  ln -s "$HOME/.config" "${DOTCONFIG_PATH}"
+  ln -s "${DOTCONFIG_PATH}" "$HOME/.config"
 fi
 
 DOTCONFIG_PATH="$HOME/.config"
@@ -70,7 +70,9 @@ if [[ -e $ICLOUD_DRIVE ]] && [[ ! -e ~/.ssh ]]; then
 fi
 
 if [[ -e "${DOTCONFIG_PATH}/.git/config" ]] && grep -qe 'LukeChannings/' < "${DOTCONFIG_PATH}/.git/config"; then
-  (cd "${DOTCONFIG_PATH}"; git pull origin "$(git rev-parse --abbrev-ref HEAD)")
+  pushd "${DOTCONFIG_PATH}";
+  git pull origin "$(git rev-parse --abbrev-ref HEAD)"
+  popd
 else
   echo "Linking config files for programs not using \$XDG_CONFIG_HOME"
   if [[ -e "${DOTCONFIG_PATH}" && -n "${PRESERVE_CONFIG}" ]]; then
