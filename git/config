@@ -6,7 +6,8 @@
 
 [user]
   name = Luke Channings
-	email = luke@channings.me
+  email = luke@channings.me
+  signingKey= 177226CADB96E582
 
 [core]
   editor = vim
@@ -33,3 +34,5 @@
 	helper = store
 [diff "sopsdiffer"]
 	textconv = sops -d
+[commit]
+	gpgsign = true

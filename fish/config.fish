@@ -21,6 +21,7 @@ set -gx SSH_AUTH_SOCK "~/.ssh/agent"
 alias git-branch-name="git rev-parse --abbrev-ref HEAD"
 
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+export GPG_TTY=(tty)
 
 source ~/.config/fish/iterm2_shell_integration.fish
 
