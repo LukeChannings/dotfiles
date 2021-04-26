@@ -11,6 +11,21 @@ set -g base-index 1
 # Allows for faster key repetition
 set -s escape-time 0
 
+# increase scrollback buffer size
+set -g history-limit 50000
+
+# tmux messages are displayed for 4 seconds
+set -g display-time 4000
+
+# refresh 'status-left' and 'status-right' more often
+set -g status-interval 5
+
+# upgrade $TERM
+set -g default-terminal "screen-256color"
+
+# focus events enabled for terminals that support them
+set -g focus-events on
+
 # Allows us to use C-a a <command> to send commands to a TMUX session inside
 # another TMUX session
 bind-key a send-prefix
@@ -45,4 +60,3 @@ bind-key -T copy-mode-vi y send-keys -X copy-selection
 
 set-option -g set-titles on
 set-option -g set-titles-string '#T'
-
