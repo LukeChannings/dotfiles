@@ -1,9 +1,6 @@
 [init]
   defaultBranch = main
 
-[pull]
-  ff = only
-
 [user]
   name = Luke Channings
   email = luke@channings.me
