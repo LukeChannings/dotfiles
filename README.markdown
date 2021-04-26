@@ -22,4 +22,4 @@ Or in a container:
 
 - Quickly set up a new machine with all my software and preferences
 - Easy to maintain - I don't want an ansible configuration, just something simple and diffable
-- Works on macOS and Linux
+- Works on macOS, Linux, and WSL
