@@ -6,12 +6,8 @@ fundle plugin 'oh-my-fish/plugin-foreign-env'
 fundle plugin 'tuvistavie/fish-nvm'
 fundle plugin 'LukeChannings/theme-l'
 fundle plugin 'brgmnn/fish-docker-compose'
+fundle plugin 'jukben/fish-nx'
 fundle init
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
 
 # settings
 set -gx EDITOR vim
@@ -37,3 +33,6 @@ alias r="radian"
 
 fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
 
+alias hass="hass-cli -s https://home-assistant.private.channings.me --token $HASS_TOKEN"
+
+fish_vi_key_bindings
