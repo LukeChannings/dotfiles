@@ -8,6 +8,11 @@ fundle plugin 'LukeChannings/theme-l'
 fundle plugin 'brgmnn/fish-docker-compose'
 fundle init
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+
 # settings
 set -gx EDITOR vim
 set -gx VISUAL vim
@@ -28,9 +33,7 @@ source ~/.config/fish/iterm2_shell_integration.fish
 alias k8s-show-ns="kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
 
 alias k="kubectl"
+alias r="radian"
 
-set -gx PATH /usr/local/bin /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin /usr/local/sbin /opt/homebrew/bin /opt/homebrew/sbin $GOPATH/bin $HOME/.krew/bin $HOME/.cargo/bin $HOME/.deno/bin $PATH
+fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
 
-alias hass="hass-cli -s https://home-assistant.private.channings.me --token $HASS_TOKEN"
-
-fish_vi_key_bindings

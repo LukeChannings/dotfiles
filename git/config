@@ -33,3 +33,5 @@
 	textconv = sops -d
 [commit]
 	gpgsign = true
+[gpg]
+	program = /opt/homebrew/bin/gpg

@@ -43,9 +43,6 @@ bind l select-pane -R
 # mouse
 set -g mouse on
 
-# color
-set -g default-terminal "screen-256color"
-
 bind-key          - split-window -c "#{pane_current_path}"
 bind-key          | split-window -c "#{pane_current_path}" -h
 
@@ -60,3 +57,5 @@ bind-key -T copy-mode-vi y send-keys -X copy-selection
 
 set-option -g set-titles on
 set-option -g set-titles-string '#T'
+
+set -g default-command "$SHELL"
