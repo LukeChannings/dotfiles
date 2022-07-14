@@ -1,0 +1,7 @@
+{
+    "jobs_tab_visibility": "shown",
+    "initial_working_directory": "~",
+    "posix_terminal_shell": "custom",
+    "editor_theme": "Solarized Dark",
+    "custom_shell_command": "/opt/homebrew/bin/fish"
+}
