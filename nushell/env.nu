@@ -6,14 +6,25 @@ def create_left_prompt [] {
     let path_segment = if (is-admin) {
         $"(ansi red_bold)($short_pwd)"
     } else {
-        $"(ansi green_bold)($short_pwd)"
+        $"(ansi blue_bold)($short_pwd)"
     }
 
     $path_segment
 }
 
 def create_right_prompt [] {
-    ""
+  let git_status = (do -i { git status -s --ignore-submodules=dirty } | complete)
+  let is_git? = $git_status.exit_code == 0
+  let is_dirty? = ($git_status.stdout | str length) > 0
+
+  if ($is_git?) {
+    let git_branch = (git symbolic-ref HEAD | str replace 'refs/heads/' '' | str trim)
+    let git_branch_color = (if ($is_dirty?) { ansi red_bold } else { ansi green_bold })
+
+    $"($git_branch_color)($git_branch)(ansi reset)"
+  } else {
+    $""
+  }
 }
 
 # Use nushell functions to define your right and left prompt
