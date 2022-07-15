@@ -67,7 +67,7 @@ let-env NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
-let homebrew_dir = (if $nu.os-info.arch != "x86_64" { '/opt/homebrew/' } else { '/usr/local/' })
+let homebrew_dir = (if $nu.os-info.arch != "x86_64" { '/opt/homebrew' } else { '/usr/local' })
 
 let-env PATH = (
   $env.PATH
