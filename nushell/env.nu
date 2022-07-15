@@ -67,10 +67,12 @@ let-env NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
+let homebrew_dir = (if $nu.os-info.arch != "x86_64" { '/opt/homebrew/' } else { '/usr/local/' })
+
 let-env PATH = (
   $env.PATH
-  | prepend [/opt/homebrew/bin /opt/homebrew/sbin]
-  | append [/opt/homebrew/opt/fzf/bin /Users/luke/.cargo/bin]
+  | prepend [$"($homebrew_dir)/bin" $"($homebrew_dir)/sbin"]
+  | append [$"($homebrew_dir)/opt/fzf/bin" /Users/luke/.cargo/bin]
 )
 
 let-env EDITOR = "vim"
