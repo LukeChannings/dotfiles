@@ -21,18 +21,17 @@ set -gx SSH_AUTH_SOCK "~/.ssh/agent"
 
 alias git-branch-name="git rev-parse --abbrev-ref HEAD"
 
-export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 export GPG_TTY=(tty)
-
-source ~/.config/fish/iterm2_shell_integration.fish
 
 alias k8s-show-ns="kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
 
 alias k="kubectl"
 alias r="radian"
 
-fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
+fish_add_path /opt/homebrew/bin /opt/homebrew/sbin $HOME/.cargo/bin
 
 alias hass="hass-cli -s https://home-assistant.private.channings.me --token $HASS_TOKEN"
 
-fish_vi_key_bindings
+if test -f /opt/homebrew/Caskroom/miniforge/base/bin/conda
+    eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
+end
