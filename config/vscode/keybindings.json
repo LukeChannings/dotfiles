@@ -1,0 +1,16 @@
+[
+  {
+    "command": "editor.action.joinLines",
+    "key": "cmd+j"
+  },
+  {
+    "command": "editor.action.transformToLowercase",
+    "key": "cmd+k cmd+l",
+    "when": "editorTextFocus"
+  },
+  {
+    "command": "editor.action.transformToUppercase",
+    "key": "cmd+k cmd+u",
+    "when": "editorTextFocus"
+  }
+]

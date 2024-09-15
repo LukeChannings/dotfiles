@@ -1,0 +1,26 @@
+name: "Release"
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  binary-cache:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: "actions/checkout@v4"
+    - uses: "DeterminateSystems/nix-installer-action@main"
+    - uses: cachix/cachix-action@v14
+      with:
+        name: luke-channings
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build packages
+      run: |
+        nix run .#home-manager -- build --flake .#luke
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ./result/home-files/.config/**
