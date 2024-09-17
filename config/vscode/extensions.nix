@@ -8,6 +8,5 @@
   streetsidesoftware.code-spell-checker
   eamodio.gitlens
   tamasfe.even-better-toml
-  jnoortheen.nix-ide
 ])
 ++ [ extensions.vscode-marketplace."1password".op-vscode ]
