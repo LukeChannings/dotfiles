@@ -40,8 +40,6 @@ let
       system.stateVersion = nixDarwinStateVersion;
 
       nixpkgs.config.allowUnfree = true;
-
-      specialArgs = { inherit inputs; };
     };
   };
 
