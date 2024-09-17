@@ -24,22 +24,9 @@
     };
     keybindings = (lib.importJSON ./keybindings.json);
 
-    extensions =
-      let
-        extensions = inputs.vscode-extensions.extensions.${pkgs.system};
-      in
-      (with extensions.vscode-marketplace; [
-        zhuangtongfa.material-theme
-        mkhl.direnv
-        editorconfig.editorconfig
-        redhat.vscode-yaml
-        redhat.vscode-xml
-        streetsidesoftware.code-spell-checker
-        eamodio.gitlens
-        tamasfe.even-better-toml
-        jnoortheen.nix-ide
-      ])
-      ++ [ extensions.vscode-marketplace."1password".op-vscode ];
+    extensions = import ./extensions.nix {
+      extensions = inputs.vscode-extensions.extensions.${pkgs.system};
+    };
   };
 
   config.home.packages = [

@@ -45,6 +45,7 @@
     inputs@{
       self,
       flake-parts,
+      nixpkgs,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -64,6 +65,8 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
+
+      flake.vscode.systemExtensions = (nixpkgs.lib.importJSON ./.devcontainer.json).customizations.vscode.extensions;
 
       perSystem =
         {
