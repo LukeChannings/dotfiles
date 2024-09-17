@@ -48,7 +48,7 @@
   config = {
     programs._1password-shell-plugins = {
       enable = true;
-      plugins = with pkgs; [ gh ];
+      plugins = config.programs._1password.shellPluginPackages;
     };
 
     programs.ssh.extraConfig = lib.mkIf config.programs._1password.enableSshAgent "IdentityAgent \"${

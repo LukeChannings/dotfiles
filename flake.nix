@@ -84,7 +84,7 @@
           legacyPackages.homeConfigurations.luke = self.lib.mkHomeManagerConfiguration {
             inherit pkgs;
             disabledModules = [
-              "default-apps"
+              "default-packages"
               "chromium"
               "wezterm"
               "vscode"
