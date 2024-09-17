@@ -1,0 +1,6 @@
+.DS_Store
+.devenv
+.direnv
+.vscode
+.env
+result

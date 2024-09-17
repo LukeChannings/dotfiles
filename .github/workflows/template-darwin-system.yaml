@@ -1,0 +1,24 @@
+name: "Template test: darwin-system"
+on:
+  push:
+    paths:
+      - .github/workflows/template-darwin-system.yaml
+      - templates/darwin-system/*
+
+jobs:
+  binary-cache:
+    permissions:
+      contents: write
+    runs-on: macos-latest
+    steps:
+    - uses: "actions/checkout@v4"
+    - uses: "DeterminateSystems/nix-installer-action@main"
+    - uses: cachix/cachix-action@v14
+      with:
+        name: luke-channings
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build packages
+      run: |
+        export NIXPKGS_ALLOW_UNFREE=1
+        nix flake new -t .#darwin-system darwin-system
+        nix run --flake ./darwin-system#activate
