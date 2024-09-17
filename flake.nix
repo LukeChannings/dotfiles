@@ -66,7 +66,8 @@
         "aarch64-linux"
       ];
 
-      flake.vscode.systemExtensions = (nixpkgs.lib.importJSON ./.devcontainer.json).customizations.vscode.extensions;
+      flake.vscode.systemExtensions =
+        (nixpkgs.lib.importJSON ./.devcontainer.json).customizations.vscode.extensions;
 
       perSystem =
         {
@@ -85,7 +86,6 @@
             disabledModules = [
               "default-apps"
               "chromium"
-              "1password"
               "wezterm"
               "vscode"
               "fonts"
