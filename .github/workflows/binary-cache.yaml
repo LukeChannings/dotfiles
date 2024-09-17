@@ -22,4 +22,4 @@ jobs:
     - name: Build dev shell
       run: |
         export NIXPKGS_ALLOW_UNFREE=1
-        nix develop --impure --accept-flake-config --build
+        nix develop --impure --accept-flake-config --accept-flake-config --build

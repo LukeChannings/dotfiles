@@ -24,11 +24,11 @@
     "brew-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1726601601,
-        "narHash": "sha256-2u1aaIaSG+1c7E+FJqi5AdIWHB1vagFtEjl88mVYAL8=",
+        "lastModified": 1726608273,
+        "narHash": "sha256-lxFrkca8uon9MD7EifcL8Mou5pLy6chsJpVLaGx6XBU=",
         "owner": "BatteredBunny",
         "repo": "brew-api",
-        "rev": "135dd5ef7954c318900f9b687bff87dd83a0280e",
+        "rev": "5b8d6cb8fb48a9ed7b83b4b057f6f5cdfb51e106",
         "type": "github"
       },
       "original": {
@@ -1199,6 +1199,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwin": {
+      "locked": {
+        "lastModified": 1726447378,
+        "narHash": "sha256-2yV8nmYE1p9lfmLHhOCbYwQC/W8WYfGQABoGzJOb1JQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "086b448a5d54fd117f4dc2dee55c9f0ff461bdc1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-24.05-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1725233747,
@@ -1726,6 +1742,7 @@
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-darwin": "nixpkgs-darwin",
         "toolbox": "toolbox",
         "treefmt-nix": "treefmt-nix_2",
         "vscode-extensions": "vscode-extensions_2"
