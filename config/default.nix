@@ -21,13 +21,13 @@ let
     _setup = (
       { pkgs, ... }:
       {
+        nixpkgs.config.allowUnfree = true;
         home.stateVersion = stateVersion;
         nix.package = lib.mkForce pkgs.nixVersions.latest;
         xdg.enable = true;
       }
     );
-    default-apps = import ./apps.nix;
-    default-utilities = import ./utilities.nix;
+    default-packages = import ./default-packages.nix;
     nix-index-database = inputs.nix-index-database.hmModules.nix-index;
   };
 
@@ -100,7 +100,9 @@ let
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
+
       modules = [ config ] ++ (homeModulesWithDisabled disabledModules);
+
       extraSpecialArgs = {
         inherit pkgs inputs;
       };
