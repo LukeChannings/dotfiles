@@ -41,7 +41,19 @@
           nixVersions.latest
         ];
 
-        devcontainer.settings.customizations.vscode.extensions = [ "mkhl.direnv" ];
+        devcontainer.settings.customizations.vscode.extensions =
+          let
+            globalExtensions = (
+              import ./config/vscode/extensions.nix {
+                extensions = inputs.vscode-extensions.extensions.${system};
+              }
+            );
+            inherit (builtins) foldl' attrNames readDir;
+          in
+          foldl' (
+            acc: extension: acc ++ (attrNames (readDir "${extension}/share/vscode/extensions"))
+          ) [ ] globalExtensions;
+
         devcontainer.settings.updateContentCommand = "";
 
         vscode-workspace = {
