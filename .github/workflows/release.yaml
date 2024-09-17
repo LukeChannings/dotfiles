@@ -19,8 +19,9 @@ jobs:
     - name: Build packages
       run: |
         nix run --accept-flake-config .#home-manager -- build --flake .#luke
+        tar -chf home-files.tar.xz ./result/home-files
     - name: Release
       uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: ./result/home-files/.config/**
+        files: ./home-files.tar.xz
