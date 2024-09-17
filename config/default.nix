@@ -34,7 +34,7 @@ let
   darwinModules = (importAsAttrset (filesCalled "darwin.nix")) // {
     home-manager = inputs.home-manager.darwinModules.home-manager;
     brew-nix = inputs.brew-nix.darwinModules.default;
-    link-apps = inputs.toolbox.darwinModules.link-apps;
+    link-apps = inputs.toolbox.modules.darwin.link-apps;
 
     _setup = {
       system.stateVersion = nixDarwinStateVersion;
