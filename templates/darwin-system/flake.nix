@@ -46,9 +46,19 @@
 
               activate = pkgs.writeScriptBin "activate" ''
                 #!${pkgs.bash}/bin/bash
+                sudo rm -rf ~/.nix-defexpr
+                sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
+                export NIX_CONFIG="experimental-features = nix-command flakes"
                 ${darwin-rebuild}/bin/darwin-rebuild switch --flake ${self}#default
               '';
             };
         };
     };
+
+  nixConfig = {
+    extra-substituters = [ "https://luke-channings.cachix.org" ];
+    extra-trusted-public-keys = [
+      "luke-channings.cachix.org-1:ETsZ3R5ue9QOwO4spg8aGJMwMU6k5tQIaHWnTakGHjo="
+    ];
+  };
 }

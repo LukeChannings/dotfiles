@@ -12,14 +12,19 @@ in
     modules = [
       (dotfiles.lib.configureOsModules {
         osModules = attrValues dotfiles.modules.darwin;
-        homeModules = attrValues dotfiles.modules.homeModules;
+        homeModules = dotfiles.lib.homeModulesWithDisabled [ "default-apps" ];
       })
       (
         let
-          username = "luke";
+          username = "runner";
         in
-        { ... }:
+        { lib, ... }:
         {
+          # This can be removed for multi-user Nix installs
+          nix.gc.user = username;
+
+          nix.linux-builder.enable = lib.mkForce false;
+
           users = {
             knownUsers = [ username ];
 

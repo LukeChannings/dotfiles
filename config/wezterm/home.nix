@@ -9,7 +9,11 @@
     enable = true;
 
     extraConfig = builtins.replaceStrings [ "@multiplexingName@" ] [
-      (lib.toLower ("${osConfig.networking.hostName or "wezterm"}_${config.home.username}"))
+      (lib.toLower (
+        "${
+          (if osConfig.networking.hostName != null then osConfig.networking.hostName else "wezterm")
+        }_${config.home.username}"
+      ))
     ] (builtins.readFile ./config.lua);
   };
 }

@@ -39,4 +39,11 @@
         "aarch64-linux"
       ];
     };
+
+  nixConfig = {
+    extra-substituters = [ "https://luke-channings.cachix.org" ];
+    extra-trusted-public-keys = [
+      "luke-channings.cachix.org-1:ETsZ3R5ue9QOwO4spg8aGJMwMU6k5tQIaHWnTakGHjo="
+    ];
+  };
 }

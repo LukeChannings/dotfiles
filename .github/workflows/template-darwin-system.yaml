@@ -6,7 +6,7 @@ on:
       - templates/darwin-system/*
 
 jobs:
-  binary-cache:
+  template-test:
     permissions:
       contents: write
     runs-on: macos-latest
@@ -20,5 +20,5 @@ jobs:
     - name: Build packages
       run: |
         export NIXPKGS_ALLOW_UNFREE=1
-        nix flake new -t .#darwin-system darwin-system
-        nix run --flake ./darwin-system#activate
+        nix flake new --accept-flake-config -t .#darwin-system darwin-system
+        sudo nix run --accept-flake-config path:"$(pwd)/darwin-system"#activate --show-trace

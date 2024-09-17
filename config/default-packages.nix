@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 let
@@ -39,7 +40,7 @@ let
       ;
   };
 
-  allDefaultPackages = cliTools // (if pkgs.stdlib.isDarwin then macUtilities else { });
+  allDefaultPackages = cliTools // (if pkgs.stdenv.isDarwin then macUtilities else { });
 in
 {
   options.dotfiles = {
@@ -53,8 +54,6 @@ in
   };
 
   config = {
-    home.packages = (
-      with builtins; attrValues (removeAttrs allDefaultPackages config.dotfiles.disabledDefaultPackages)
-    );
+    home.packages = attrValues (removeAttrs allDefaultPackages config.dotfiles.disabledDefaultPackages);
   };
 }

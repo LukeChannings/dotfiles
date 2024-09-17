@@ -14,7 +14,10 @@
     "devenv",
     "mktemp",
     "diffable",
-    "lukechannings"
+    "lukechannings",
+    "channings",
+    "cachix",
+    "nixpkgs"
   ],
   "editor.fontFamily": "RecMonoLinear Nerd Font",
   "editor.fontLigatures": true,
