@@ -1,7 +1,10 @@
 name: "Binary Cache"
 on:
-  pull_request:
   push:
+    paths:
+      - config/*
+      - *.nix
+
 jobs:
   binary-cache:
     strategy:
