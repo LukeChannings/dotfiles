@@ -1,39 +1,20 @@
-[init]
-  defaultBranch = main
-
-[user]
-  name = Luke Channings
-  email = luke@channings.me
-  signingKey= 177226CADB96E582
-
-[core]
-  editor = vim
-  autoclrf = input
-  ignorecase = false
-
-[merge]
-    tool = vscode
-[mergetool "vscode"]
-    cmd = code --wait $MERGED
 [diff]
-    tool = vscode
-[difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+	external = "/nix/store/n9h2icj7566f8f1s68a3nhlnrvdn99f6-difftastic-0.60.0/bin/difft --color auto --background light --display side-by-side"
 
-[alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
-[credential]
-	helper = store
-[diff "sopsdiffer"]
-	textconv = sops -d
-[commit]
-	gpgsign = true
-[gpg]
-	program = /opt/homebrew/bin/gpg
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[init]
+	defaultBranch = "main"
+
 [pull]
 	rebase = true
+
+[push]
+	autosetupremote = true
+
+[rebase]
+	autostash = true
