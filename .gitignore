@@ -27,3 +27,6 @@ oni2/workspace
 iterm2
 raycast
 nushell/history.txt
+.devenv
+.direnv
+.vscode
