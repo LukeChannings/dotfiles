@@ -1,0 +1,26 @@
+[[language]]
+auto-format = true
+name = "nix"
+
+[language.formatter]
+command = "nixfmt"
+
+[[language]]
+auto-format = true
+name = "lua"
+
+[language.formatter]
+command = "stylua"
+
+[language-server]
+[language-server.lua-language-server]
+command = "lua-language-server"
+
+[language-server.nil]
+command = "nil"
+
+[language-server.nil.config.nix]
+maxMemoryMB = 2560
+[language-server.nil.config.nix.flake]
+autoArchive = false
+autoEvalInputs = true

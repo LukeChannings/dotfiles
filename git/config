@@ -1,5 +1,5 @@
 [diff]
-	external = "/nix/store/n9h2icj7566f8f1s68a3nhlnrvdn99f6-difftastic-0.60.0/bin/difft --color auto --background light --display side-by-side"
+	external = "difft --color auto --background light --display side-by-side"
 
 [filter "lfs"]
 	clean = "git-lfs clean -- %f"

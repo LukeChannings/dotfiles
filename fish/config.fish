@@ -31,7 +31,7 @@ status is-interactive; and begin
     alias lt 'eza --tree'
 
     # Interactive shell initialisation
-    /nix/store/w1w714ssyrqnzlwnvdqqdhrdpnnxybxg-zoxide-0.9.5/bin/zoxide init fish | source
+    zoxide init fish | source
 
     if test "$TERM" != dumb
         eval (/home/luke/.nix-profile/bin/starship init fish)
@@ -52,9 +52,9 @@ status is-interactive; and begin
         set fish_complete_path $prev "/home/luke/.local/share/fish/home-manager_generated_completions" $post
     end
 
-    /nix/store/csc2lny869byz6v2177qm498wlg22ssp-atuin-18.3.0/bin/atuin init fish | source
+    atuin init fish | source
 
-    /nix/store/823qi3acdfxnvn0ylygjg6jabx7b4q31-direnv-2.34.0/bin/direnv hook fish | source
+    direnv hook fish | source
 
 
 end

@@ -1,0 +1,34 @@
+add_newline = false
+format = "($username@)($hostname )$character$directory"
+right_format = "$git_branch$git_status$nix_shell"
+scan_timeout = 10
+
+[character]
+error_symbol = "[λ](bold red)"
+success_symbol = "[λ](bold green)"
+
+[cmd_duration]
+disabled = false
+
+[directory]
+fish_style_pwd_dir_length = 2
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style)"
+ignore_branches = ["master", "main"]
+
+[hostname]
+detect_env_vars = ["QEMU", "SSH_CONNECTION"]
+disabled = false
+format = "[$hostname](bold bright-white)"
+ssh_only = false
+
+[nix_shell]
+disabled = false
+format = "[$symbol](bold blue) "
+
+[username]
+detect_env_vars = ["QEMU", "SSH_CONNECTION"]
+format = "[$user]($style)"
+style_root = "black bold"
+style_user = "white bold"

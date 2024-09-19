@@ -102,7 +102,7 @@ let zoxide_cache = "/home/luke/.cache/zoxide"
 if not ($zoxide_cache | path exists) {
   mkdir $zoxide_cache
 }
-/nix/store/w1w714ssyrqnzlwnvdqqdhrdpnnxybxg-zoxide-0.9.5/bin/zoxide init nushell  |
+zoxide init nushell  |
   save --force /home/luke/.cache/zoxide/init.nu
 
 let starship_cache = "/home/luke/.cache/starship"
@@ -115,5 +115,5 @@ let atuin_cache = "/home/luke/.cache/atuin"
 if not ($atuin_cache | path exists) {
   mkdir $atuin_cache
 }
-/nix/store/csc2lny869byz6v2177qm498wlg22ssp-atuin-18.3.0/bin/atuin init nu  | save --force /home/luke/.cache/atuin/init.nu
+atuin init nu  | save --force /home/luke/.cache/atuin/init.nu
 
