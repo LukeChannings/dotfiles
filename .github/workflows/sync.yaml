@@ -1,0 +1,61 @@
+name: "Sync Home Manager dotfiles to home branch"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.build.outputs.sha }}
+    steps:
+    - uses: "actions/checkout@v4"
+    - uses: "DeterminateSystems/nix-installer-action@main"
+    - uses: cachix/cachix-action@v14
+      with:
+        name: luke-channings
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build packages
+      id: build
+      run: |
+        export NIXPKGS_ALLOW_UNFREE=1
+        nix profile install nixpkgs#fd nixpkgs#sd
+
+        nix run --accept-flake-config .#home-manager -- build --impure --flake .#luke
+        
+        mkdir home
+        rsync -aL --chown=$(whoami):$(whoami) --chmod=ug+rw result/home-files/.config/ home/
+        cp -L result/home-files/.editorconfig home/editorconfig
+        cp -RL result/home-files/.ssh home/ssh
+        sudo chown -R $(whoami):$(whoami) ./home
+        chmod -R ug+rw ./home
+        rm -rf home/environment.d
+
+        fd --type=file . home --exec sd '/nix/store/.*/bin/' ''
+
+        echo "sha=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: dotfiles
+        path: home
+  sync:
+    needs: [build]
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: home
+    - name: Download math result for job 1
+      uses: actions/download-artifact@v4
+      with:
+        name: dotfiles
+    - name: Push differences
+      run: |
+        git config --global user.name 'Luke Channings'
+        git config --global user.email 'lukechannings@users.noreply.github.com'
+        git add .
+        git commit -am "Sync ${{needs.build.outputs.sha}}"
+        git push
