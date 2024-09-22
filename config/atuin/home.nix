@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       auto_sync = true;
-      workspaces = true;
+      workspaces = false;
       ctrl_n_shortcuts = true;
       dialect = "uk";
       filter_mode = "host";
