@@ -32,7 +32,7 @@
           in
           pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
 
-        imports = [ inputs.toolbox.devenvModules.vscode-workspace ];
+        imports = [ inputs.toolbox.modules.devenv.vscode-workspace ];
 
         devcontainer.enable = true;
 
