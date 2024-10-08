@@ -37,6 +37,7 @@ end)
 return {
   front_end = "WebGpu",
   hide_tab_bar_if_only_one_tab = true,
+  enable_kitty_keyboard = true,
   send_composed_key_when_left_alt_is_pressed = true,
   send_composed_key_when_right_alt_is_pressed = true,
   quit_when_all_windows_are_closed = false,
