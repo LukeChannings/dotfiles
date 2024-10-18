@@ -2,8 +2,8 @@ name: "Binary Cache"
 on:
   push:
     paths:
-      - config/*
-      - *.nix
+      - "config/*"
+      - "*.nix"
 
 jobs:
   binary-cache:

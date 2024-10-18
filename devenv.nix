@@ -60,6 +60,7 @@
           extensions = with inputs.vscode-extensions.extensions.${system}.vscode-marketplace; [
             jnoortheen.nix-ide
             ibecker.treefmt-vscode
+            thenuprojectcontributors.vscode-nushell-lang
           ];
           settings = {
             nix = {
