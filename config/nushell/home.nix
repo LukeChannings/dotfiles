@@ -1,7 +1,11 @@
 {
   pkgs,
+  lib,
   ...
 }:
+let
+  inherit (pkgs) stdenv darwin;
+in
 {
   config = {
     programs.nushell = {
@@ -12,6 +16,30 @@
       loginFile.text = (builtins.readFile ./login.nu);
     };
 
-    home.packages = [ pkgs.nushellPlugins.formats ];
+    home.packages =
+      let
+        fixupForDarwin =
+          drv:
+          drv.overrideAttrs (oldAttrs: {
+            buildInputs =
+              oldAttrs.buildInputs
+              ++ lib.optionals stdenv.isDarwin [
+                darwin.apple_sdk.frameworks.IOKit
+                darwin.apple_sdk.frameworks.Security
+                darwin.apple_sdk.frameworks.CoreServices
+              ];
+          });
+      in
+      (map fixupForDarwin (
+        with pkgs.nushellPlugins;
+        [
+          formats
+          polars
+          query
+          highlight
+#          net
+#          units
+        ]
+      ));
   };
 }
