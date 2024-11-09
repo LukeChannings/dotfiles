@@ -12,7 +12,7 @@
   cpio,
 }:
 let
-  version = "127.0.6533.119-1.1";
+  version = "130.0.6723.91-1.1";
 in
 stdenv.mkDerivation rec {
   name = "chromium";
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     }-macos-signed.dmg";
     hash =
       if stdenv.isAarch64 then
-        "sha256-2mENjHOQ/cN1So+7XhlOAx/Q0hkm3x/4KcadPK3rcCM="
+        "sha256-lKIWAWvJhk18+nM4nUqwbXY/iDvvb47KfvmzN4HaRQY="
       else
-        "sha256-BlSdADfbe4PSSYIZa2mJRHItlB3ltY7DB4D7YrRZ/Qo=";
+        "sha256-ok8FzdiynM/rq8M9ustfs+uta0g+AWFR92GPuXvrDh8=";
   };
 
   nativeBuildInputs = [
