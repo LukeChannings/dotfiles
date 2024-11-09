@@ -36,7 +36,6 @@ in
           formats
           polars
           query
-          highlight
 #          net
 #          units
         ]
