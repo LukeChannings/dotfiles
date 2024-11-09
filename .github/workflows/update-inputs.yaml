@@ -1,10 +1,13 @@
-name: "Update Flake Dependencies"
+name: "Update Flake Input"
 on:
   workflow_dispatch:
     inputs:
-      inputs:
-          description: 'Flake inputs to update'
-          default: ''
+      input_name:
+          description: 'Flake input to update'
+          required: true
+      input_uri:
+          description: 'URI to update to. (e.g. github:NixOS/nixpkgs/c128e44a249d)'
+          required: true
 
 jobs:
   update-inputs:
@@ -22,7 +25,7 @@ jobs:
       run: |
         export NIXPKGS_ALLOW_UNFREE=1
         export NIX_CONFIG="extra-substituters = true"
-        nix flake update --option accept-flake-config true ${{ inputs.inputs }}
+        nix flake update --option accept-flake-config true --override-input ${{ inputs.input_name }} ${{ inputs.input_uri }}
 
         git config --global user.name 'Luke Channings'
         git config --global user.email 'lukechannings@users.noreply.github.com'
