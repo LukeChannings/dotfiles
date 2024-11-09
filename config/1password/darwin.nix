@@ -23,11 +23,13 @@
           ...
         }:
         {
-          options.programs._1password = {
+          options.programs._1password-cli = {
             enable = lib.mkEnableOption "1Password CLI";
           };
 
-          config = lib.mkIf config.programs._1password.enable { home.packages = [ pkgs._1password ]; };
+          config = lib.mkIf config.programs._1password-cli.enable {
+            home.packages = [ pkgs._1password-cli ];
+          };
         }
       )
     ];
