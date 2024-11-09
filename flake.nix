@@ -30,7 +30,7 @@
       url = "github:LukeChannings/brew-nix";
       # url = "path:/Users/luke/Developer/Scratch/brew-nix";
       inputs.brew-api.follows = "brew-api";
-      inputs.nix-darwin.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     brew-api = {
