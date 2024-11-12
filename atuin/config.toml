@@ -7,7 +7,7 @@ filter_mode_shell_up_key_binding = "session"
 inline_height = 5
 show_help = false
 style = "compact"
-workspaces = true
+workspaces = false
 
 [sync]
 records = true

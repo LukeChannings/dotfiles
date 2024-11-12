@@ -12,7 +12,6 @@ name = "lua"
 [language.formatter]
 command = "stylua"
 
-[language-server]
 [language-server.lua-language-server]
 command = "lua-language-server"
 
