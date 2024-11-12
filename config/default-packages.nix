@@ -27,7 +27,7 @@ let
     inherit (pkgs)
       # File Management
       tree
-      ncdu
+      ncdu_1
 
       # Networking
       dig
