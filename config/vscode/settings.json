@@ -43,6 +43,7 @@
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.shellIntegration.enabled": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
   "update.mode": "none",
   "window.commandCenter": false,
   "workbench.colorTheme": "One Dark Pro Flat",
