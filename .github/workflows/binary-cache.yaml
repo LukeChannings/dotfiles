@@ -4,7 +4,6 @@ on:
     paths:
       - "config/*"
       - "*.nix"
-
 jobs:
   binary-cache:
     strategy:
@@ -12,17 +11,17 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: "actions/checkout@v4"
-    - uses: "DeterminateSystems/nix-installer-action@main"
-    - uses: cachix/cachix-action@v14
-      with:
-        name: luke-channings
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Build packages
-      run: |
-        export NIXPKGS_ALLOW_UNFREE=1
-        nix run --accept-flake-config --impure .#home-manager -- build --impure --flake .#luke
-    - name: Build dev shell
-      run: |
-        export NIXPKGS_ALLOW_UNFREE=1
-        nix develop --impure --accept-flake-config --accept-flake-config --build
+      - uses: "actions/checkout@v4"
+      - uses: "DeterminateSystems/nix-installer-action@main"
+      - uses: cachix/cachix-action@v14
+        with:
+          name: luke-channings
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - name: Build packages
+        run: |
+          export NIXPKGS_ALLOW_UNFREE=1
+          nix run --accept-flake-config --impure .#home-manager -- build --impure --flake .#luke
+      - name: Build dev shell
+        run: |
+          export NIXPKGS_ALLOW_UNFREE=1
+          nix develop --impure --accept-flake-config --accept-flake-config --build

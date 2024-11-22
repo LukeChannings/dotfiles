@@ -2,44 +2,39 @@
   description = "Luke's toolbox";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    devenv-root.url = "file+file:///dev/null";
+    devenv-root.flake = false;
+
+    nixpkgs.url = "nixpkgs";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    devenv-root = {
-      url = "file+file:///dev/null";
-      flake = false;
-    };
     devenv.url = "github:cachix/devenv";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    toolbox.url = "github:lukechannings/toolbox";
-    # toolbox.url = "path:/Users/luke/Developer/Scratch/toolbox";
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    brew-nix = {
-      # for local testing via `nix flake check` while developing 
-      #url = "path:../";
-      url = "github:LukeChannings/brew-nix";
-      # url = "path:/Users/luke/Developer/Scratch/brew-nix";
-      inputs.brew-api.follows = "brew-api";
-      inputs.nix-darwin.follows = "nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    brew-api = {
-      url = "github:BatteredBunny/brew-api";
-      flake = false;
-    };
+
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    brew-api.url = "github:BatteredBunny/brew-api";
+    brew-api.flake = false;
+
+    brew-nix.url = "github:LukeChannings/brew-nix";
+    brew-nix.inputs.nixpkgs.follows = "nixpkgs";
+    brew-nix.inputs.nix-darwin.follows = "nix-darwin";
+    brew-nix.inputs.brew-api.follows = "brew-api";
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
     _1password-shell-plugins.inputs.nixpkgs.follows = "nixpkgs";
+
+    toolbox.url = "github:lukechannings/toolbox";
+    toolbox.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    toolbox.inputs.flake-parts.follows = "flake-parts";
+    toolbox.inputs.devenv.follows = "devenv";
   };
 
   outputs =
@@ -70,6 +65,10 @@
       flake.vscode.systemExtensions =
         (nixpkgs.lib.importJSON ./.devcontainer.json).customizations.vscode.extensions;
 
+      flake.overlays = {
+        vscode-extensions = inputs.vscode-extensions.overlays.default;
+      };
+
       perSystem =
         {
           pkgs,
@@ -78,6 +77,14 @@
           ...
         }:
         {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.vscode-extensions.overlays.default
+            ];
+            config = { };
+          };
+
           packages = {
             inherit (inputs.home-manager.packages.${system}) home-manager;
           };

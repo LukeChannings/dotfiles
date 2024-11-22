@@ -1,5 +1,5 @@
-{ extensions }:
-(with extensions.vscode-marketplace; [
+{ pkgs }:
+(with pkgs.vscode-marketplace; [
   zhuangtongfa.material-theme
   mkhl.direnv
   editorconfig.editorconfig
@@ -10,4 +10,4 @@
   tamasfe.even-better-toml
   github.codespaces
 ])
-++ [ extensions.vscode-marketplace."1password".op-vscode ]
+++ [ pkgs.vscode-marketplace."1password".op-vscode ]
