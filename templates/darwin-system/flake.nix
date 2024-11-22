@@ -2,10 +2,9 @@
   description = "Configuration for Luke's Work MacBook Pro";
 
   inputs = {
-    devenv-root = {
-      url = "file+file:///dev/null";
-      flake = false;
-    };
+    devenv-root.url = "file+file:///dev/null";
+    devenv-root.flake = false;
+
     dotfiles.url = "github:lukechannings/dotfiles";
     dotfiles.inputs.devenv-root.follows = "devenv-root";
   };

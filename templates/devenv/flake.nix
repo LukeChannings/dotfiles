@@ -2,7 +2,7 @@
   description = "Luke's dev environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -38,6 +38,18 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
+
+      perSystem =
+        { system, ... }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.vscode-extensions.overlays.default
+            ];
+            config = { };
+          };
+        };
     };
 
   nixConfig = {

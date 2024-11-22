@@ -1,20 +1,12 @@
 {
-  pkgs,
-  lib,
   config,
+  pkgs,
   ...
 }:
 {
   nixpkgs.config.allowUnfree = true;
 
-  nix = {
-    nixPath = [ "nixpkgs=${pkgs.path}" ];
-
-    registry.nixpkgs.to = {
-      type = "path";
-      path = lib.mkForce (builtins.toString pkgs.path);
-    };
-
-    settings = (import ./config.nix { users = config.users.users; });
-  };
+  nix.package = pkgs.nixVersions.latest;
+  nix.channel.enable = false;
+  nix.settings = (import ./config.nix { users = config.users.users; });
 }

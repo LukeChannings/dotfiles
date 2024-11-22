@@ -5,7 +5,6 @@
       config,
       pkgs,
       lib,
-      system,
       ...
     }:
     {
@@ -46,7 +45,7 @@
         devcontainer.settings.updateContentCommand = "";
 
         vscode-workspace = {
-          extensions = with inputs.vscode-extensions.extensions.${system}.vscode-marketplace; [
+          extensions = with pkgs.vscode-marketplace; [
             jnoortheen.nix-ide
             ibecker.treefmt-vscode
           ];

@@ -5,7 +5,6 @@
       config,
       pkgs,
       lib,
-      system,
       ...
     }:
     {
@@ -21,6 +20,8 @@
         programs.fish_indent.enable = true;
         programs.stylua.enable = true;
         programs.shellcheck.enable = true;
+        programs.yamlfmt.enable = true;
+        programs.actionlint.enable = true;
       };
 
       devenv.shells.default = {
@@ -43,11 +44,7 @@
 
         devcontainer.settings.customizations.vscode.extensions =
           let
-            globalExtensions = (
-              import ./config/vscode/extensions.nix {
-                extensions = inputs.vscode-extensions.extensions.${system};
-              }
-            );
+            globalExtensions = (import ./config/vscode/extensions.nix { inherit pkgs; });
             inherit (builtins) foldl' attrNames readDir;
           in
           foldl' (
@@ -57,11 +54,12 @@
         devcontainer.settings.updateContentCommand = "";
 
         vscode-workspace = {
-          extensions = with inputs.vscode-extensions.extensions.${system}.vscode-marketplace; [
+          extensions = with pkgs.vscode-marketplace; [
             jnoortheen.nix-ide
             ibecker.treefmt-vscode
             thenuprojectcontributors.vscode-nushell-lang
           ];
+
           settings = {
             nix = {
               enableLanguageServer = true;

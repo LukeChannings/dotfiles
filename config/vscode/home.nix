@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 {
@@ -24,9 +23,7 @@
     };
     keybindings = (lib.importJSON ./keybindings.json);
 
-    extensions = import ./extensions.nix {
-      extensions = inputs.vscode-extensions.extensions.${pkgs.system};
-    };
+    extensions = import ./extensions.nix { inherit pkgs; };
   };
 
   config.home.packages = [
