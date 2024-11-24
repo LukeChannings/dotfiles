@@ -3,23 +3,16 @@
   programs.fish = {
     enable = true;
 
-    shellInitLast = lib.mkMerge [
-      (lib.mkIf config.programs.starship.enable ''
-        status is-interactive; and begin
-          enable_transience
+    shellInitLast = lib.mkIf config.programs.starship.enable ''
+      status is-interactive; and begin
+        enable_transience
 
-          # Set QEMU=1 if we're in QEMU
-          if command -q systemd-detect-virt; and [ $(systemd-detect-virt) = "qemu" ]
-            set -x QEMU 1
-          end
+        # Set QEMU=1 if we're in QEMU
+        if command -q systemd-detect-virt; and [ $(systemd-detect-virt) = "qemu" ]
+          set -x QEMU 1
         end
-      '')
-      ''
-        if [ "$TERM_PROGRAM" = "WezTerm" ]
-          set -x TERM "wezterm"
-        end
-      ''
-    ];
+      end
+    '';
 
     functions = {
       fish_greeting = "";
