@@ -14,7 +14,7 @@ let
       }) pathList
     );
 
-  stateVersion = "24.05";
+  stateVersion = "24.11";
   nixDarwinStateVersion = 4;
 
   homeModules = (importAsAttrset (filesCalled "home.nix")) // {
