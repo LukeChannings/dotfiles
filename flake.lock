@@ -775,11 +775,11 @@
         "vscode-extensions": "vscode-extensions"
       },
       "locked": {
-        "lastModified": 1727382022,
-        "narHash": "sha256-O1c7Jy5KWXKhrPLB6FEiEcUNPJV5Cmv+Oe3BBsPzvx0=",
+        "lastModified": 1732538261,
+        "narHash": "sha256-Zu7pPjIkUBQvCMFNK6Ry5H232GHbVhVfnjtry6ssEkY=",
         "owner": "lukechannings",
         "repo": "toolbox",
-        "rev": "5308caa0a058da0d32a16173ee57590fa0e35382",
+        "rev": "ede1ba5de5d3f9af891ee77f6fa3524242d0c4ba",
         "type": "github"
       },
       "original": {
