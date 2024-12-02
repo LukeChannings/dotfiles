@@ -25,6 +25,8 @@ in
 
           nix.linux-builder.enable = lib.mkForce false;
 
+          nixpkgs.overlays = [ dotfiles.overlays.vscode-extensions ];
+
           users = {
             knownUsers = [ username ];
 
