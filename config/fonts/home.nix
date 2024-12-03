@@ -13,16 +13,12 @@
       ];
     };
 
-    home.packages = [
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "Recursive"
-          "Hasklig"
-          "VictorMono"
-          "FiraCode"
-          "IosevkaTerm"
-        ];
-      })
+    home.packages = with pkgs.nerd-fonts; [
+      recursive-mono
+      hasklug
+      victor-mono
+      fira-code
+      iosevka-term
     ];
   };
 }
