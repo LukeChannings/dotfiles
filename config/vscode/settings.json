@@ -44,7 +44,7 @@
   "terminal.integrated.shellIntegration.enabled": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
   "update.mode": "none",
   "window.commandCenter": false,
   "workbench.colorTheme": "One Dark Pro Flat",
