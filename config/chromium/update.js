@@ -1,4 +1,4 @@
-const repo = "claudiodekker/ungoogled-chromium-macos";
+const repo = "ungoogled-software/ungoogled-chromium-macos";
 
 const request = await fetch(
   `https://api.github.com/repos/${repo}/releases/latest`,
