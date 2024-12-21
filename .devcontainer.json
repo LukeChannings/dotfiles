@@ -11,6 +11,7 @@
         "eamodio.gitlens",
         "tamasfe.even-better-toml",
         "github.codespaces",
+        "github.copilot",
         "1password.op-vscode",
         "ibecker.treefmt-vscode",
         "jnoortheen.nix-ide",
