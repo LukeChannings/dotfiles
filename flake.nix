@@ -14,8 +14,8 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:LnL7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,14 +25,14 @@
 
     brew-nix.url = "github:LukeChannings/brew-nix";
     brew-nix.inputs.nixpkgs.follows = "nixpkgs";
-    brew-nix.inputs.nix-darwin.follows = "nix-darwin";
+    brew-nix.inputs.nix-darwin.follows = "darwin";
     brew-nix.inputs.brew-api.follows = "brew-api";
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
     _1password-shell-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
     toolbox.url = "github:lukechannings/toolbox";
-    toolbox.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    toolbox.inputs.nixpkgs.follows = "nixpkgs";
     toolbox.inputs.flake-parts.follows = "flake-parts";
     toolbox.inputs.devenv.follows = "devenv";
   };

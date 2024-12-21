@@ -1,10 +1,10 @@
 { inputs, ... }:
 let
   inherit (builtins) attrValues;
-  inherit (inputs) dotfiles nix-darwin;
+  inherit (inputs) dotfiles darwin;
 in
 {
-  flake.darwinConfigurations.default = nix-darwin.lib.darwinSystem {
+  flake.darwinConfigurations.default = darwin.lib.darwinSystem {
     system = "aarch64-darwin";
 
     inherit inputs;
