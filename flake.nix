@@ -34,7 +34,9 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    _1password-shell-plugins.url = "github:1Password/shell-plugins";
+    ### Temporarily using https://github.com/1Password/shell-plugins/pull/503 until merged
+    ### _1password-shell-plugins.url = "github:1Password/shell-plugins";
+    _1password-shell-plugins.url = "github:LukeChannings/1password-shell-plugins/5ef7244";
     _1password-shell-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
     # Dev
