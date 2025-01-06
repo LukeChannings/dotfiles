@@ -13,7 +13,7 @@
       inherit (lib) types mkOption;
     in
     {
-      programs._1password = {
+      programs._1password-cli = {
         enable = mkOption {
           type = types.bool;
           description = ''
@@ -41,10 +41,10 @@
   config = {
     programs._1password-shell-plugins = {
       enable = true;
-      plugins = config.programs._1password.shellPluginPackages;
+      plugins = config.programs._1password-cli.shellPluginPackages;
     };
 
-    programs.git = lib.mkIf config.programs._1password.enableGitSigning {
+    programs.git = lib.mkIf config.programs._1password-cli.enableGitSigning {
       iniContent = {
         gpg.format = "ssh";
         "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";

@@ -8,16 +8,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1733392675,
-        "narHash": "sha256-bHffNRWzOSdyLEiOi+zf9o10cN6/olP9T5UxKHgxoJ0=",
-        "owner": "1Password",
-        "repo": "shell-plugins",
-        "rev": "f03bbc885daf60554ed7b0d011efe0f3e1e48c7e",
+        "lastModified": 1736185742,
+        "narHash": "sha256-IRa9NAUK0vdoo2aMDKTZ86d4yDVyKWhpCfMgJOqcpwA=",
+        "owner": "LukeChannings",
+        "repo": "1password-shell-plugins",
+        "rev": "5ef7244c6b8036dd2817ce821b95941980459536",
         "type": "github"
       },
       "original": {
-        "owner": "1Password",
-        "repo": "shell-plugins",
+        "owner": "LukeChannings",
+        "ref": "5ef7244",
+        "repo": "1password-shell-plugins",
         "type": "github"
       }
     },
