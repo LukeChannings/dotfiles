@@ -56,7 +56,6 @@
         vscode-workspace = {
           extensions = with pkgs.vscode-marketplace; [
             jnoortheen.nix-ide
-            ibecker.treefmt-vscode
             thenuprojectcontributors.vscode-nushell-lang
           ];
 
@@ -65,13 +64,6 @@
               enableLanguageServer = true;
               serverPath = lib.getExe pkgs.nil;
             };
-
-            treefmt = {
-              command = lib.getExe config.treefmt.package;
-              config = config.treefmt.build.configFile;
-            };
-
-            editor.defaultFormatter = "ibecker.treefmt-vscode";
           };
         };
       };
