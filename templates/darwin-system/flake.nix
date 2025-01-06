@@ -5,7 +5,7 @@
     devenv-root.url = "file+file:///dev/null";
     devenv-root.flake = false;
 
-    dotfiles.url = "github:lukechannings/dotfiles";
+    dotfiles.url = "dotfiles";
     dotfiles.inputs.devenv-root.follows = "devenv-root";
   };
 
