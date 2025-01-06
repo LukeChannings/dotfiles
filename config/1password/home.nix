@@ -35,13 +35,6 @@
           '';
           default = pkgs.stdenv.isDarwin;
         };
-        enableSshAgent = mkOption {
-          type = types.bool;
-          description = ''
-            Enable 1Password SSH identity handling
-          '';
-          default = pkgs.stdenv.isDarwin;
-        };
       };
     };
 
@@ -49,16 +42,6 @@
     programs._1password-shell-plugins = {
       enable = true;
       plugins = config.programs._1password.shellPluginPackages;
-    };
-
-    programs.ssh.matchBlocks._1password = lib.mkIf config.programs._1password.enableSshAgent {
-      match = "final all";
-      extraOptions.IdentityAgent = "\"${
-        if pkgs.stdenv.isDarwin then
-          "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-        else
-          "~/.1password/agent.sock"
-      }\"";
     };
 
     programs.git = lib.mkIf config.programs._1password.enableGitSigning {
