@@ -14,7 +14,9 @@
 let
   version = "131.0.6778.139-1.1";
 in
-assert lib.asserts.assertMsg (stdenv.isAarch64 != "arm64") "ungoogled-chromium only supports aarch64";
+assert lib.asserts.assertMsg (
+  stdenv.isAarch64 != "arm64"
+) "ungoogled-chromium only supports aarch64";
 stdenv.mkDerivation rec {
   name = "chromium";
   pname = name;
