@@ -46,6 +46,7 @@
             inherit system;
             overlays = [
               inputs.vscode-extensions.overlays.default
+              inputs.lix-module.overlays.default
             ];
             config = { };
           };

@@ -38,7 +38,7 @@
         languages.shell.enable = true;
 
         packages = with pkgs; [
-          nixVersions.latest
+          lix
         ];
 
         devcontainer.settings.customizations.vscode.extensions = [ "mkhl.direnv" ];

@@ -36,7 +36,7 @@
         imports = [ inputs.toolbox.modules.devenv.vscode-workspace ];
 
         packages = with pkgs; [
-          nixVersions.latest
+          lix
         ];
 
         vscode-workspace = {
