@@ -23,7 +23,7 @@ let
       {
         nixpkgs.config.allowUnfree = true;
         home.stateVersion = stateVersion;
-        nix.package = lib.mkForce pkgs.nixVersions.latest;
+        nix.package = lib.mkForce pkgs.lix;
         xdg.enable = true;
       }
     );
@@ -74,7 +74,7 @@ let
 
         config = {
           nixpkgs.config.allowUnfree = true;
-          
+
           home-manager = {
             backupFileExtension = "backup";
 

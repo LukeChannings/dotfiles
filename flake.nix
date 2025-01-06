@@ -2,34 +2,57 @@
   description = "Luke's toolbox";
 
   inputs = {
-    devenv-root.url = "file+file:///dev/null";
-    devenv-root.flake = false;
+
+    # System
+
+    ## Package repositories
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    devenv.url = "github:cachix/devenv";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
+    lix-module.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+    brew-api.url = "github:BatteredBunny/brew-api";
+    brew-api.flake = false;
+    brew-nix.url = "github:LukeChannings/brew-nix";
+    brew-nix.inputs.nixpkgs.follows = "nixpkgs";
+    brew-nix.inputs.nix-darwin.follows = "nixpkgs";
+    brew-nix.inputs.brew-api.follows = "brew-api";
+
+    ## Supporting configuration modules
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    brew-api.url = "github:BatteredBunny/brew-api";
-    brew-api.flake = false;
+    ## Secrets
 
-    brew-nix.url = "github:LukeChannings/brew-nix";
-    brew-nix.inputs.nixpkgs.follows = "nixpkgs";
-    brew-nix.inputs.nix-darwin.follows = "darwin";
-    brew-nix.inputs.brew-api.follows = "brew-api";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
     _1password-shell-plugins.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Dev
+
+    ## Nix
+
+    devenv-root.url = "file+file:///dev/null";
+    devenv-root.flake = false;
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    devenv.url = "github:cachix/devenv";
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    ## Not Nix...
+
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     toolbox.url = "github:lukechannings/toolbox";
     toolbox.inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +90,7 @@
 
       flake.overlays = {
         vscode-extensions = inputs.vscode-extensions.overlays.default;
+        lix = inputs.lix-module.overlays.default;
       };
 
       perSystem =
@@ -81,6 +105,7 @@
             inherit system;
             overlays = [
               inputs.vscode-extensions.overlays.default
+              inputs.lix-module.overlays.default
             ];
             config = { };
           };

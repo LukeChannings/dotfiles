@@ -39,7 +39,7 @@
 
         packages = with pkgs; [
           nil
-          nixVersions.latest
+          lix
         ];
 
         devcontainer.settings.customizations.vscode.extensions =
