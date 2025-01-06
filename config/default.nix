@@ -109,6 +109,65 @@ let
         inherit pkgs inputs;
       };
     };
+  mkDarwinSystem =
+    {
+      hostName,
+      user ? { },
+      system ? "aarch64-darwin",
+      inputs ? inputs,
+      osModules ? builtins.attrValues darwinModules,
+      sharedHomeModules ? builtins.attrValues homeModules,
+      userHomeModule ? null,
+    }:
+    (
+      assert user.name != null;
+      assert user.fullName != null;
+      assert user.id != null;
+
+      let
+        inherit (inputs.darwin.lib) darwinSystem;
+        inherit (lib) optional;
+        inherit (lib.strings) toLower;
+        inherit (lib.attrsets) genAttrs;
+        systemCfg = darwinSystem {
+          inherit system;
+
+          modules =
+            [
+              (
+                { lib, ... }:
+                {
+                  networking.hostName = hostName;
+                  users.knownUsers = [ user.name ];
+                  users.users.${user.name} = {
+                    description = user.fullName;
+                    home = "/Users/${user.name}";
+                    uid = user.id;
+                    gid = user.id;
+                  };
+
+                  home-manager.users.${user.name} = lib.mkIf (user ? gitEmail) {
+                    programs.git.userName = user.fullName;
+                    programs.git.userEmail = user.gitEmail;
+                  };
+                }
+              )
+              (configureOsModules {
+                inherit osModules;
+                homeModules = sharedHomeModules;
+              })
+            ]
+            ++ (optional (userHomeModule != null) {
+              home-manager.users.${user.name} = userHomeModule;
+            });
+
+          specialArgs = { inherit inputs; };
+        };
+      in
+      genAttrs ([ hostName ] ++ (optional (hostName != (toLower hostName)) (toLower hostName))) (
+        _: systemCfg
+      )
+    );
 in
 {
   flake = {
@@ -119,6 +178,7 @@ in
         darwinModulesWithDisabled
         nixosModulesWithDisabled
         mkHomeManagerConfiguration
+        mkDarwinSystem
         ;
     };
 
