@@ -24,7 +24,7 @@
 
     enable1PasswordAgent = mkOption {
       type = types.bool;
-      default = true;
+      default = pkgs.stdenv.isDarwin;
       description = ''
         Enable 1Password SSH agent.
       '';
