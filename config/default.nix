@@ -1,5 +1,9 @@
 { inputs, lib, ... }:
 let
+  inherit (lib) optional;
+  inherit (lib.strings) toLower;
+  inherit (lib.attrsets) genAttrs;
+
   filesCalled =
     with inputs.nixpkgs.lib.fileset;
     name: toList (fileFilter (file: file.name == name) ./.);
@@ -126,9 +130,6 @@ let
 
       let
         inherit (inputs.darwin.lib) darwinSystem;
-        inherit (lib) optional;
-        inherit (lib.strings) toLower;
-        inherit (lib.attrsets) genAttrs;
         systemCfg = darwinSystem {
           inherit system;
 
@@ -161,12 +162,86 @@ let
               home-manager.users.${user.name} = userHomeModule;
             });
 
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+          } // inputs;
         };
       in
       genAttrs ([ hostName ] ++ (optional (hostName != (toLower hostName)) (toLower hostName))) (
         _: systemCfg
       )
+    );
+  mkNixOsSystem =
+    {
+      hostName,
+      deployment,
+      user ? null,
+      system ? "x86_64-linux",
+      inputs ? inputs,
+      osModules ? builtins.attrValues darwinModules,
+      sharedHomeModules ? builtins.attrValues homeModules,
+    }:
+    (
+      let
+        systemModules = [
+          (configureOsModules {
+            inherit osModules;
+            homeModules = sharedHomeModules;
+          })
+
+          {
+            networking.hostName = hostName;
+
+            users.mutableUsers = false;
+            users.users.root.openssh.authorizedKeys.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZzAdnH2X/vW+HEovUZCgDjfIiXyokxCNIhCDrF1+Rh"
+            ];
+
+            nix.settings.trusted-users = [ "luke@idm.channings.me" ];
+          }
+
+          (
+            { lib, ... }:
+            {
+              config =
+                if (user != null) then
+                  (
+                    assert user ? name;
+                    {
+                      users.users.${user.name} = {};
+                      home-manager.users.${user.name} = { };
+                    }
+                  )
+                else
+                  { };
+            }
+          )
+        ];
+        systemCfg = inputs.nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = systemModules;
+
+          specialArgs = {
+            inherit inputs;
+          } // inputs;
+        };
+        normalizedHostName = (toLower hostName);
+        hostNames = [ hostName ] ++ (optional (hostName != normalizedHostName) normalizedHostName);
+      in
+      {
+        nixosConfigurations = genAttrs hostNames (_: systemCfg);
+        colmena = {
+          ${normalizedHostName} = {
+            imports = systemModules;
+
+            inherit deployment;
+          };
+          meta.nodeNixpkgs.${normalizedHostName} = import inputs.nixpkgs { inherit system; };
+          meta.nodeSpecialArgs.${normalizedHostName} = {
+            inherit inputs;
+          } // inputs;
+        };
+      }
     );
 in
 {
@@ -179,6 +254,7 @@ in
         nixosModulesWithDisabled
         mkHomeManagerConfiguration
         mkDarwinSystem
+        mkNixOsSystem
         ;
     };
 

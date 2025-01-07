@@ -39,6 +39,11 @@
     _1password-shell-plugins.url = "github:LukeChannings/1password-shell-plugins/5ef7244";
     _1password-shell-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
+    ## Deployment
+    colmena.url = "github:zhaofengli/colmena";
+    colmena.inputs.nixpkgs.follows = "nixpkgs";
+    colmena.inputs.stable.follows = "nixpkgs";
+
     # Dev
 
     ## Nix
@@ -94,6 +99,8 @@
         vscode-extensions = inputs.vscode-extensions.overlays.default;
         lix = inputs.lix-module.overlays.default;
       };
+
+      flake.flakeModules.colmena = ./modules/flakeModules/colmena.nix;
 
       perSystem =
         {
