@@ -180,9 +180,15 @@ let
       inputs ? inputs,
       osModules ? builtins.attrValues darwinModules,
       sharedHomeModules ? builtins.attrValues homeModules,
+      userHomeModule ? {},
     }:
     (
       let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+
+          config = import ./nixpkgs;
+        };
         systemModules = [
           (configureOsModules {
             inherit osModules;
@@ -209,7 +215,7 @@ let
                     assert user ? name;
                     {
                       users.users.${user.name} = {};
-                      home-manager.users.${user.name} = { };
+                      home-manager.users.${user.name} = userHomeModule;
                     }
                   )
                 else
@@ -236,7 +242,7 @@ let
 
             inherit deployment;
           };
-          meta.nodeNixpkgs.${normalizedHostName} = import inputs.nixpkgs { inherit system; };
+          meta.nodeNixpkgs.${normalizedHostName} = pkgs;
           meta.nodeSpecialArgs.${normalizedHostName} = {
             inherit inputs;
           } // inputs;
