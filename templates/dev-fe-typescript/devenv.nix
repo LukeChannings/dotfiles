@@ -2,15 +2,13 @@
 {
   perSystem =
     {
-      config,
       pkgs,
       lib,
       ...
     }:
     {
       treefmt = {
-        projectRoot = ./.;
-        projectRootFile = "flake.nix";
+        projectRootFile = "./flake.nix";
 
         # TODO: Tailor these formatters for the current project
         programs.nixfmt.enable = true;
@@ -33,9 +31,17 @@
 
         imports = [ inputs.toolbox.modules.devenv.vscode-workspace ];
 
+        dotenv.enable = true;
+
         devcontainer.enable = true;
 
         languages.shell.enable = true;
+        languages.javascript.enable = true;
+        languages.javascript.package = pkgs.nodejs_23;
+        languages.javascript.corepack.enable = true;
+        languages.javascript.npm.enable = true;
+        languages.javascript.npm.install.enable = true;
+        languages.typescript.enable = true;
 
         packages = with pkgs; [
           lix
@@ -47,18 +53,12 @@
         vscode-workspace = {
           extensions = with pkgs.vscode-marketplace; [
             jnoortheen.nix-ide
-            ibecker.treefmt-vscode
           ];
 
           settings = {
             nix = {
               enableLanguageServer = true;
               serverPath = lib.getExe pkgs.nil;
-            };
-
-            treefmt = {
-              command = lib.getExe config.treefmt.package;
-              config = config.treefmt.build.configFile;
             };
 
             editor.defaultFormatter = "ibecker.treefmt-vscode";

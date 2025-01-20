@@ -1,0 +1,10 @@
+{
+  "name": "dev-fe-ts",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsx ."
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

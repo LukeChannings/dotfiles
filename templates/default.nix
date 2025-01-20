@@ -1,14 +1,19 @@
 { ... }:
 {
   flake.templates = {
-    devenv = {
-      description = "Create a barebones devenv";
-      path = ./devenv;
-    };
-
     darwin-system = {
       description = "Create a nix-darwin system configuration";
       path = ./darwin-system;
+    };
+
+    dev-base = {
+      description = "A barebones TypeScript frontend environment";
+      path = ./dev-base;
+    };
+
+    dev-fe-ts = {
+      description = "A barebones TypeScript frontend environment";
+      path = ./dev-fe-typescript;
     };
   };
 }
