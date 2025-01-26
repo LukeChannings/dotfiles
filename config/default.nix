@@ -180,7 +180,7 @@ let
       inputs ? inputs,
       osModules ? builtins.attrValues darwinModules,
       sharedHomeModules ? builtins.attrValues homeModules,
-      userHomeModule ? {},
+      userHomeModule ? { },
     }:
     (
       let
@@ -207,14 +207,14 @@ let
           }
 
           (
-            { lib, ... }:
+            { ... }:
             {
               config =
                 if (user != null) then
                   (
                     assert user ? name;
                     {
-                      users.users.${user.name} = {};
+                      users.users.${user.name} = { };
                       home-manager.users.${user.name} = userHomeModule;
                     }
                   )

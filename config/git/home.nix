@@ -64,7 +64,7 @@ with lib;
       };
     }
     {
-      home.packages = [pkgs.git-filter-repo];
+      home.packages = [ pkgs.git-filter-repo ];
     }
     (lib.mkIf (config.programs.git.signingInclude != null) {
 

@@ -21,6 +21,7 @@
         programs.shellcheck.enable = true;
         programs.yamlfmt.enable = true;
         programs.actionlint.enable = true;
+        programs.perltidy.enable = true;
       };
 
       devenv.shells.default = {

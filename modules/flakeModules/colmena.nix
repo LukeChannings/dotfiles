@@ -19,7 +19,9 @@ in
         freeformType = types.lazyAttrsOf types.raw;
 
         options.meta = mkOption {
-          type = types.submodule (metaOptions { inherit lib; });
+          type = types.submodule (metaOptions {
+            inherit lib;
+          });
           default = { };
         };
       };

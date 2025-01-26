@@ -2,12 +2,10 @@
 
 ## Maintenance
 
-### Updating Nixpkgs
+### Keeping dependencies up-to-date
 
-1. Find the latest successful [Hydra build](https://status.nixos.org) for a nixpkgs channel
-2. Update the input to that revision
-    - [With a workflow](https://github.com/LukeChannings/dotfiles/actions/workflows/update-inputs.yaml)
-    - Or manually with `nix flake update --override-input nixpkgs github:NixOS/nixpkgs/<rev>`
+- `./scripts/update-flake-inputs.sh` – update inputs, using the latest nixpkgs Hydra build.
+- `./scripts/diff-flake-lock.pl` – print updated inputs in the lockfile with github compare links
 
 ### Switching between a local clone and the git repo
 
