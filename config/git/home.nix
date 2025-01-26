@@ -63,6 +63,9 @@ with lib;
         difftastic.enable = true;
       };
     }
+    {
+      home.packages = [pkgs.git-filter-repo];
+    }
     (lib.mkIf (config.programs.git.signingInclude != null) {
 
       # Each signing configuration gets its own file in ~/.config/git.
