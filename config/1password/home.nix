@@ -28,13 +28,6 @@
           '';
           default = [ pkgs.gh ];
         };
-        enableGitSigning = mkOption {
-          type = types.bool;
-          description = ''
-            Enable 1Password git commit signing integration
-          '';
-          default = pkgs.stdenv.isDarwin;
-        };
       };
     };
 
@@ -42,13 +35,6 @@
     programs._1password-shell-plugins = {
       enable = true;
       plugins = config.programs._1password-cli.shellPluginPackages;
-    };
-
-    programs.git = lib.mkIf config.programs._1password-cli.enableGitSigning {
-      iniContent = {
-        gpg.format = "ssh";
-        "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-      };
     };
   };
 }
