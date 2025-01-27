@@ -71,17 +71,17 @@
       plugins = config.programs._1password-cli.shellPluginPackages;
     };
 
-    xdg.configFile."1Password/ssh/agent.toml".source =
-      lib.mkIf (config.programs._1password-cli.sshAgent != null)
-        (
-          let
-            tomlFormatter = pkgs.formats.toml { };
-          in
-          tomlFormatter.generate "agent.toml" {
-            "ssh-keys" = builtins.map (lib.filterAttrs (
-              _: v: v != null
-            )) config.programs._1password-cli.sshAgent.keys;
-          }
-        );
+    xdg.configFile = lib.mkIf (config.programs._1password-cli.sshAgent != null) {
+      "1Password/ssh/agent.toml".source = (
+        let
+          tomlFormatter = pkgs.formats.toml { };
+        in
+        tomlFormatter.generate "agent.toml" {
+          "ssh-keys" = builtins.map (lib.filterAttrs (
+            _: v: v != null
+          )) config.programs._1password-cli.sshAgent.keys;
+        }
+      );
+    };
   };
 }
