@@ -1,5 +1,7 @@
 { inputs, lib, ... }:
 let
+  nixpkgsConfig = import ./nixpkgs/config.nix;
+
   inherit (lib) optional;
   inherit (lib.strings) toLower;
   inherit (lib.attrsets) genAttrs;
@@ -19,41 +21,38 @@ let
     );
 
   stateVersion = "24.11";
-  nixDarwinStateVersion = 4;
+  nixDarwinStateVersion = 5;
 
   homeModules = (importAsAttrset (filesCalled "home.nix")) // {
-    _setup = (
-      { pkgs, ... }:
-      {
-        nixpkgs.config.allowUnfree = true;
-        home.stateVersion = stateVersion;
-        nix.package = lib.mkForce pkgs.lix;
-        xdg.enable = true;
-      }
-    );
+    inherit nixpkgsConfig;
+
+    _setup = {
+      home.stateVersion = stateVersion;
+      xdg.enable = true;
+    };
     default-packages = import ./default-packages.nix;
     nix-index-database = inputs.nix-index-database.hmModules.nix-index;
   };
 
   darwinModules = (importAsAttrset (filesCalled "darwin.nix")) // {
+    inherit nixpkgsConfig;
+
     home-manager = inputs.home-manager.darwinModules.home-manager;
     brew-nix = inputs.brew-nix.darwinModules.default;
     link-apps = inputs.toolbox.modules.darwin.link-apps;
 
     _setup = {
       system.stateVersion = nixDarwinStateVersion;
-
-      nixpkgs.config.allowUnfree = true;
     };
   };
 
   nixosModules = (importAsAttrset (filesCalled "nixos.nix")) // {
+    inherit nixpkgsConfig;
+
     home-manager = inputs.home-manager.nixosModules.default;
 
     _setup = {
       system.stateVersion = stateVersion;
-
-      nixpkgs.config.allowUnfree = true;
     };
   };
 
@@ -77,8 +76,6 @@ let
         imports = osModules;
 
         config = {
-          nixpkgs.config.allowUnfree = true;
-
           home-manager = {
             backupFileExtension = "backup";
 
@@ -186,8 +183,11 @@ let
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
-
-          config = import ./nixpkgs;
+          inherit (nixpkgsConfig.nixpkgs) config;
+        };
+        pkgs-stable = import inputs.nixpkgs-stable {
+          inherit system;
+          inherit (nixpkgsConfig.nixpkgs) config;
         };
         systemModules = [
           (configureOsModules {
@@ -225,10 +225,13 @@ let
         ];
         systemCfg = inputs.nixpkgs.lib.nixosSystem {
           inherit system;
+
           modules = systemModules;
 
           specialArgs = {
             inherit inputs;
+            inherit pkgs;
+            inherit pkgs-stable;
           } // inputs;
         };
         normalizedHostName = (toLower hostName);
@@ -245,6 +248,7 @@ let
           meta.nodeNixpkgs.${normalizedHostName} = pkgs;
           meta.nodeSpecialArgs.${normalizedHostName} = {
             inherit inputs;
+            inherit pkgs-stable;
           } // inputs;
         };
       }

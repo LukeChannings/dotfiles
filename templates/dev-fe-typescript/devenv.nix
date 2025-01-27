@@ -43,10 +43,6 @@
         languages.javascript.npm.install.enable = true;
         languages.typescript.enable = true;
 
-        packages = with pkgs; [
-          lix
-        ];
-
         devcontainer.settings.customizations.vscode.extensions = [ "mkhl.direnv" ];
         devcontainer.settings.updateContentCommand = "";
 

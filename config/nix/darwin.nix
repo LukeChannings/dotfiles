@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  lib,
   ...
 }:
 {
@@ -12,7 +13,7 @@
   services.nix-daemon.enable = true;
 
   nix = {
-    package = pkgs.lix;
+    package = lib.mkDefault pkgs.lix;
     channel.enable = false;
     settings = (import ./config.nix { users = config.users.users; });
   };

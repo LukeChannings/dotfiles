@@ -37,11 +37,6 @@
 
         languages.shell.enable = true;
 
-        packages = with pkgs; [
-          nil
-          lix
-        ];
-
         devcontainer.settings.customizations.vscode.extensions =
           let
             globalExtensions = (import ./config/vscode/extensions.nix { inherit pkgs; });

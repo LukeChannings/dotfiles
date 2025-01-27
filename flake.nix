@@ -8,6 +8,7 @@
     ## Package repositories
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     # See https://lix.systems/add-to-config/#flake-based-configurations for the latest version
     lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
@@ -113,11 +114,11 @@
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
+            config.allowUnfree = true;
             overlays = [
               inputs.vscode-extensions.overlays.default
               inputs.lix-module.overlays.default
             ];
-            config = { };
           };
 
           packages = {

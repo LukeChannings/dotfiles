@@ -35,10 +35,6 @@
 
         imports = [ inputs.toolbox.modules.devenv.vscode-workspace ];
 
-        packages = with pkgs; [
-          lix
-        ];
-
         vscode-workspace = {
           extensions = with inputs.vscode-extensions.extensions.${system}.vscode-marketplace; [
             jnoortheen.nix-ide
