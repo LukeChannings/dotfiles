@@ -1,6 +1,13 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
 let
-  nixpkgsConfig = import ./nixpkgs/config.nix;
+  nixpkgsConfigModule = import ./nixpkgs/universal.nix;
+  nixpkgsConfig = nixpkgsConfigModule.nixpkgs.config;
+  defaultOverlays = builtins.attrValues config.flake.overlays;
 
   inherit (lib) optional;
   inherit (lib.strings) toLower;
@@ -8,7 +15,7 @@ let
 
   filesCalled =
     with inputs.nixpkgs.lib.fileset;
-    name: toList (fileFilter (file: file.name == name) ./.);
+    name: toList (fileFilter (file: file.name == name || file.name == "universal.nix") ./.);
 
   importAsAttrset =
     with builtins;
@@ -24,8 +31,6 @@ let
   nixDarwinStateVersion = 5;
 
   homeModules = (importAsAttrset (filesCalled "home.nix")) // {
-    inherit nixpkgsConfig;
-
     _setup = {
       home.stateVersion = stateVersion;
       xdg.enable = true;
@@ -35,8 +40,7 @@ let
   };
 
   darwinModules = (importAsAttrset (filesCalled "darwin.nix")) // {
-    inherit nixpkgsConfig;
-
+    inherit nixpkgsConfigModule;
     home-manager = inputs.home-manager.darwinModules.home-manager;
     brew-nix = inputs.brew-nix.darwinModules.default;
     link-apps = inputs.toolbox.modules.darwin.link-apps;
@@ -47,8 +51,6 @@ let
   };
 
   nixosModules = (importAsAttrset (filesCalled "nixos.nix")) // {
-    inherit nixpkgsConfig;
-
     home-manager = inputs.home-manager.nixosModules.default;
 
     _setup = {
@@ -97,8 +99,10 @@ let
     );
   mkHomeManagerConfiguration =
     {
-      pkgs,
+      system,
       config,
+      overlays ? defaultOverlays,
+      pkgs ? import inputs.nixpkgs { inherit system; config = nixpkgsConfig; inherit overlays; },
       disabledModules ? [ ],
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
@@ -107,8 +111,8 @@ let
       modules = [ config ] ++ (homeModulesWithDisabled disabledModules);
 
       extraSpecialArgs = {
-        inherit pkgs inputs;
-      };
+        inherit inputs;
+      } // inputs;
     };
   mkDarwinSystem =
     {
@@ -175,20 +179,13 @@ let
       user ? null,
       system ? "x86_64-linux",
       inputs ? inputs,
-      osModules ? builtins.attrValues darwinModules,
+      osModules ? builtins.attrValues nixosModules,
       sharedHomeModules ? builtins.attrValues homeModules,
       userHomeModule ? { },
+      overlays ? builtins.attrValues config.flake.overlays,
     }:
     (
       let
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          inherit (nixpkgsConfig.nixpkgs) config;
-        };
-        pkgs-stable = import inputs.nixpkgs-stable {
-          inherit system;
-          inherit (nixpkgsConfig.nixpkgs) config;
-        };
         systemModules = [
           (configureOsModules {
             inherit osModules;
@@ -203,7 +200,7 @@ let
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZzAdnH2X/vW+HEovUZCgDjfIiXyokxCNIhCDrF1+Rh"
             ];
 
-            nix.settings.trusted-users = [ "luke@idm.channings.me" ];
+            nix.settings.trusted-users = [ "luke" "luke@idm.channings.me" ];
           }
 
           (
@@ -230,8 +227,6 @@ let
 
           specialArgs = {
             inherit inputs;
-            inherit pkgs;
-            inherit pkgs-stable;
           } // inputs;
         };
         normalizedHostName = (toLower hostName);
@@ -245,10 +240,12 @@ let
 
             inherit deployment;
           };
-          meta.nodeNixpkgs.${normalizedHostName} = pkgs;
+          meta.nodeNixpkgs.${normalizedHostName} = import inputs.nixpkgs {
+            inherit system overlays;
+            config = nixpkgsConfig;
+          };
           meta.nodeSpecialArgs.${normalizedHostName} = {
             inherit inputs;
-            inherit pkgs-stable;
           } // inputs;
         };
       }

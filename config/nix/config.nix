@@ -1,23 +1,22 @@
 {
   users ? { },
 }:
+with builtins;
+let substituters = import ./substituters.nix; 
+in
 {
   experimental-features = [
     "nix-command"
     "flakes"
   ];
-  accept-flake-config = true;
-  warn-dirty = false;
-  trusted-users = builtins.attrNames users;
-  trusted-public-keys = [
-    "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-    "luke-channings.cachix.org-1:ETsZ3R5ue9QOwO4spg8aGJMwMU6k5tQIaHWnTakGHjo="
-  ];
 
-  substituters = [
-    "https://devenv.cachix.org"
-    "https://luke-channings.cachix.org"
-  ];
+  accept-flake-config = false;
+
+  warn-dirty = false;
+  trusted-users = attrNames users;
+
+  substituters = map (k: "https://${head (split "-1:" k)}") substituters;
+  trusted-public-keys = substituters;
 
   max-substitution-jobs = 128;
   http-connections = 0;

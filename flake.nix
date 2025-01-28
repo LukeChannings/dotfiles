@@ -63,6 +63,9 @@
 
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
+    helix.url = "helix";
+    helix.inputs.nixpkgs.follows = "nixpkgs";
+
     toolbox.url = "github:lukechannings/toolbox";
     toolbox.inputs.nixpkgs.follows = "nixpkgs";
     toolbox.inputs.flake-parts.follows = "flake-parts";
@@ -100,6 +103,7 @@
       flake.overlays = {
         vscode-extensions = inputs.vscode-extensions.overlays.default;
         lix = inputs.lix-module.overlays.default;
+        helix = inputs.helix.overlays.default;
       };
 
       flake.flakeModules.colmena = ./modules/flakeModules/colmena.nix;
@@ -112,44 +116,24 @@
           ...
         }:
         {
-          _module.args.pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = [
-              inputs.vscode-extensions.overlays.default
-              inputs.lix-module.overlays.default
-            ];
-          };
-
           packages = {
             inherit (inputs.home-manager.packages.${system}) home-manager;
           };
 
           legacyPackages.homeConfigurations.luke = self.lib.mkHomeManagerConfiguration {
-            inherit pkgs;
+            inherit system;
+
             disabledModules = [
-              "default-packages"
               "chromium"
               "wezterm"
               "vscode"
               "fonts"
             ];
-            config.home = {
-              username = "luke";
-              homeDirectory = "/home/luke";
-            };
+
+            config.home.username = "luke";
+            config.home.homeDirectory = "/home/luke";
+            config.dotfiles.defaultPackages.enableMacUtilities = false;
           };
         };
     };
-
-  nixConfig = {
-    extra-substituters = [
-      "https://devenv.cachix.org"
-      "https://luke-channings.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-      "luke-channings.cachix.org-1:ETsZ3R5ue9QOwO4spg8aGJMwMU6k5tQIaHWnTakGHjo="
-    ];
-  };
 }

@@ -10,5 +10,6 @@
   tamasfe.even-better-toml
   github.codespaces
   github.copilot
+  jnoortheen.nix-ide
 ])
 ++ [ pkgs.vscode-marketplace."1password".op-vscode ]

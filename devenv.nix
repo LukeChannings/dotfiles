@@ -4,9 +4,16 @@
     {
       pkgs,
       lib,
+      system,
       ...
     }:
     {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        inherit ((import ./config/nixpkgs).nixpkgs) config;
+        overlays = [ inputs.vscode-extensions.overlays.default ];
+      };
+
       treefmt = {
         projectRoot = ./.;
         projectRootFile = "flake.nix";
