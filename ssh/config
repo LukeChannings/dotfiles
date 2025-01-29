@@ -1,4 +1,4 @@
-Include /nix/store/hicw7diq213gkxhzvw1mkp6l503j4wzs-canonical_domain_config /nix/store/svazmwsdch58syd60ghj1c5d2krz6gy7-1password_config
+Include /nix/store/cl0m73hxc3yxrf8g7mn9i0zgra3d3qjx-canonical_domain_config
 
 
 Host *
