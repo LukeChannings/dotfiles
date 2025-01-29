@@ -1,20 +1,5 @@
-{
-  pkgs,
-  config,
-  inputs,
-  lib,
-  ...
-}:
-{
+{ inputs, ... }: {
   imports = [
-    inputs.lix-module.nixosModules.default
+    inputs.nix-index-database.darwinModules.nix-index
   ];
-
-  services.nix-daemon.enable = true;
-
-  nix = {
-    package = lib.mkDefault pkgs.lix;
-    channel.enable = false;
-    settings = (import ./config.nix { users = config.users.users; });
-  };
 }

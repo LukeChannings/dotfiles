@@ -1,16 +1,5 @@
-{
-  config,
-  pkgs,
-  inputs,
-  lib,
-  ...
-}:
-{
+{ inputs, ... }: {
   imports = [
-    inputs.lix-module.nixosModules.default
+    inputs.nix-index-database.nixosModules.nix-index
   ];
-
-  nix.package = lib.mkDefault pkgs.lix;
-  nix.channel.enable = false;
-  nix.settings = (import ./config.nix { users = config.users.users; });
 }

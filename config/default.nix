@@ -5,8 +5,6 @@
   ...
 }:
 let
-  nixpkgsConfigModule = import ./nixpkgs/universal.nix;
-  nixpkgsConfig = nixpkgsConfigModule.nixpkgs.config;
   defaultOverlays = builtins.attrValues config.flake.overlays;
 
   inherit (lib) optional;
@@ -15,47 +13,61 @@ let
 
   filesCalled =
     with inputs.nixpkgs.lib.fileset;
-    name: toList (fileFilter (file: file.name == name || file.name == "universal.nix") ./.);
+    nameFilter:
+    toList (fileFilter (file: (nameFilter file.name) || file.name == "home+nixos+darwin.nix") ./.);
 
   importAsAttrset =
     with builtins;
     pathList:
     listToAttrs (
-      map (path: {
-        name = baseNameOf (dirOf path);
-        value = import path;
-      }) pathList
+      map (
+        path:
+        let
+          type = (baseNameOf path);
+        in
+        {
+          name = "${baseNameOf (dirOf path)}${
+            if type == "nixos+darwin.nix" then
+              "-os-shared"
+            else if type == "home+nixos+darwin.nix" then
+              "-shared"
+            else
+              ""
+          }";
+          value = import path;
+        }
+      ) pathList
     );
 
   stateVersion = "24.11";
   nixDarwinStateVersion = 5;
 
-  homeModules = (importAsAttrset (filesCalled "home.nix")) // {
-    _setup = {
-      home.stateVersion = stateVersion;
-      xdg.enable = true;
-    };
+  #
+  # To organise configurations I separate configurations into modules:
+  #
+  # - home.nix - home-manager modules
+  # - darwin.nix - nix-darwin modules
+  # - nixos.nix - nixos modules
+  #
+  # Available combinations:
+  #
+  # - home+nixos+darwin.nix
+  # - nixos+darwin.nix
+  #
+  homeModules = (importAsAttrset (filesCalled (_: _ == "home.nix"))) // {
+    _setup.home.stateVersion = stateVersion;
+
     default-packages = import ./default-packages.nix;
-    nix-index-database = inputs.nix-index-database.hmModules.nix-index;
   };
 
-  darwinModules = (importAsAttrset (filesCalled "darwin.nix")) // {
-    inherit nixpkgsConfigModule;
-    home-manager = inputs.home-manager.darwinModules.home-manager;
-    brew-nix = inputs.brew-nix.darwinModules.default;
-    link-apps = inputs.toolbox.modules.darwin.link-apps;
-
-    _setup = {
-      system.stateVersion = nixDarwinStateVersion;
+  darwinModules =
+    (importAsAttrset (filesCalled (_: _ == "darwin.nix" || _ == "nixos+darwin.nix")))
+    // {
+      _setup.system.stateVersion = nixDarwinStateVersion;
     };
-  };
 
-  nixosModules = (importAsAttrset (filesCalled "nixos.nix")) // {
-    home-manager = inputs.home-manager.nixosModules.default;
-
-    _setup = {
-      system.stateVersion = stateVersion;
-    };
+  nixosModules = (importAsAttrset (filesCalled (_: _ == "nixos.nix" || _ == "nixos+darwin.nix"))) // {
+    _setup.system.stateVersion = stateVersion;
   };
 
   disableModules =
@@ -70,39 +82,23 @@ let
     (
       {
         config,
-        pkgs,
         inputs,
         ...
       }:
       {
         imports = osModules;
 
-        config = {
-          home-manager = {
-            backupFileExtension = "backup";
-
-            sharedModules = homeModules;
-
-            # Use the system-level nixpkgs instead of Home Manager's
-            useGlobalPkgs = true;
-
-            # Install packages to /etc/profiles instead of ~/.nix-profile, useful when
-            # using multiple profiles for one user
-            useUserPackages = true;
-
-            extraSpecialArgs = {
-              inherit pkgs inputs;
-            };
-          };
-        };
+        config.home-manager.sharedModules = homeModules;
+        config.home-manager.extraSpecialArgs = {
+          inherit inputs;
+        } // inputs;
       }
     );
   mkHomeManagerConfiguration =
     {
-      system,
       config,
       overlays ? defaultOverlays,
-      pkgs ? import inputs.nixpkgs { inherit system; config = nixpkgsConfig; inherit overlays; },
+      pkgs,
       disabledModules ? [ ],
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
@@ -200,7 +196,11 @@ let
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZzAdnH2X/vW+HEovUZCgDjfIiXyokxCNIhCDrF1+Rh"
             ];
 
-            nix.settings.trusted-users = [ "luke" "luke@idm.channings.me" ];
+            nix.settings.trusted-users = [
+              "luke"
+              "luke@idm.channings.me"
+            ];
+            # nixpkgs.overlays = overlays;
           }
 
           (
@@ -239,10 +239,6 @@ let
             imports = systemModules;
 
             inherit deployment;
-          };
-          meta.nodeNixpkgs.${normalizedHostName} = import inputs.nixpkgs {
-            inherit system overlays;
-            config = nixpkgsConfig;
           };
           meta.nodeSpecialArgs.${normalizedHostName} = {
             inherit inputs;

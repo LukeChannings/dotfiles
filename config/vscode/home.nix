@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config.programs.vscode = {
+  programs.vscode = {
     enable = true;
 
     package = pkgs.vscodium.overrideAttrs (_final: _prev: { dontPatchShebangs = true; });
@@ -23,10 +23,10 @@
     };
     keybindings = (lib.importJSON ./keybindings.json);
 
-    extensions = import ./extensions.nix { inherit pkgs; };
+    extensions = lib.mkIf (pkgs?vscode-marketplace) (import ./extensions.nix { inherit pkgs; });
   };
 
-  config.home.packages = [
+  home.packages = [
     (pkgs.writeShellScriptBin "code" ''
       ${config.programs.vscode.package}/Applications/VSCodium.app/Contents/MacOS/Electron $@
     '')

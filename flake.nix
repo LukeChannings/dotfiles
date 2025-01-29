@@ -121,7 +121,7 @@
           };
 
           legacyPackages.homeConfigurations.luke = self.lib.mkHomeManagerConfiguration {
-            inherit system;
+            inherit pkgs;
 
             disabledModules = [
               "chromium"

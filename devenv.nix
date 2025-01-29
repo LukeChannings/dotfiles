@@ -10,7 +10,7 @@
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
-        inherit ((import ./config/nixpkgs).nixpkgs) config;
+        config.allowUnfree = true;
         overlays = [ inputs.vscode-extensions.overlays.default ];
       };
 
