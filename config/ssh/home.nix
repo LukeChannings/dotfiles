@@ -62,54 +62,41 @@
     (lib.mkIf config.programs.ssh.enableSmallstepCA {
       home.packages = [ pkgs.step-cli ];
 
-      programs.ssh.includes =
-        let
-          smallstepCfg = (
-            pkgs.writeText "smallstep_config" ''
-              Match exec "step ssh check-host %h"
-                ProxyCommand step ssh proxycommand %r %h %p
-                IdentityAgent "SSH_AUTH_SOCK"
-                UserKnownHostsFile ${./smallstep_known_hosts}
-            ''
-          );
-        in
-        [
-          "${smallstepCfg}"
-        ];
+      home.file.".ssh/smallstep_known_hosts".source = ./smallstep_known_hosts;
+
+      home.file.".ssh/smallstep_config.inc".text = ''
+        Match exec "step ssh check-host %h"
+          ProxyCommand step ssh proxycommand --issuer=oidc %r %h %p
+          IdentityAgent "SSH_AUTH_SOCK"
+          UserKnownHostsFile ~/.ssh/smallstep_known_hosts
+      '';
+
+      programs.ssh.includes = [ "~/.ssh/smallstep_config.inc" ];
     })
 
     (lib.mkIf (config.programs.ssh.domainCanon != null) (
-      let
-        domainCanonCfg = (
-          pkgs.writeText "canonical_domain_config" ''
-            Match all
-              CanonicalizeHostname yes
-              CanonicalizeMaxDots 0 # Don't canonicalise "ssh foo.bar", but do for "ssh foo"
-              CanonicalDomains ${lib.concatStringsSep " " config.programs.ssh.domainCanon}
-          ''
-        );
-      in
       {
-        programs.ssh.includes = [ "${domainCanonCfg}" ];
+        home.file.".ssh/canonical_domain_config.inc".text = ''
+          Match all
+            CanonicalizeHostname yes
+            CanonicalizeMaxDots 0 # Don't canonicalise "ssh foo.bar", but do for "ssh foo"
+            CanonicalDomains ${lib.concatStringsSep " " config.programs.ssh.domainCanon}
+        '';
+        programs.ssh.includes = [ "~/.ssh/canonical_domain_config.inc" ];
       }
     ))
 
     (lib.mkIf config.programs.ssh.enable1PasswordAgent {
-      programs.ssh.includes =
-        let
-          _1passwordCfg = (
-            pkgs.writeText "1password_config" ''
-              Match final all
-                IdentityAgent "${
-                  if pkgs.stdenv.isDarwin then
-                    "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-                  else
-                    "~/.1password/agent.sock"
-                }"
-            ''
-          );
-        in
-        [ "${_1passwordCfg}" ];
+      home.file.".ssh/1password_config.inc".text = ''
+        Match final all
+          IdentityAgent "${
+            if pkgs.stdenv.isDarwin then
+              "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+            else
+              "~/.1password/agent.sock"
+          }"
+      '';
+      programs.ssh.includes = [ "~/.ssh/1password_config.inc" ];
     })
   ];
 }

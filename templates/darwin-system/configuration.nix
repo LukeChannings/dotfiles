@@ -18,7 +18,7 @@ in
         let
           username = "runner";
         in
-        { lib, ... }:
+        { ... }:
         {
           users = {
             knownUsers = [ username ];

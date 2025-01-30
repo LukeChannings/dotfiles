@@ -97,7 +97,6 @@ let
   mkHomeManagerConfiguration =
     {
       config,
-      overlays ? defaultOverlays,
       pkgs,
       disabledModules ? [ ],
     }:
@@ -178,7 +177,6 @@ let
       osModules ? builtins.attrValues nixosModules,
       sharedHomeModules ? builtins.attrValues homeModules,
       userHomeModule ? { },
-      overlays ? builtins.attrValues config.flake.overlays,
     }:
     (
       let
