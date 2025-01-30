@@ -5,7 +5,8 @@
   ...
 }:
 with builtins;
-let substituters = import ./substituters.nix;
+let
+  substituters = import ./substituters.nix;
 in
 {
   imports = [
@@ -23,7 +24,10 @@ in
     accept-flake-config = false;
 
     warn-dirty = false;
-    trusted-users = [ "luke@idm.channings.me" "luke" ];
+    trusted-users = [
+      "luke@idm.channings.me"
+      "luke"
+    ];
 
     substituters = map (k: "https://${head (split "-1:" k)}") substituters;
     trusted-public-keys = substituters;

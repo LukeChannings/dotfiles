@@ -74,17 +74,15 @@
       programs.ssh.includes = [ "~/.ssh/smallstep_config.inc" ];
     })
 
-    (lib.mkIf (config.programs.ssh.domainCanon != null) (
-      {
-        home.file.".ssh/canonical_domain_config.inc".text = ''
-          Match all
-            CanonicalizeHostname yes
-            CanonicalizeMaxDots 0 # Don't canonicalise "ssh foo.bar", but do for "ssh foo"
-            CanonicalDomains ${lib.concatStringsSep " " config.programs.ssh.domainCanon}
-        '';
-        programs.ssh.includes = [ "~/.ssh/canonical_domain_config.inc" ];
-      }
-    ))
+    (lib.mkIf (config.programs.ssh.domainCanon != null) ({
+      home.file.".ssh/canonical_domain_config.inc".text = ''
+        Match all
+          CanonicalizeHostname yes
+          CanonicalizeMaxDots 0 # Don't canonicalise "ssh foo.bar", but do for "ssh foo"
+          CanonicalDomains ${lib.concatStringsSep " " config.programs.ssh.domainCanon}
+      '';
+      programs.ssh.includes = [ "~/.ssh/canonical_domain_config.inc" ];
+    }))
 
     (lib.mkIf config.programs.ssh.enable1PasswordAgent {
       home.file.".ssh/1password_config.inc".text = ''

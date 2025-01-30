@@ -78,7 +78,7 @@ with lib;
         };
       };
     };
-    default = {};
+    default = { };
   };
 
   config = {

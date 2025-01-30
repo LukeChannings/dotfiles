@@ -23,7 +23,7 @@
     };
     keybindings = (lib.importJSON ./keybindings.json);
 
-    extensions = lib.mkIf (pkgs?vscode-marketplace) (import ./extensions.nix { inherit pkgs; });
+    extensions = lib.mkIf (pkgs ? vscode-marketplace) (import ./extensions.nix { inherit pkgs; });
   };
 
   home.packages = [
