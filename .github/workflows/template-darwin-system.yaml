@@ -1,10 +1,6 @@
 name: "Template test: darwin-system"
 on:
-  push:
-    paths:
-      - .github/workflows/template-darwin-system.yaml
-      - templates/darwin-system/*
-      - config/*
+  workflow_dispatch:
 jobs:
   template-test:
     runs-on: macos-latest
@@ -18,5 +14,8 @@ jobs:
       - name: Build packages
         run: |
           export NIXPKGS_ALLOW_UNFREE=1
-          nix flake new --accept-flake-config -t .#darwin-system darwin-system
-          sudo nix run --accept-flake-config path:"$(pwd)/darwin-system"#activate --show-trace
+
+          nix registry add flake:dotfiles "path:$GITHUB_WORKSPACE"
+
+          nix flake new -t .#darwin-system darwin-system
+          sudo nix run path:"$(pwd)/darwin-system"#activate --show-trace

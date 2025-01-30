@@ -192,33 +192,20 @@ let
             networking.hostName = hostName;
 
             users.mutableUsers = false;
-            users.users.root.openssh.authorizedKeys.keys = [
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZzAdnH2X/vW+HEovUZCgDjfIiXyokxCNIhCDrF1+Rh"
-            ];
-
-            nix.settings.trusted-users = [
-              "luke"
-              "luke@idm.channings.me"
-            ];
-            # nixpkgs.overlays = overlays;
           }
-
-          (
-            { ... }:
-            {
-              config =
-                if (user != null) then
-                  (
-                    assert user ? name;
-                    {
-                      users.users.${user.name} = { };
-                      home-manager.users.${user.name} = userHomeModule;
-                    }
-                  )
-                else
-                  { };
-            }
-          )
+          {
+            config =
+              if (user != null) then
+                (
+                  assert user ? name;
+                  {
+                    users.users.${user.name} = { };
+                    home-manager.users.${user.name} = userHomeModule;
+                  }
+                )
+              else
+                { };
+          }
         ];
         systemCfg = inputs.nixpkgs.lib.nixosSystem {
           inherit system;

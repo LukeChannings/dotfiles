@@ -12,7 +12,7 @@ in
     modules = [
       (dotfiles.lib.configureOsModules {
         osModules = attrValues dotfiles.modules.darwin;
-        homeModules = dotfiles.lib.homeModulesWithDisabled [ "default-apps" ];
+        homeModules = attrValues dotfiles.modules.homeManager;
       })
       (
         let
@@ -20,13 +20,6 @@ in
         in
         { lib, ... }:
         {
-          # This can be removed for multi-user Nix installs
-          nix.gc.user = username;
-
-          nix.linux-builder.enable = lib.mkForce false;
-
-          nixpkgs.overlays = [ dotfiles.overlays.vscode-extensions ];
-
           users = {
             knownUsers = [ username ];
 
