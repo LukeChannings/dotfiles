@@ -1,4 +1,4 @@
-Include /nix/store/cl0m73hxc3yxrf8g7mn9i0zgra3d3qjx-canonical_domain_config
+Include ~/.ssh/canonical_domain_config.inc
 
 
 Host *
