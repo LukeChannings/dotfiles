@@ -15,7 +15,7 @@ jobs:
         run: |
           export NIXPKGS_ALLOW_UNFREE=1
 
-          nix registry add flake:dotfiles "path:$GITHUB_WORKSPACE"
-
-          nix flake new -t .#darwin-system darwin-system
-          sudo nix run path:"$(pwd)/darwin-system"#activate --show-trace
+          nix flake new -t ${{ github.workspace }}#darwin-system darwin-system
+          cd darwin-system
+          
+          sudo nix run --override-input dotfiles path:${{ github.workspace }} .#activate --show-trace
