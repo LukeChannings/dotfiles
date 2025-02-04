@@ -15,5 +15,10 @@
       description = "A barebones TypeScript frontend environment";
       path = ./dev-fe-typescript;
     };
+
+    shell-nodejs = {
+      description = "A NodeJS shell";
+      path = ./shell-nodejs;
+    };
   };
 }
