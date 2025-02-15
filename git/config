@@ -1,3 +1,6 @@
+[commit]
+	gpgSign = false
+
 [diff]
 	external = "difft --color auto --background light --display side-by-side"
 
@@ -6,6 +9,12 @@
 	process = "git-lfs filter-process"
 	required = true
 	smudge = "git-lfs smudge -- %f"
+
+[gpg]
+	format = "ssh"
+
+[gpg "ssh"]
+	program = "ssh-keygen"
 
 [init]
 	defaultBranch = "main"
@@ -18,3 +27,6 @@
 
 [rebase]
 	autostash = true
+
+[tag]
+	gpgSign = false
