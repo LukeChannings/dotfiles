@@ -90,5 +90,3 @@ if not ($atuin_cache | path exists) {
   mkdir $atuin_cache
 }
 atuin init nu  | save --force /home/luke/.cache/atuin/init.nu
-
-load-env {}

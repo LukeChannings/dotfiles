@@ -926,4 +926,9 @@ $env.config.hooks.pre_prompt = (
     }
 )
 
-alias eza = eza --icons auto
+alias "eza" = eza --icons auto
+alias "la" = eza -a
+alias "ll" = eza -l
+alias "lla" = eza -la
+alias "ls" = eza
+alias "lt" = eza --tree

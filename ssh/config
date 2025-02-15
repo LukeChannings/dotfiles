@@ -1,5 +1,7 @@
-Include ~/.ssh/canonical_domain_config.inc
-
+Match all
+  CanonicalDomains lon.channings.me ind.channings.me
+  CanonicalizeHostname yes
+  CanonicalizeMaxDots 0
 
 Host *
   ForwardAgent no
