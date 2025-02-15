@@ -1,12 +1,10 @@
 {
+  self,
   inputs,
   lib,
-  config,
   ...
 }:
 let
-  defaultOverlays = builtins.attrValues config.flake.overlays;
-
   inherit (lib) optional;
   inherit (lib.strings) toLower;
   inherit (lib.attrsets) genAttrs;
@@ -56,8 +54,6 @@ let
   #
   homeModules = (importAsAttrset (filesCalled (_: _ == "home.nix"))) // {
     _setup.home.stateVersion = stateVersion;
-
-    default-packages = import ./default-packages.nix;
   };
 
   darwinModules =
@@ -115,8 +111,8 @@ let
       user ? { },
       system ? "aarch64-darwin",
       inputs ? inputs,
-      osModules ? builtins.attrValues darwinModules,
-      sharedHomeModules ? builtins.attrValues homeModules,
+      osModules ? builtins.attrValues self.modules.darwin,
+      sharedHomeModules ? builtins.attrValues self.modules.homeManager,
       userHomeModule ? null,
     }:
     (
@@ -174,8 +170,8 @@ let
       user ? null,
       system ? "x86_64-linux",
       inputs ? inputs,
-      osModules ? builtins.attrValues nixosModules,
-      sharedHomeModules ? builtins.attrValues homeModules,
+      osModules ? builtins.attrValues self.modules.nixos,
+      sharedHomeModules ? builtins.attrValues self.modules.homeManager,
       userHomeModule ? { },
     }:
     (

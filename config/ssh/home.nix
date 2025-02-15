@@ -4,6 +4,9 @@
   config,
   ...
 }:
+let
+  cfg = config.programs.ssh;
+in
 {
   options.programs.ssh = with lib; {
     enableDefaultMacOSAgent = mkOption {
@@ -14,7 +17,7 @@
       '';
     };
 
-    enableSmallstepCA = mkOption {
+    enableSmallstep = mkOption {
       type = types.bool;
       default = pkgs.stdenv.isDarwin;
       description = ''
@@ -55,46 +58,47 @@
       };
     }
 
-    (lib.mkIf config.programs.ssh.enableDefaultMacOSAgent {
+    (lib.mkIf cfg.enableDefaultMacOSAgent {
       home.sessionVariables.SSH_AUTH_SOCK = "$(launchctl getenv SSH_AUTH_SOCK)";
     })
 
-    (lib.mkIf config.programs.ssh.enableSmallstepCA {
-      home.packages = [ pkgs.step-cli ];
-
-      home.file.".ssh/smallstep_known_hosts".source = ./smallstep_known_hosts;
-
-      home.file.".ssh/smallstep_config.inc".text = ''
-        Match exec "step ssh check-host %h"
-          ProxyCommand step ssh proxycommand --issuer=oidc %r %h %p
-          IdentityAgent "SSH_AUTH_SOCK"
-          UserKnownHostsFile ~/.ssh/smallstep_known_hosts
-      '';
-
-      programs.ssh.includes = [ "~/.ssh/smallstep_config.inc" ];
-    })
-
-    (lib.mkIf (config.programs.ssh.domainCanon != null) ({
-      home.file.".ssh/canonical_domain_config.inc".text = ''
-        Match all
-          CanonicalizeHostname yes
-          CanonicalizeMaxDots 0 # Don't canonicalise "ssh foo.bar", but do for "ssh foo"
-          CanonicalDomains ${lib.concatStringsSep " " config.programs.ssh.domainCanon}
-      '';
-      programs.ssh.includes = [ "~/.ssh/canonical_domain_config.inc" ];
+    (lib.mkIf (cfg.domainCanon != null) ({
+      programs.ssh.matchBlocks.canonical = {
+        match = "all";
+        extraOptions = {
+          CanonicalizeHostname = "yes";
+          CanonicalizeMaxDots = "0"; # Don't canonicalise "ssh foo.bar", but do for "ssh foo"
+          CanonicalDomains = "${lib.concatStringsSep " " cfg.domainCanon}";
+        };
+      };
     }))
 
-    (lib.mkIf config.programs.ssh.enable1PasswordAgent {
-      home.file.".ssh/1password_config.inc".text = ''
-        Match final all
-          IdentityAgent "${
+    (lib.mkIf cfg.enableSmallstep {
+      programs.ssh.matchBlocks.smallstep = lib.hm.dag.entryAfter [ "canonical" ] (
+        let
+          step = lib.getExe pkgs.step-cli;
+        in
+        {
+          match = "final exec \"${step} ssh check-host %h\"";
+          proxyCommand = "${step} ssh proxycommand --issuer=oidc %r %h %p";
+          extraOptions = {
+            IdentityAgent = "SSH_AUTH_SOCK";
+          };
+        }
+      );
+    })
+
+    (lib.mkIf cfg.enable1PasswordAgent {
+      programs.ssh.matchBlocks._1password = lib.hm.dag.entryAfter [ "smallstep" ] {
+        match = "final all";
+        extraOptions = {
+          IdentityAgent =
             if pkgs.stdenv.isDarwin then
-              "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+              "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
             else
-              "~/.1password/agent.sock"
-          }"
-      '';
-      programs.ssh.includes = [ "~/.ssh/1password_config.inc" ];
+              "~/.1password/agent.sock";
+        };
+      };
     })
   ];
 }

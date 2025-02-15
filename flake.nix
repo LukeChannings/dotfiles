@@ -87,6 +87,7 @@
         ./devenv.nix
         ./config
         ./templates
+        ./modules
       ];
 
       systems = [
@@ -105,8 +106,6 @@
         lix = inputs.lix-module.overlays.default;
         helix = inputs.helix.overlays.default;
       };
-
-      flake.flakeModules.colmena = ./modules/flakeModules/colmena.nix;
 
       perSystem =
         {
