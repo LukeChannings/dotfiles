@@ -59,6 +59,8 @@ with lib;
           init.defaultBranch = "main";
         };
 
+        signing.format = "ssh";
+
         lfs.enable = true;
         difftastic.enable = true;
       };

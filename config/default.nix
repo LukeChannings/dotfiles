@@ -37,7 +37,7 @@ let
       ) pathList
     );
 
-  stateVersion = "24.11";
+  stateVersion = "25.05";
   nixDarwinStateVersion = 5;
 
   #
@@ -52,7 +52,7 @@ let
   # - home+nixos+darwin.nix
   # - nixos+darwin.nix
   #
-  homeModules = (importAsAttrset (filesCalled (_: _ == "home.nix"))) // {
+  homeManagerModules = (importAsAttrset (filesCalled (_: _ == "home.nix"))) // {
     _setup.home.stateVersion = stateVersion;
   };
 
@@ -69,12 +69,12 @@ let
   disableModules =
     allModules: disabledModules: (with builtins; attrValues (removeAttrs allModules disabledModules));
 
-  homeModulesWithDisabled = disableModules homeModules;
-  darwinModulesWithDisabled = disableModules darwinModules;
-  nixosModulesWithDisabled = disableModules nixosModules;
+  homeManagerModulesWithDisabled = disableModules self.modules.homeManager;
+  darwinModulesWithDisabled = disableModules self.modules.darwin;
+  nixosModulesWithDisabled = disableModules self.modules.nixos;
 
   configureOsModules =
-    { osModules, homeModules }:
+    { osModules, homeManagerModules }:
     (
       {
         config,
@@ -84,7 +84,7 @@ let
       {
         imports = osModules;
 
-        config.home-manager.sharedModules = homeModules;
+        config.home-manager.sharedModules = homeManagerModules;
         config.home-manager.extraSpecialArgs = {
           inherit inputs;
         } // inputs;
@@ -95,16 +95,26 @@ let
       config,
       pkgs,
       disabledModules ? [ ],
+      user ? { },
     }:
-    inputs.home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+    (
+      assert user.name != null;
 
-      modules = [ config ] ++ (homeModulesWithDisabled disabledModules);
+      inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-      extraSpecialArgs = {
-        inherit inputs;
-      } // inputs;
-    };
+        modules = [
+          {
+            home.username = user.name;
+            home.homeDirectory = "/home/${user.name}";
+          }
+        ] ++ (homeManagerModulesWithDisabled disabledModules);
+
+        extraSpecialArgs = {
+          inherit inputs user;
+        } // inputs;
+      }
+    );
   mkDarwinSystem =
     {
       hostName,
@@ -112,7 +122,7 @@ let
       system ? "aarch64-darwin",
       inputs ? inputs,
       osModules ? builtins.attrValues self.modules.darwin,
-      sharedHomeModules ? builtins.attrValues self.modules.homeManager,
+      sharedHomeManagerModules ? builtins.attrValues self.modules.homeManager,
       userHomeModule ? null,
     }:
     (
@@ -147,7 +157,7 @@ let
               )
               (configureOsModules {
                 inherit osModules;
-                homeModules = sharedHomeModules;
+                homeManagerModules = sharedHomeManagerModules;
               })
             ]
             ++ (optional (userHomeModule != null) {
@@ -155,7 +165,7 @@ let
             });
 
           specialArgs = {
-            inherit inputs;
+            inherit inputs user;
           } // inputs;
         };
       in
@@ -171,7 +181,7 @@ let
       system ? "x86_64-linux",
       inputs ? inputs,
       osModules ? builtins.attrValues self.modules.nixos,
-      sharedHomeModules ? builtins.attrValues self.modules.homeManager,
+      sharedHomeManagerModules ? builtins.attrValues self.modules.homeManager,
       userHomeModule ? { },
     }:
     (
@@ -179,7 +189,7 @@ let
         systemModules = [
           (configureOsModules {
             inherit osModules;
-            homeModules = sharedHomeModules;
+            homeManagerModules = sharedHomeManagerModules;
           })
 
           {
@@ -207,7 +217,7 @@ let
           modules = systemModules;
 
           specialArgs = {
-            inherit inputs;
+            inherit inputs user;
           } // inputs;
         };
         normalizedHostName = (toLower hostName);
@@ -233,7 +243,7 @@ in
     lib = {
       inherit
         configureOsModules
-        homeModulesWithDisabled
+        homeManagerModulesWithDisabled
         darwinModulesWithDisabled
         nixosModulesWithDisabled
         mkHomeManagerConfiguration
@@ -243,7 +253,7 @@ in
     };
 
     modules = {
-      homeManager = homeModules;
+      homeManager = homeManagerModules;
       nixos = nixosModules;
       darwin = darwinModules;
     };

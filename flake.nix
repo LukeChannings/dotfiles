@@ -122,6 +122,8 @@
           legacyPackages.homeConfigurations.luke = self.lib.mkHomeManagerConfiguration {
             inherit pkgs;
 
+            user.name = "luke";
+
             disabledModules = [
               "chromium"
               "wezterm"
@@ -129,8 +131,6 @@
               "fonts"
             ];
 
-            config.home.username = "luke";
-            config.home.homeDirectory = "/home/luke";
             config.dotfiles.defaultPackages.enableMacUtilities = false;
           };
         };
