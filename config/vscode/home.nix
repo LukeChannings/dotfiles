@@ -8,7 +8,7 @@
   programs.vscode = {
     enable = true;
 
-    package = pkgs.vscodium.overrideAttrs (_final: _prev: { dontPatchShebangs = true; });
+    package = pkgs.vscodium;
 
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
