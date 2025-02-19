@@ -36,12 +36,8 @@ end)
 
 return {
   front_end = "WebGpu",
-  hide_tab_bar_if_only_one_tab = true,
   enable_kitty_keyboard = true,
-  send_composed_key_when_left_alt_is_pressed = true,
-  send_composed_key_when_right_alt_is_pressed = true,
   quit_when_all_windows_are_closed = false,
-  use_fancy_tab_bar = true,
   font = wezterm.font_with_fallback({
     {
       family = "RecMonoLinear Nerd Font Mono",
@@ -52,7 +48,7 @@ return {
     "Menlo",
   }),
   font_size = 15,
-  window_decorations = "RESIZE",
+  window_decorations = "INTEGRATED_BUTTONS|RESIZE",
   color_scheme = color_scheme_name,
   initial_cols = 100,
   initial_rows = 40,
@@ -65,8 +61,8 @@ return {
   window_padding = {
     left = "1cell",
     right = "1cell",
-    top = "0.5cell",
-    bottom = "0.5cell",
+    top = "1cell",
+    bottom = "1cell",
   },
 
   skip_close_confirmation_for_processes_named = {
