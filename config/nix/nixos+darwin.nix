@@ -25,7 +25,7 @@ in
 
     warn-dirty = false;
     trusted-users = [
-      "luke@idm.channings.me"
+      "luke@idm.svc.channings.me"
       "luke"
     ];
 
