@@ -41,7 +41,7 @@ let
       ;
   };
 
-  cfg = config.dotfiles.defaultPackages;
+  cfg = config.dotfiles;
 in
 with lib;
 {
@@ -73,15 +73,32 @@ with lib;
           type = types.attrsOf types.package;
           internal = true;
           default =
-            (if cfg.enableMacUtilities then macUtilities else { })
-            // (if cfg.enableCliTools then cliTools else { });
+            (if cfg.defaultPackages.enableMacUtilities then macUtilities else { })
+            // (if cfg.defaultPackages.enableCliTools then cliTools else { });
         };
       };
     };
     default = { };
   };
 
+  options.dotfiles.loginItems = mkOption {
+    type = types.attrsOf (types.either types.package types.str);
+    default = { };
+  };
+
   config = {
-    home.packages = attrValues (removeAttrs cfg.packages cfg.disabledPackageNames);
+    home.packages = attrValues (
+      removeAttrs cfg.defaultPackages.packages cfg.defaultPackages.disabledPackageNames
+    );
+
+    launchd.agents = lib.mkIf (cfg.loginItems != { }) (
+      builtins.mapAttrs (name: pkg: {
+        enable = true;
+        config.Program = "${pkg}/Contents/MacOS/${name}";
+        config.ProgramArguments = [ "${pkg}/Contents/MacOS/${name}" ];
+        config.RunAtLoad = true;
+        config.KeepAlive = true;
+      }) cfg.loginItems
+    );
   };
 }

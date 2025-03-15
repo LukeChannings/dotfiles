@@ -10,20 +10,21 @@
 
     package = pkgs.vscodium;
 
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
-    mutableExtensionsDir = false;
+    profiles.default = {
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
 
-    userSettings = (lib.importJSON ./settings.json) // {
-      nix = {
-        enableLanguageServer = true;
-        serverPath = lib.getExe pkgs.nil;
-        serverSettings.nil.formatting.command = [ (lib.getExe pkgs.nixfmt-rfc-style) ];
+      userSettings = (lib.importJSON ./settings.json) // {
+        nix = {
+          enableLanguageServer = true;
+          serverPath = lib.getExe pkgs.nil;
+          serverSettings.nil.formatting.command = [ (lib.getExe pkgs.nixfmt-rfc-style) ];
+        };
       };
-    };
-    keybindings = (lib.importJSON ./keybindings.json);
+      keybindings = (lib.importJSON ./keybindings.json);
 
-    extensions = lib.mkIf (pkgs ? vscode-marketplace) (import ./extensions.nix { inherit pkgs; });
+      extensions = lib.mkIf (pkgs ? vscode-marketplace) (import ./extensions.nix { inherit pkgs; });
+    };
   };
 
   home.packages = [
