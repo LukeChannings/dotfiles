@@ -6,8 +6,10 @@ set -x
 NIXPKGS_STATUS="$(curl -s "https://prometheus.nixos.org/api/v1/query?query=channel_revision")"
 
 NIXPKGS_REV="$(echo "$NIXPKGS_STATUS" | jq -r '.data.result[] | select(.metric.channel == "nixpkgs-unstable") | .metric.revision')"
+NIXOS_REV="$(echo "$NIXPKGS_STATUS" | jq -r '.data.result[] | select(.metric.channel == "nixos-unstable") | .metric.revision')"
 NIXPKGS_STABLE_REV="$(echo "$NIXPKGS_STATUS" | jq -r '.data.result[] | select(.metric.channel == "nixos-24.11") | .metric.revision')"
 
 nix flake update \
   --override-input nixpkgs "github:NixOS/nixpkgs/${NIXPKGS_REV}" \
-  --override-input nixpkgs-stable "github:NixOS/nixpkgs/${NIXPKGS_STABLE_REV}"
+  --override-input nixpkgs-stable "github:NixOS/nixpkgs/${NIXPKGS_STABLE_REV}" \
+  --override-input nixpkgs-nixos "github:NixOS/nixpkgs/${NIXOS_REV}"
