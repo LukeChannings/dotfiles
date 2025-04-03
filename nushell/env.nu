@@ -72,21 +72,3 @@ $env.NU_PLUGIN_DIRS = [
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
-let zoxide_cache = "/home/luke/.cache/zoxide"
-if not ($zoxide_cache | path exists) {
-  mkdir $zoxide_cache
-}
-zoxide init nushell  |
-  save --force /home/luke/.cache/zoxide/init.nu
-
-let starship_cache = "/home/luke/.cache/starship"
-if not ($starship_cache | path exists) {
-  mkdir $starship_cache
-}
-/home/luke/.nix-profile/bin/starship init nu | save --force /home/luke/.cache/starship/init.nu
-
-let atuin_cache = "/home/luke/.cache/atuin"
-if not ($atuin_cache | path exists) {
-  mkdir $atuin_cache
-}
-atuin init nu  | save --force /home/luke/.cache/atuin/init.nu

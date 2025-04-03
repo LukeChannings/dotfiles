@@ -1,6 +1,3 @@
-[commit]
-	gpgSign = false
-
 [diff]
 	external = "difft --color auto --background light --display side-by-side"
 
@@ -27,6 +24,3 @@
 
 [rebase]
 	autostash = true
-
-[tag]
-	gpgSign = false
