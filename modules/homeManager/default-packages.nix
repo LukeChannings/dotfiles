@@ -18,7 +18,6 @@ let
 
       hot
       monitorcontrol
-      ghostty
       ;
   };
 
@@ -96,7 +95,6 @@ with lib;
       builtins.mapAttrs (name: pkg: {
         enable = true;
         config.Program = "${pkg}/Contents/MacOS/${name}";
-        config.ProgramArguments = [ "${pkg}/Contents/MacOS/${name}" ];
         config.RunAtLoad = true;
         config.KeepAlive = true;
       }) cfg.loginItems
