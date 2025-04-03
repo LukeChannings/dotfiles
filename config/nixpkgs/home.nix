@@ -1,5 +1,4 @@
 {
-  inputs,
   osConfig,
   lib,
   ...
@@ -9,11 +8,6 @@ let
 in
 {
   config = lib.mkIf (!useGlobalPkgs) {
-    nixpkgs = {
-      overlays = [
-        inputs.brew-nix.overlays.default
-        (import ./overlay.nix)
-      ];
-    };
+    nixpkgs.config = import ./config.nix;
   };
 }
