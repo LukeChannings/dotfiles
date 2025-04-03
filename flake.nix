@@ -12,7 +12,7 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     # See https://lix.systems/add-to-config/#flake-based-configurations for the latest version
-    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-1.tar.gz";
+    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
     lix-module.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
