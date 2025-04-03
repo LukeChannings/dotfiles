@@ -29,8 +29,10 @@ in
       "luke"
     ];
 
-    substituters = map (k: "https://${head (split "-1:" k)}") substituters;
-    trusted-public-keys = substituters;
+    substituters = [
+      "https://attic.svc.channings.me/nix"
+    ] ++ (map (k: "https://${head (split "-1:" k)}") substituters);
+    trusted-public-keys = [ "nix:CLpxkxK7MCT/RRXSU2EpfiQVoCLreSR6QiJGzHtcyYQ=" ] ++ substituters;
 
     max-substitution-jobs = 128;
     http-connections = 0;
