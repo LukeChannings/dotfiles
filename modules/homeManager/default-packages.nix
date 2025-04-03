@@ -18,6 +18,7 @@ let
 
       hot
       monitorcontrol
+      ghostty
       ;
   };
 

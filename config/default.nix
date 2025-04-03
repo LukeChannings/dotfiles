@@ -92,8 +92,8 @@ let
     );
   mkHomeManagerConfiguration =
     {
-      config,
       pkgs,
+      config ? {},
       disabledModules ? [ ],
       user ? { },
     }:
@@ -108,6 +108,7 @@ let
             home.username = user.name;
             home.homeDirectory = "/home/${user.name}";
           }
+          config
         ] ++ (homeManagerModulesWithDisabled disabledModules);
 
         extraSpecialArgs = {
