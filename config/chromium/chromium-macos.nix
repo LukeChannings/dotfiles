@@ -12,7 +12,7 @@
   cpio,
 }:
 let
-  version = "133.0.6943.53-1.1";
+  version = "135.0.7049.52-1.1";
 in
 assert lib.asserts.assertMsg (
   stdenv.isAarch64 != "arm64"
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/${version}/ungoogled-chromium_${version}_arm64-macos.dmg";
-    hash = "sha256-7QxfBkhjeDK1YH1rCLbWiIH5Twa7wor3KfiyMF6d8ys=";
+    hash = "sha256-ePEeKAD2yNkY37ns4vdKJM78qsI6ik4kyL/4LL5WUpY=";
   };
 
   nativeBuildInputs = [
