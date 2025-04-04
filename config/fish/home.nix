@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   programs.fish = {
     enable = true;
@@ -18,19 +23,21 @@
       fish_greeting = "";
 
       fish_user_key_bindings = ''
-        fish_default_key_bindings -M insert
+        set -g fish_key_bindings fish_vi_key_bindings
 
-        fish_vi_key_bindings --no-erase insert
+        # Bind Ctrl+z to fg
+        bind \cz -M insert 'fg 2>/dev/null; commandline -f repaint'
+        bind \cz -M default 'fg 2>/dev/null; commandline -f repaint'
       '';
 
       mcat = ''
         if file --mime-type $argv | grep -qF image/
-            chafa -f iterm -s $FZF_PREVIEW_COLUMNS"x"$FZF_PREVIEW_LINES $argv
+            ${lib.getExe pkgs.chafa} -f iterm -s $FZF_PREVIEW_COLUMNS"x"$FZF_PREVIEW_LINES $argv
         else
-            bat --color always --style numbers --theme TwoDark --line-range :200 $argv
+            ${lib.getExe pkgs.bat} --color always --style numbers --theme TwoDark --line-range :200 $argv
         end'';
 
-      fdz = "fd --type f --hidden --follow --exclude .git --color=always | fzf --ansi --multi --preview='mcat {}'";
+      fdz = "${lib.getExe pkgs.fd} --type f --hidden --follow --exclude .git --color=always | ${lib.getExe pkgs.fzf} --ansi --multi --preview='mcat {}'";
     };
   };
 
