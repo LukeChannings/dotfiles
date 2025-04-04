@@ -4,7 +4,8 @@
     enable = true;
     settings = {
       auto_sync = true;
-      workspaces = false;
+      sync_address = "https://atuin.svc.channings.me";
+      workspaces = true;
       ctrl_n_shortcuts = true;
       dialect = "uk";
       filter_mode = "host";
@@ -14,9 +15,7 @@
       show_help = false;
       enter_accept = true;
 
-      sync = {
-        records = true;
-      };
+      sync.records = true;
     };
   };
 }
