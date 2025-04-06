@@ -21,6 +21,7 @@ in
       "flakes"
     ];
 
+    # It's tempting to enable this, but it's a massive security hole
     accept-flake-config = false;
 
     warn-dirty = false;

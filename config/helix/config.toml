@@ -11,6 +11,13 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "all"
+nnbsp = "all"
+newline = "none"
+
 [keys.normal]
 A-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 A-up = [
