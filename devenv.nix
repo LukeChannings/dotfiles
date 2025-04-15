@@ -26,6 +26,7 @@
         programs.actionlint.enable = true;
       };
 
+
       devenv.shells.default = {
         devenv.root =
           let
@@ -36,6 +37,7 @@
         imports = [ inputs.toolbox.modules.devenv.vscode-workspace ];
 
         languages.shell.enable = true;
+        dotenv.disableHint = true;
 
         devcontainer.settings.customizations.vscode.extensions =
           let

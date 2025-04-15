@@ -52,7 +52,7 @@ let
   # - home+nixos+darwin.nix
   # - nixos+darwin.nix
   #
-  homeManagerModules = (importAsAttrset (filesCalled (_: _ == "home.nix"))) // {
+  homeModules = (importAsAttrset (filesCalled (_: _ == "home.nix"))) // {
     _setup.home.stateVersion = stateVersion;
   };
 
@@ -253,8 +253,10 @@ in
         ;
     };
 
+    inherit homeModules nixosModules;
+
     modules = {
-      homeManager = homeManagerModules;
+      homeManager = homeModules;
       nixos = nixosModules;
       darwin = darwinModules;
     };

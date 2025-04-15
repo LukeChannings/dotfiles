@@ -98,6 +98,7 @@
         flake-parts.flakeModules.modules
         inputs.devenv.flakeModule
         inputs.treefmt-nix.flakeModule
+        inputs.home-manager.flakeModules.home-manager
         ./devenv.nix
         ./config
         ./templates
