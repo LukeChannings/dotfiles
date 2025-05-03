@@ -19,7 +19,7 @@
     "cachix",
     "nixpkgs"
   ],
-  "editor.fontFamily": "RecMonoLinear Nerd Font",
+  "editor.fontFamily": "RecMonoLinear Nerd Font Mono",
   "editor.fontLigatures": true,
   "editor.fontSize": 16,
   "editor.inlineSuggest.enabled": true,

@@ -13,7 +13,6 @@
     profiles.default = {
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
-
       userSettings = (lib.importJSON ./settings.json) // {
         nix = {
           enableLanguageServer = true;

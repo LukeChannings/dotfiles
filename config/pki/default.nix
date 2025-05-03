@@ -1,4 +1,4 @@
-{
+let pkiModule = {
   security.pki.certificates = [
     # Channings Principal Certificate Authority Root
     ''
@@ -16,4 +16,22 @@
       -----END CERTIFICATE-----
     ''
   ];
+
+  programs.ssh.knownHosts = {
+    "github.com".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+    "channings.me" = {
+      certAuthority = true;
+      hostNames = [
+        "*.lon.channings.me"
+        "*.ind.channings.me"
+      ];
+      publicKey = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCKpge4As6Hm/pHnr/UKw9VlT0CuU66mJK/WNNh9ooRF2//RdCI5XpP3vBlVOoQF2Nod06xFvBao3THXO+cyEnw=";
+    };
+  };
+};
+in
+{
+  flake.darwinModules.pki = pkiModule;
+  flake.nixosModules.pki = pkiModule;
 }

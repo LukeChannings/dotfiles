@@ -1,5 +1,5 @@
 {
-  inputs,
+  brew-nix,
   osConfig,
   lib,
   ...
@@ -11,7 +11,7 @@ in
   config = lib.mkIf (!useGlobalPkgs) {
     nixpkgs = {
       overlays = [
-        inputs.brew-nix.overlays.default
+        brew-nix.overlays.default
         (import ./overlay.nix)
       ];
     };

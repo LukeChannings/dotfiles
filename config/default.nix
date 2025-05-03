@@ -240,6 +240,12 @@ let
     );
 in
 {
+  imports = [
+    ./nix
+    ./nixpkgs
+    ./pki
+  ];
+
   flake = {
     lib = {
       inherit
@@ -253,7 +259,7 @@ in
         ;
     };
 
-    inherit homeModules nixosModules;
+    inherit homeModules nixosModules darwinModules;
 
     modules = {
       homeManager = homeModules;

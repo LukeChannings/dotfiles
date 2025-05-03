@@ -1,12 +1,12 @@
 {
-  inputs,
+  _1password-shell-plugins,
   config,
   pkgs,
   lib,
   ...
 }:
 {
-  imports = [ inputs._1password-shell-plugins.hmModules.default ];
+  imports = [ _1password-shell-plugins.hmModules.default ];
 
   options =
     let

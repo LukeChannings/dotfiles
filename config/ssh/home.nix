@@ -11,7 +11,7 @@ in
   options.programs.ssh = with lib; {
     enableDefaultMacOSAgent = mkOption {
       type = types.bool;
-      default = pkgs.stdenv.isDarwin;
+      default = false;
       description = ''
         Sets the SSH_AUTH_SOCK env variable from the launchctl environment.
       '';
@@ -19,7 +19,7 @@ in
 
     enableSmallstep = mkOption {
       type = types.bool;
-      default = pkgs.stdenv.isDarwin;
+      default = false;
       description = ''
         Enable step-cli and integrate with SSH.
       '';
@@ -27,7 +27,7 @@ in
 
     enable1PasswordAgent = mkOption {
       type = types.bool;
-      default = pkgs.stdenv.isDarwin;
+      default = false;
       description = ''
         Enable 1Password SSH agent.
       '';

@@ -42,7 +42,6 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     ## Secrets
 
@@ -69,6 +68,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     devenv.url = "github:cachix/devenv";
+    devenv.inputs.nixpkgs.follows = "nixpkgs";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
@@ -96,13 +96,21 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         flake-parts.flakeModules.modules
+        flake-parts.flakeModules.easyOverlay
         inputs.devenv.flakeModule
         inputs.treefmt-nix.flakeModule
         inputs.home-manager.flakeModules.home-manager
+        ./modules/flakeModules/nix-darwin.nix
+        ./modules/flakeModules/profiles.nix
         ./devenv.nix
         ./config
         ./templates
         ./modules
+
+        ./profiles/base.nix
+        ./profiles/server.nix
+        ./profiles/container.nix
+        ./profiles/personal-mac.nix
       ];
 
       systems = [
@@ -116,37 +124,24 @@
       flake.vscode.systemExtensions =
         (nixpkgs.lib.importJSON ./.devcontainer.json).customizations.vscode.extensions;
 
-      flake.overlays = {
-        vscode-extensions = inputs.vscode-extensions.overlays.default;
-        lix = inputs.lix-module.overlays.default;
-        helix = inputs.helix.overlays.default;
-      };
-
       perSystem =
         {
           pkgs,
           lib,
           system,
+          config,
           ...
         }:
         {
           packages = {
             inherit (inputs.home-manager.packages.${system}) home-manager;
+            ungoogled-chromium-macos = pkgs.callPackage ./packages/ungoogled-chromium-macos/package.nix { };
+            kanidm-tools = pkgs.callPackage ./packages/kanidm-tools/package.nix { };
+            mod_auth_openidc = pkgs.callPackage ./packages/mod_auth_openidc/package.nix { };
           };
 
-          legacyPackages.homeConfigurations.luke = self.lib.mkHomeManagerConfiguration {
-            inherit pkgs;
-
-            user.name = "luke";
-
-            disabledModules = [
-              "chromium"
-              "wezterm"
-              "vscode"
-              "fonts"
-            ];
-
-            config.dotfiles.defaultPackages.enableMacUtilities = false;
+          overlayAttrs = {
+            inherit (config.packages) ungoogled-chromium-macos kanidm-tools mod_auth_openidc;
           };
         };
     };
