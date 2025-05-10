@@ -19,7 +19,7 @@ let
       ];
 
       home.packages =
-        (with pkgs; [
+        (with pkgs.latest; [
           colima
           docker
           sops
