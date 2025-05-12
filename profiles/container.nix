@@ -17,7 +17,6 @@
       imports = [
         (modulesPath + "/profiles/headless.nix")
         (modulesPath + "/profiles/minimal.nix")
-        # (modulesPath + "/profiles/perlless.nix")
         self.nixosModules.pki
         self.nixosModules.nixpkgs
         "${self}/modules/nixos/diff-system.nix"

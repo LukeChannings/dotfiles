@@ -2,31 +2,27 @@
 let
   substituters = [
     {
-      url = "https://attic.svc.channings.me/nix";
+      url = "https://attic.svc.channings.me/nix?priority=10";
       key = "nix:CLpxkxK7MCT/RRXSU2EpfiQVoCLreSR6QiJGzHtcyYQ=";
     }
     {
-      url = "https://cache.nixos.org";
+      url = "https://cache.nixos.org?priority=40";
       key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
     }
     {
-      url = "https://nix-community.cachix.org";
+      url = "https://nix-community.cachix.org?priority=50";
       key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
     }
     {
-      url = "https://luke-channings.cachix.org";
-      key = "luke-channings.cachix.org-1:ETsZ3R5ue9QOwO4spg8aGJMwMU6k5tQIaHWnTakGHjo=";
-    }
-    {
-      url = "https://devenv.cachix.org";
+      url = "https://devenv.cachix.org?priority=50";
       key = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
     }
     {
-      url = "https://nixos-raspberrypi.cachix.org";
+      url = "https://nixos-raspberrypi.cachix.org?priority=50";
       key = "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI=";
     }
   ];
-  nixSettingsModule = { nixpkgs, nixpkgs-latest, ... }: {
+  nixSettingsModule = { lib, nixpkgs, nixpkgs-latest, ... }: {
     nix.settings = {
       experimental-features = [
         "nix-command"
@@ -38,15 +34,11 @@ let
 
       warn-dirty = false;
 
-      trusted-users = [
-        "luke@idm.svc.channings.me"
-        "luke@channings.me"
-        "luke"
-      ];
+      trusted-users = [ "@wheel" ];
 
-      substituters = map (_: _.url) substituters;
-      trusted-substituters = map (_: _.url) substituters;
-      trusted-public-keys = map (_: _.key) substituters;
+      substituters = lib.mkForce (map (_: _.url) substituters);
+      trusted-substituters = lib.mkForce (map (_: _.url) substituters);
+      trusted-public-keys = lib.mkForce (map (_: _.key) substituters);
 
       max-substitution-jobs = 128;
       http-connections = 0;
