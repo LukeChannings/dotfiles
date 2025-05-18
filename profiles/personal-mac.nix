@@ -27,6 +27,7 @@ let
           minio-client
           zoom-us
           zotero
+          devenv
         ])
         ++ (with pkgs.brewCasks; [
           apparency
