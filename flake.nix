@@ -62,13 +62,7 @@
 
     ## Nix
 
-    devenv-root.url = "file+file:///dev/null";
-    devenv-root.flake = false;
-
     flake-parts.url = "github:hercules-ci/flake-parts";
-
-    devenv.url = "github:cachix/devenv";
-    devenv.inputs.nixpkgs.follows = "nixpkgs";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
@@ -83,7 +77,6 @@
     toolbox.url = "github:lukechannings/toolbox";
     toolbox.inputs.nixpkgs.follows = "nixpkgs";
     toolbox.inputs.flake-parts.follows = "flake-parts";
-    toolbox.inputs.devenv.follows = "devenv";
   };
 
   outputs =
@@ -97,12 +90,10 @@
       imports = [
         flake-parts.flakeModules.modules
         flake-parts.flakeModules.easyOverlay
-        inputs.devenv.flakeModule
         inputs.treefmt-nix.flakeModule
         inputs.home-manager.flakeModules.home-manager
         ./modules/flakeModules/nix-darwin.nix
         ./modules/flakeModules/profiles.nix
-        ./devenv.nix
         ./config
         ./templates
         ./modules
