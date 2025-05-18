@@ -2,7 +2,12 @@
 { self, ... }:
 let
   homeManagerProfile =
-    { pkgs, vscode-extensions, ... }:
+    {
+      pkgs,
+      vscode-extensions,
+      lix-module,
+      ...
+    }:
     {
       imports = [
         self.homeModules.atuin
@@ -17,6 +22,7 @@ let
         self.homeModules.ssh
         self.homeModules.starship
         self.homeModules.zoxide
+        lix-module.nixosModules.default
       ];
 
       home.stateVersion = "24.11";
