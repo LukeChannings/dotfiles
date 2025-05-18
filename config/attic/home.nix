@@ -35,6 +35,7 @@
             (lib.getExe pkgs.attic-client)
             "watch-store"
             config.dotfiles.attic.watch-daemon.cache
+            "--ignore-upstream-cache-filter"
           ];
           config.RunAtLoad = true;
           config.KeepAlive = true;

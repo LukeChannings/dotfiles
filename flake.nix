@@ -43,8 +43,6 @@
 
     home-manager.url = "github:nix-community/home-manager";
 
-    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
-
     ## Secrets
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -64,8 +62,8 @@
 
     ## Nix
 
+    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     flake-parts.url = "github:hercules-ci/flake-parts";
-
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     ## Not Nix...
