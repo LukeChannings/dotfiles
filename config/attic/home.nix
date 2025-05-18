@@ -38,7 +38,8 @@
           ];
           config.RunAtLoad = true;
           config.KeepAlive = true;
-          config.HardResourceLimits.NumberOfFiles = 6000;
+          config.SoftResourceLimits.NumberOfFiles = 1048576;
+          config.HardResourceLimits.NumberOfFiles = 1048576;
           config.LowPriorityIO = true;
           config.ProcessType = "Background";
           config.StandardErrorPath = "${homeDirectory}/Library/Logs/attic-watch-daemon.log";
