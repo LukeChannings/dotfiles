@@ -43,6 +43,8 @@
 
     home-manager.url = "github:nix-community/home-manager";
 
+    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+
     ## Secrets
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -56,7 +58,7 @@
     ## Deployment
     colmena.url = "github:zhaofengli/colmena";
     colmena.inputs.nixpkgs.follows = "nixpkgs";
-    colmena.inputs.stable.follows = "nixpkgs";
+    colmena.inputs.stable.follows = "nixpkgs-stable";
 
     # Dev
 

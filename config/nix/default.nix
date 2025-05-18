@@ -1,4 +1,4 @@
-{ ... }:
+{ self, ... }:
 let
   substituters = [
     {
@@ -56,12 +56,14 @@ let
         nix-path = [
           "nixpkgs=${nixpkgs}"
           "nixpkgs-latest=${nixpkgs-latest}"
+          "dotfiles=${self}"
         ];
       };
       nix.registry = {
         pkgs.flake = nixpkgs;
         nixpkgs.flake = nixpkgs;
         nixpkgs-latest.flake = nixpkgs-latest;
+        dotfiles.flake = self;
       };
     };
 in
