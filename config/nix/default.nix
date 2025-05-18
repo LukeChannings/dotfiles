@@ -22,37 +22,48 @@ let
       key = "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI=";
     }
   ];
-  nixSettingsModule = { lib, nixpkgs, nixpkgs-latest, ... }: {
-    nix.settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+  nixSettingsModule =
+    {
+      lib,
+      nixpkgs,
+      nixpkgs-latest,
+      ...
+    }:
+    {
+      nix.settings = {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
 
-      # It's tempting to enable this, but it's a massive security hole
-      accept-flake-config = false;
+        # It's tempting to enable this, but it's a massive security hole
+        accept-flake-config = false;
 
-      warn-dirty = false;
+        warn-dirty = false;
 
-      trusted-users = [ "@wheel" ];
+        trusted-users = [
+          "@wheel"
+          "@admin"
+          "@nixbld"
+        ];
 
-      substituters = lib.mkForce (map (_: _.url) substituters);
-      trusted-substituters = lib.mkForce (map (_: _.url) substituters);
-      trusted-public-keys = lib.mkForce (map (_: _.key) substituters);
+        substituters = lib.mkForce (map (_: _.url) substituters);
+        trusted-substituters = lib.mkForce (map (_: _.url) substituters);
+        trusted-public-keys = lib.mkForce (map (_: _.key) substituters);
 
-      max-substitution-jobs = 128;
-      http-connections = 0;
-      nix-path = [
-        "nixpkgs=${nixpkgs}"
-        "nixpkgs-latest=${nixpkgs-latest}"
-      ];
+        max-substitution-jobs = 128;
+        http-connections = 0;
+        nix-path = [
+          "nixpkgs=${nixpkgs}"
+          "nixpkgs-latest=${nixpkgs-latest}"
+        ];
+      };
+      nix.registry = {
+        pkgs.flake = nixpkgs;
+        nixpkgs.flake = nixpkgs;
+        nixpkgs-latest.flake = nixpkgs-latest;
+      };
     };
-    nix.registry = {
-      pkgs.flake = nixpkgs;
-      nixpkgs.flake = nixpkgs;
-      nixpkgs-latest.flake = nixpkgs-latest;
-    };
-  };
 in
 {
   flake = {
