@@ -45,6 +45,7 @@ let
           "@wheel"
           "@admin"
           "@nixbld"
+          "builder"
         ];
 
         substituters = lib.mkForce (map (_: _.url) substituters);
