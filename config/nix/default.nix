@@ -2,12 +2,12 @@
 let
   substituters = [
     {
-      url = "https://attic.svc.channings.me/nix?priority=10";
-      key = "nix:CLpxkxK7MCT/RRXSU2EpfiQVoCLreSR6QiJGzHtcyYQ=";
-    }
-    {
       url = "https://cache.nixos.org?priority=40";
       key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
+    }
+    {
+      url = "https://cache.lix.systems?priority=50";
+      key = "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o=";
     }
     {
       url = "https://nix-community.cachix.org?priority=50";
@@ -16,10 +16,6 @@ let
     {
       url = "https://devenv.cachix.org?priority=50";
       key = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
-    }
-    {
-      url = "https://nixos-raspberrypi.cachix.org?priority=50";
-      key = "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI=";
     }
   ];
   nixSettingsModule =
@@ -37,7 +33,7 @@ let
         ];
 
         # It's tempting to enable this, but it's a massive security hole
-        accept-flake-config = false;
+        accept-flake-config = "ask";
 
         warn-dirty = false;
 
@@ -49,7 +45,6 @@ let
         ];
 
         substituters = lib.mkForce (map (_: _.url) substituters);
-        trusted-substituters = lib.mkForce (map (_: _.url) substituters);
         trusted-public-keys = lib.mkForce (map (_: _.key) substituters);
 
         max-substitution-jobs = 128;
