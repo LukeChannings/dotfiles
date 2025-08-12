@@ -11,7 +11,29 @@
         })
       );
     in
-    super.brewCasks
+    super.brewCasks // {
+      maccy = (super.brewCasks.maccy.overrideAttrs (o: {
+        nativeBuildInputs = o.nativeBuildInputs ++ [ super.unzip ];
+        unpackPhase = "unzip $src";
+      }));
+      the-unarchiver = (super.brewCasks.the-unarchiver.overrideAttrs (o: {
+        nativeBuildInputs = o.nativeBuildInputs ++ [ super.unzip ];
+        unpackPhase = "unzip $src";
+      }));
+      postman = (super.brewCasks.postman.overrideAttrs (o: {
+        nativeBuildInputs = o.nativeBuildInputs ++ [ super.unzip ];
+        unpackPhase = "unzip $src";
+      }));
+      tableplus = (super.brewCasks.tableplus.overrideAttrs (
+        final: prev: {
+          version = "6.2.1-578";
+          src = super.fetchurl {
+            url = "https://files.tableplus.com/macos/578/TablePlus.dmg";
+            sha256 = "sha256-OFDwc4aQJPZqmgpEOxk9IE4NXd6R86LtDbMFDqtKuZQ=";
+          };
+        }
+      ));
+    }
     // (builtins.mapAttrs overrideHash {
       apparency = "sha256-nktNbyJOXDydQPwb43Uq3nQv65XcwrqZTKu5OCcLyfU=";
       suspicious-package = "sha256-//iL7BRdox+KA1CJnGttUQiUfskuBeMGrf1YUNt/m90=";
