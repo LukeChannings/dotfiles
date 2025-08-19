@@ -7,9 +7,14 @@
 {
   options.dotfiles.attic = {
     watch-daemon = lib.mkOption {
+      default = {};
       type = lib.types.submodule {
         options = {
-          enable = lib.mkEnableOption "Enable the attic watch-store daemon";
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Enable the attic watch-store daemon";
+          };
           cache = lib.mkOption {
             type = lib.types.str;
             description = "The cache to push to";

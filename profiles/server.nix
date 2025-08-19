@@ -18,7 +18,7 @@
 
       environment.defaultPackages = [ ];
       environment.systemPackages = with pkgs; [
-        # ghostty.terminfo
+        ghostty.terminfo
         wezterm.terminfo
         fd
         lsof

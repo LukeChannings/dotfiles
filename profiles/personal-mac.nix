@@ -57,8 +57,8 @@ let
         Maccy = "${pkgs.brewCasks.maccy}/Applications/Maccy.app";
       };
 
-      dotfiles.attic.watch-daemon.enable = true;
-      dotfiles.attic.watch-daemon.cache = "nix";
+      # dotfiles.attic.watch-daemon.enable = true;
+      # dotfiles.attic.watch-daemon.cache = "nix";
 
       programs.ssh.enableDefaultMacOSAgent = true;
       programs.ssh.enableSmallstep = true;
