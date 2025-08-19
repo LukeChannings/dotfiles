@@ -7,46 +7,15 @@
 
     ## Package repositories
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
-
-    # # See https://lix.systems/add-to-config/#flake-based-configurations for the latest version
-    # lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-    # lix-module.inputs.nixpkgs.follows = "nixpkgs";
-
-    # https://wiki.lix.systems/books/lix-contributors/page/running-lix-main
-    lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-      flake = false;
-    };
-
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.lix.follows = "lix";
-    };
-
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-stable";
-
-    brew-api.url = "github:BatteredBunny/brew-api";
-    brew-api.flake = false;
-    brew-nix.url = "github:LukeChannings/brew-nix";
-    brew-nix.inputs.nixpkgs.follows = "nixpkgs";
-    brew-nix.inputs.nix-darwin.follows = "nixpkgs";
-    brew-nix.inputs.brew-api.follows = "brew-api";
-
-    ## Supporting configuration modules
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-latest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
 
     ## Secrets
 
     sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs-stable";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     ### Temporarily using https://github.com/1Password/shell-plugins/pull/503 until merged
     ### _1password-shell-plugins.url = "github:1Password/shell-plugins";
@@ -55,8 +24,8 @@
 
     ## Deployment
     colmena.url = "github:zhaofengli/colmena";
-    colmena.inputs.nixpkgs.follows = "nixpkgs";
-    colmena.inputs.stable.follows = "nixpkgs-stable";
+    colmena.inputs.nixpkgs.follows = "nixpkgs-latest";
+    colmena.inputs.stable.follows = "nixpkgs";
 
     # Dev
 
