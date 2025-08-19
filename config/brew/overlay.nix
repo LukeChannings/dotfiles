@@ -35,8 +35,8 @@
       ));
     }
     // (builtins.mapAttrs overrideHash {
-      apparency = "sha256-nktNbyJOXDydQPwb43Uq3nQv65XcwrqZTKu5OCcLyfU=";
-      suspicious-package = "sha256-//iL7BRdox+KA1CJnGttUQiUfskuBeMGrf1YUNt/m90=";
+      apparency = "sha256-QaP7Ll5ZK0QVHPFzDPmV8rd0XmY3Ie0VPBDXJEDMECU=";
+      suspicious-package = "sha256-SJcXqQR/di3T8K3uNKv00QkLsmDGJNU9NQEIpDSqYJM=";
       bonjour-browser = "sha256-+crlyoU0zPu+oilrTyLIOO61H7U9bkyDWe8EpWJfnOQ=";
       audio-hijack = "sha256-hzZbGfM0h7nrEqatRFMtTh3NQ0yFgGEyUVawvk3LpaQ=";
       logitech-options = "sha256-mqrGGSphCylYzkFl5iV/LTxofhy+4KoCxqG/WhkG0wM=";
