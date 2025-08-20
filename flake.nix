@@ -98,12 +98,11 @@
             inherit (inputs'.home-manager.packages) home-manager;
 
             ungoogled-chromium-macos = pkgs.callPackage ./packages/ungoogled-chromium-macos/package.nix { };
-            kanidm-tools = pkgs.callPackage ./packages/kanidm-tools/package.nix { };
             mod_auth_openidc = pkgs.callPackage ./packages/mod_auth_openidc/package.nix { };
           };
 
           overlayAttrs = {
-            inherit (config.packages) ungoogled-chromium-macos kanidm-tools mod_auth_openidc;
+            inherit (config.packages) ungoogled-chromium-macos mod_auth_openidc;
           };
         };
     };
