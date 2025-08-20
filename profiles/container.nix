@@ -12,7 +12,7 @@
       ...
     }:
     {
-      system.stateVersion = "24.11";
+      system.stateVersion = "25.05";
 
       imports = [
         (modulesPath + "/profiles/headless.nix")
@@ -27,6 +27,15 @@
       disabledModules = [
         (modulesPath + "/profiles/all-hardware.nix")
         (modulesPath + "/profiles/base.nix")
+      ];
+
+      environment.defaultPackages = [ ];
+      environment.systemPackages = with pkgs; [
+        ghostty.terminfo
+        wezterm.terminfo
+
+        fd
+        lsof
       ];
 
       nix.enable = lib.mkDefault false;
