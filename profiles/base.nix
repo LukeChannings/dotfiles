@@ -22,10 +22,10 @@ let
         self.homeModules.ssh
         self.homeModules.starship
         self.homeModules.zoxide
-        lix-module.nixosModules.default
+        lix-module.nixosModules.lixFromNixpkgs
       ];
 
-      home.stateVersion = "24.11";
+      home.stateVersion = "25.05";
       home.enableNixpkgsReleaseCheck = false;
       xdg.enable = true;
 
@@ -72,7 +72,7 @@ let
       system.stateVersion = "24.11";
 
       imports = [
-        lix-module.nixosModules.default
+        lix-module.nixosModules.lixFromNixpkgs
 
         home-manager.nixosModules.home-manager
         homeManagerConfig
@@ -104,7 +104,7 @@ let
       system.stateVersion = 5;
 
       imports = [
-        lix-module.nixosModules.default
+        lix-module.nixosModules.lixFromNixpkgs
 
         home-manager.darwinModules.home-manager
         homeManagerConfig

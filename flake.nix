@@ -96,7 +96,6 @@
         {
           packages = {
             inherit (inputs'.home-manager.packages) home-manager;
-            inherit (inputs'.colmena.packages) colmena;
 
             ungoogled-chromium-macos = pkgs.callPackage ./packages/ungoogled-chromium-macos/package.nix { };
             kanidm-tools = pkgs.callPackage ./packages/kanidm-tools/package.nix { };
@@ -104,7 +103,7 @@
           };
 
           overlayAttrs = {
-            inherit (config.packages) ungoogled-chromium-macos kanidm-tools mod_auth_openidc colmena;
+            inherit (config.packages) ungoogled-chromium-macos kanidm-tools mod_auth_openidc;
           };
         };
     };

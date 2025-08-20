@@ -23,6 +23,7 @@ let
       lib,
       nixpkgs,
       nixpkgs-latest,
+      pkgs,
       ...
     }:
     {
@@ -33,7 +34,7 @@ let
         ];
 
         # It's tempting to enable this, but it's a massive security hole
-        accept-flake-config = "ask";
+        # accept-flake-config = "ask";
 
         warn-dirty = false;
 
