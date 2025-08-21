@@ -15,8 +15,8 @@
       system.stateVersion = "25.05";
 
       imports = [
-        (modulesPath + "/profiles/headless.nix")
-        (modulesPath + "/profiles/minimal.nix")
+        # (modulesPath + "/profiles/headless.nix")
+        # (modulesPath + "/profiles/minimal.nix")
         self.nixosModules.pki
         self.nixosModules.nixpkgs
         "${self}/modules/nixos/diff-system.nix"
@@ -24,10 +24,10 @@
         "${self}/modules/nixos/httpd-auth-openidc.nix"
       ];
 
-      disabledModules = [
-        (modulesPath + "/profiles/all-hardware.nix")
-        (modulesPath + "/profiles/base.nix")
-      ];
+      # disabledModules = [
+      #   (modulesPath + "/profiles/all-hardware.nix")
+      #   (modulesPath + "/profiles/base.nix")
+      # ];
 
       environment.defaultPackages = [ ];
       environment.systemPackages = with pkgs; [
