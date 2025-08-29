@@ -26,5 +26,5 @@ function ,
     set EXTRA_ARGS $argv[2..-1]
 
     # Run the command with extra arguments
-    nix run $REPO#$PKG -- $EXTRA_ARGS
+    NIXPKGS_ALLOW_UNFREE=1 nix run --impure $REPO#$PKG -- $EXTRA_ARGS
 end
